@@ -7,9 +7,7 @@
     "type": "git",
     "url": "git@github.com:arq1nnySu/enjoy-events-front"
   },
-  "authors": [
-    
-  ],
+  "authors": [],
   "browserify": {
     "transform": [
       "babelify"
@@ -32,10 +30,14 @@
     "bootstrap": "^3.3.0",
     "flux": "^2.0.1",
     "jwt-decode": "^1.1.0",
+    "material-ui": "^0.11.0",
+    "nodemon": "^1.4.1",
     "react": "^0.13",
     "react-mixin": "^1.1.0",
     "react-router": "^0.13.2",
+    "react-tap-event-plugin": "^0.1.7",
     "reqwest": "^1.1.5",
+    "rework": "^1.0.1",
     "when": "^3.7.2"
   },
   "devDependencies": {
