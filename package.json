@@ -27,8 +27,12 @@
     "lint": "npm run lint-eslint && npm run lint-jscs"
   },
   "dependencies": {
+    "babelify": "^6.1.0",
     "bootstrap": "^3.3.0",
+    "browser-sync": "^2.1.6",
     "browserify": "^11.0.1",
+    "clean-css": "^3.4.1",
+    "eslint": "^0.14.1",
     "flux": "^2.0.1",
     "jwt-decode": "^1.1.0",
     "material-ui": "^0.11.0",
@@ -39,20 +43,11 @@
     "react-tap-event-plugin": "^0.1.7",
     "reqwest": "^1.1.5",
     "rework": "^1.0.1",
-    "uglify-js": "^2.4.24",
-    "when": "^3.7.2"
-  },
-  "devDependencies": {
-    "babelify": "^6.1.0",
-    "browser-sync": "^2.1.6",
-    "browserify": "^8.0.3",
-    "clean-css": "^3.1.9",
-    "eslint": "^0.14.1",
-    "rework": "^1.0.1",
     "rework-npm": "^1.0.0",
     "rework-npm-cli": "^0.1.1",
     "serve": "^1.4.0",
-    "uglify-js": "^2.4.15",
-    "watchify": "^2.1.1"
+    "uglify-js": "^2.4.24",
+    "watchify": "^2.1.1",
+    "when": "^3.7.2"
   }
 }
