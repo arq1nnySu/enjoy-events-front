@@ -38,6 +38,7 @@
     "react-tap-event-plugin": "^0.1.7",
     "reqwest": "^1.1.5",
     "rework": "^1.0.1",
+    "uglify-js": "^2.4.24",
     "when": "^3.7.2"
   },
   "devDependencies": {
