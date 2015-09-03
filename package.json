@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "start": "npm run build && serve -p process.env.PORT .",
+    "start": "npm run build && node server.js .",
     "build": "npm run build-js && npm run build-css",
     "watch": "npm run watch-js & npm run watch-css & serve .",
     "test": "npm run lint -s && npm run build",
@@ -27,6 +27,8 @@
     "lint": "npm run lint-eslint && npm run lint-jscs"
   },
   "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5",
     "babelify": "^6.1.0",
     "bootstrap": "^3.3.0",
     "browser-sync": "^2.1.6",
@@ -45,7 +47,6 @@
     "rework": "^1.0.1",
     "rework-npm": "^1.0.0",
     "rework-npm-cli": "^0.1.1",
-    "serve": "^1.4.0",
     "uglify-js": "^2.4.24",
     "watchify": "^2.1.1",
     "when": "^3.7.2"
