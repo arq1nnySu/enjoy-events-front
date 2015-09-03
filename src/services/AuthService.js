@@ -9,7 +9,6 @@ class AuthService {
     return this.handleAuth(when(request({
       url: LOGIN_URL,
       method: 'POST',
-      // crossOrigin: true,
       type: 'json',
       contentType: "application/json",
       data: JSON.stringify({username, password})
@@ -24,11 +23,8 @@ class AuthService {
     return this.handleAuth(when(request({
       url: SIGNUP_URL,
       method: 'POST',
-      // crossOrigin: true,
       type: 'json',
-      data: JSON.stringify({
-        username, password, extra
-      })
+      data: { username, password }
     })));
   }
 
