@@ -1,4 +1,4 @@
-var BASE_URL = 'http://127.0.0.1:5000/';
+var BASE_URL = 'http://enjoy-events-portal.herokuapp.com/';
 export default {
   BASE_URL: BASE_URL,
   LOGIN_URL: BASE_URL + 'auth',

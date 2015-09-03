@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "start": "npm run build && serve .",
+    "start": "npm run build && serve -p process.env.PORT .",
     "build": "npm run build-js && npm run build-css",
     "watch": "npm run watch-js & npm run watch-css & serve .",
     "test": "npm run lint -s && npm run build",
