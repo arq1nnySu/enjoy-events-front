@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- 0.12
+env:
+- NODE_ENV=TEST
+deploy:
+  provider: heroku
+  api_key:
+    secure: c9Ny3FCEH8VEKbWcg2RHmL26+7OqvfMaI8vARrYF3w0pgYfSMia2VK+tztjpavylJB9nxAGEOwSZb1+njOD9QMa1eeNnItGdJOvwk49EtZeTkMFtpgO1wYRNNq8VDZrU6GrIW03MicV312ZAxlTPVF1uR/h7jEyIyJwt3/gaduW/Nzbx5zH2bZeA0QgcG1vOZpwYC32HwiW/xq7SDnNY99THBDs6balWY1YWfPvkl3njIOwKPfCOWZlMe0cenm/0wWg/tzdJlxMzrAj4RAxmfuV4AHQidQN9jcW929TryWuaYbm4pjbAB/u2dD/ppgUsGagSIUnTcGH+4qelA8hDkSaqbWA6O0YSTp3Lnb2mDz0MQ+Qhns715/NA3xmZhSa8wz+YVxQZ0NLErMQHh60oOeieeV7pYiUULS3qa45eChI4B/CH9Aq5c2D9woLH3DA9OAqYL1O+FNA6t20vj5VZ9u6hspPSrjnOED8AmtoLnEE1L9e4TRsVg9tCaFc2wTBokcaO+ZmFkoT2U5pxcpi2gbLIJXElBRBW8caCuj4FY9VJJMxp240xZ9FdJHRJ1KOJKhrodUUvy/f91c5m78LfGpDlOqWENoRc0u1PDCHAA8mXub/Anx1lNQE03yrT4/ZIvHd3QOWzrcJkSzv1/vxHfO8CDAeGvutyKtdUlgGaObA=
+  app: enjoy-events
+  on:
+    repo: arq1nnySu/enjoy-events-front
