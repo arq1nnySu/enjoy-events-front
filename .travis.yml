@@ -3,6 +3,8 @@ node_js:
 - 0.12
 env:
 - NODE_ENV=TEST
+before_deploy:
+- npm run jscs
 deploy:
   provider: heroku
   api_key:
@@ -10,3 +12,5 @@ deploy:
   app: enjoy-events
   on:
     repo: arq1nnySu/enjoy-events-front
+after_deploy:
+- npm run jscs
