@@ -24,7 +24,7 @@
     "watch-css": "nodemon -e css --ignore build/build.css --exec 'rework-npm index.css -o build/build.css'",
     "lint-eslint": "eslint .",
     "lint-jscs": "jscs .",
-    "lint": "npm run lint-eslint && npm run lint-jscs"
+    "lint": "npm run jscs"
   },
   "dependencies": {
     "body-parser": "^1.4.3",
