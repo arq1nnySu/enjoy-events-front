@@ -2,9 +2,9 @@ import React from 'react';
 import EventItem  from './EventItem';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
-import AuthenticatedComponent from './AuthenticatedComponent';
+//import AuthenticatedComponent from './AuthenticatedComponent';
 
-export default AuthenticatedComponent(class Home extends React.Component {
+export default class Home extends React.Component {
 
 
   constructor(props) {
@@ -46,10 +46,9 @@ export default AuthenticatedComponent(class Home extends React.Component {
       events.push(<EventItem key={key} event={this.state.events[key]} />);
     }
     return (
-    	<div >
-	    	<h1>Hello {this.props.user ? this.props.user.username : ''}</h1>
+    	<div className="container">
 	    	<div className="events">{events}</div>
     	</div>
     );
   }
-});
+};

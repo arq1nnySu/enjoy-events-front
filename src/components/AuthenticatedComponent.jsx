@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginStore from '../stores/LoginStore';
 
+
 export default (ComposedComponent) => {
   return class AuthenticatedComponent extends React.Component {
 
@@ -13,6 +14,12 @@ export default (ComposedComponent) => {
     constructor() {
       super()
       this.state = this._getLoginState();
+         this.context =  {
+            muiTheme: ThemeManager.getCurrentTheme()
+      };
+       this.childContextTypes =  {
+            muiTheme: ThemeManager.getCurrentTheme()
+      };
     }
 
     _getLoginState() {
