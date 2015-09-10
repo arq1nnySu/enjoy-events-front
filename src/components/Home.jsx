@@ -2,7 +2,6 @@ import React from 'react';
 import EventItem  from './EventItem';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
-//import AuthenticatedComponent from './AuthenticatedComponent';
 
 export default class Home extends React.Component {
 

@@ -69,4 +69,3 @@ export default class Login extends React.Component {
 }
 
 ReactMixin(Login.prototype, React.addons.LinkedStateMixin);
-Login.childContextTypes = { muiTheme: ThemeManager.getCurrentTheme() };

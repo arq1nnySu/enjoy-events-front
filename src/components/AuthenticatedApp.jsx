@@ -4,17 +4,17 @@ import React from 'react';
 import LoginStore from '../stores/LoginStore'
 import { Route, RouteHandler, Link } from 'react-router';
 import AuthService from '../services/AuthService';
+import MaterialComponent from './MaterialComponent';
 
 
 import mui from  'material-ui';
-var ThemeManager = new mui.Styles.ThemeManager();
 var AppBar = mui.AppBar;
 var IconButton = mui.IconButton;
 var Avatar = mui.Avatar;
 var FlatButton = mui.FlatButton;
 
 
-export default class AuthenticatedApp extends React.Component {
+export default MaterialComponent(class AuthenticatedApp extends React.Component {
   constructor() {
     super()
     this.state = this._getLoginState();
@@ -25,12 +25,6 @@ export default class AuthenticatedApp extends React.Component {
       userLoggedIn: LoginStore.isLoggedIn(),
        user: LoginStore.user,
     };
-  }
-
-    getChildContext(){
-      return {
-          muiTheme: ThemeManager.getCurrentTheme()
-      };
   }
 
   componentDidMount() {
@@ -67,17 +61,17 @@ export default class AuthenticatedApp extends React.Component {
     if (!this.state.userLoggedIn) {
       return (
       <div >
-        <FlatButton linkButton={true}  label="Login" />
-        <FlatButton linkButton={true}  label="Signup" />
+        <FlatButton route="home" label="Home" linkButton={true} href="/#"/>
+        <FlatButton route="login" label="Login" linkButton={true} href="/#/login" />
+        <FlatButton route="signup" label="Signup" linkButton={true}  href="/#/signup"/>
       </div>)
     } else {
       return (
       <div >
-          <FlatButton linkButton={true}  label="Home" />
-          {this.state.user.username} <Avatar src="http://material-ui.com/images/uxceo-128.jpg" />
+          <FlatButton route="home" label="Home" linkButton={true} href="/#"/>
+          <Avatar src="http://material-ui.com/images/uxceo-128.jpg" />
           <FlatButton onClick={this.logout} linkButton={true}  label="Logout" />
       </div>)
     }
   }
-}
-AuthenticatedApp.childContextTypes = { muiTheme: ThemeManager.getCurrentTheme() };
+})
