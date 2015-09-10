@@ -24,10 +24,10 @@ export default (ComposedComponent) => {
 	 
 	 componentWillMount() {
 	    ThemeManager.setComponentThemes({
-	      flatButton: {
-	        color: "transparent",
-	        textColor: "white"
-	      }
+	      // flatButton: {
+	      // 	color: "cyan500",
+	      //   textColodr: "white"
+	      // }
 	    });
 	  }
 
