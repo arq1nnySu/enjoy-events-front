@@ -1,8 +1,15 @@
 
 [![Build Status](https://travis-ci.org/arq1nnySu/enjoy-events-front.svg)](https://travis-ci.org/arq1nnySu/enjoy-events-front)
 
-enjoy-events-front
+#enjoy-events-front
 
-Para instalar: npm install
+### Version
+0.0.1
 
-Para correr: npm run watch
+### Prerequisitos
+
+NodeJs
+
+### Para ejecutar:
+npm install
+npm run watch
