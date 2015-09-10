@@ -3,9 +3,18 @@
 import React from 'react';
 import LoginStore from '../stores/LoginStore'
 import { Route, RouteHandler, Link } from 'react-router';
-import AuthService from '../services/AuthService'
+import AuthService from '../services/AuthService';
+import MaterialComponent from './MaterialComponent';
 
-export default class AuthenticatedApp extends React.Component {
+
+import mui from  'material-ui';
+var AppBar = mui.AppBar;
+var IconButton = mui.IconButton;
+var Avatar = mui.Avatar;
+var FlatButton = mui.FlatButton;
+
+
+export default MaterialComponent(class AuthenticatedApp extends React.Component {
   constructor() {
     super()
     this.state = this._getLoginState();
@@ -13,7 +22,8 @@ export default class AuthenticatedApp extends React.Component {
 
   _getLoginState() {
     return {
-      userLoggedIn: LoginStore.isLoggedIn()
+      userLoggedIn: LoginStore.isLoggedIn(),
+       user: LoginStore.user,
     };
   }
 
@@ -32,13 +42,11 @@ export default class AuthenticatedApp extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <nav className="navbar navbar-default">
-          <div className="navbar-header">
-            <a className="navbar-brand" href="/">Organizador de eventos</a>
-          </div>
-          {this.headerItems}
-        </nav>
+      <div >
+           <AppBar
+            title="Enjoy Events"
+            iconClassNameRight="muidocs-icon-navigation-expand-more" 
+            iconElementRight={this.headerItems}/>
         <RouteHandler/>
       </div>
     );
@@ -52,24 +60,18 @@ export default class AuthenticatedApp extends React.Component {
   get headerItems() {
     if (!this.state.userLoggedIn) {
       return (
-      <ul className="nav navbar-nav navbar-right">
-        <li>
-          <Link to="login">Login</Link>
-        </li>
-        <li>
-          <Link to="signup">Signup</Link>
-        </li>
-      </ul>)
+      <div >
+        <FlatButton route="home" label="Home" linkButton={true} href="/#"/>
+        <FlatButton route="login" label="Login" linkButton={true} href="/#/login" />
+        <FlatButton route="signup" label="Signup" linkButton={true}  href="/#/signup"/>
+      </div>)
     } else {
       return (
-      <ul className="nav navbar-nav navbar-right">
-        <li>
-          <Link to="home">Home</Link>
-        </li>
-        <li>
-          <a href="" onClick={this.logout}>Logout</a>
-        </li>
-      </ul>)
+      <div >
+          <FlatButton route="home" label="Home" linkButton={true} href="/#"/>
+          <Avatar src="http://material-ui.com/images/uxceo-128.jpg" />
+          <FlatButton onClick={this.logout} linkButton={true}  label="Logout" />
+      </div>)
     }
   }
-}
+})
