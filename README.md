@@ -11,5 +11,7 @@
 NodeJs
 
 ### Para ejecutar:
+
 npm install
+
 npm run watch
