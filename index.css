@@ -1,4 +1,5 @@
 @import 'bootstrap';
+@import './icons.css';
 
 /******************  Eventos   */
 
@@ -88,5 +89,36 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .facebook-login:hover {
   background-color: #4F70CA
 }
+
+.addon { margin-bottom:50px; font-size:12px;}
+.addon a , .addon span { display:block;}
+.addon .con { margin-bottom:15px;}
+.addon .method_payment img { width:100%;}
+.addon .location a { font-size:14px; font-weight:normal; color:#23b582;}
+.addon .location img { width:100%;}
+.addon .friends p { text-align:center; font-size:11px; padding-top:10px; margin:0; color:#999;}
+.addon .friends .friend_avatar img { width:100%;}
+
+.addon .connect p { text-align:center; font-size:14px; padding:10px 0; margin:0; color:#666; font-weight:400; display:block; border-top:solid 2px #3f5d9c }
+.addon .connect .friend_avatar img { width:100%; opacity:0.2;-webkit-filter: grayscale(40%) blur(1px); -moz-filter: grayscale(40%) blur(1px); -o-filter: grayscale(40%) blur(1px); -ms-filter: grayscale(40%) blur(1px); filter: grayscale(40%) blur(1px); z-index:1}
+.pg_sidebar .addon .btn-facebook { padding: 13px 0 !important; font-size:12px !important; width:80%; margin:100px 10% 0 7%; z-index:100; position:absolute}
+
+.addon h2 { color:#23b582; font-weight:500; font-size:14px; margin:0 0 10px 0; padding:0; text-transform:uppercase;}
+.addon  .col-xs-7 , .addon .col-xs-4 , .addon .col-xs-12 { padding:0;}
+.addon .col-xs-2 { padding:1px;}
+
+.addon ul { padding:0; margin:0;}
+.addon li.media { margin:0; padding-bottom:15px; border-bottom:dotted 1px #ccc;}
+.addon li.media:last-child { border-bottom:none;}
+.addon .media .pg_picture { height:90px;}
+.addon .media span { margin-bottom:5px;}
+.addon .media a.place { color:#23b582;} 
+.addon .media a.place i { margin-right:5px;}
+.addon .media .col-xs-8 { padding-left:20px;}
+.addon .media h3 { padding:0; margin:0 !important;}
+.addon .media h3 a { font-size:16px; font-weight:500; color:#111;}
+
+.addon a.btn-social { width:40px; height:40px; border:solid 1px #999; color:#333; display:block; position: relative; float:left; text-align:center; line-height:40px; font-size:18px; margin:0 3px 3px 0; opacity:0.5;}
+.addon a.btn-social:hover { opacity:1;}
 
 

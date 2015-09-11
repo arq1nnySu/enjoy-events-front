@@ -5,13 +5,7 @@ import LoginStore from '../stores/LoginStore'
 import { Route, RouteHandler, Link } from 'react-router';
 import AuthService from '../services/AuthService';
 import MaterialComponent from './MaterialComponent';
-
-
-import mui from  'material-ui';
-var AppBar = mui.AppBar;
-var IconButton = mui.IconButton;
-var Avatar = mui.Avatar;
-var FlatButton = mui.FlatButton;
+import {AppBar, Avatar, FlatButton} from  'material-ui';
 
 
 export default MaterialComponent(class AuthenticatedApp extends React.Component {
@@ -46,7 +40,8 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
            <AppBar
             title="Enjoy Events"
             iconClassNameRight="muidocs-icon-navigation-expand-more" 
-            iconElementRight={this.headerItems}/>
+            iconElementRight={this.headerItems}
+            style={{position: 'absolute', top: 0}}/>
         <RouteHandler/>
       </div>
     );
@@ -61,16 +56,16 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
     if (!this.state.userLoggedIn) {
       return (
       <div >
-        <FlatButton route="home" label="Home" linkButton={true} href="/#"/>
-        <FlatButton route="login" label="Login" linkButton={true} href="/#/login" />
-        <FlatButton route="signup" label="Signup" linkButton={true}  href="/#/signup"/>
+        <FlatButton route="home" label="Home"  secondary={true} linkButton={true} href="/#"/>
+        <FlatButton route="login" label="Login"  secondary={true} linkButton={true} href="/#/login" />
+        <FlatButton route="signup" label="Signup" secondary={true} linkButton={true}  href="/#/signup"/>
       </div>)
     } else {
       return (
       <div >
-          <FlatButton route="home" label="Home" linkButton={true} href="/#"/>
+          <FlatButton route="home" label="Home" secondary={true} linkButton={true} href="/#"/>
           <Avatar src="http://material-ui.com/images/uxceo-128.jpg" />
-          <FlatButton onClick={this.logout} linkButton={true}  label="Logout" />
+          <FlatButton onClick={this.logout} secondary={true} linkButton={true}  label="Logout" />
       </div>)
     }
   }
