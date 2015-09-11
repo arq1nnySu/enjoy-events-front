@@ -41,3 +41,7 @@ export default (ComposedComponent) => {
 };
 
 React.Component.childContextTypes = { muiTheme: ThemeManager.getCurrentTheme() };
+React.Component.contextTypes = {
+  router: React.PropTypes.func
+};
+

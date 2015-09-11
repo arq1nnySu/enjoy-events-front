@@ -58,7 +58,7 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .type_h .color{ background:#ed8619}
 
 
-.section .events { margin:50px 0; }
+.section .events { padding-top: 50px; margin:50px 0; }
 .section .events .event_artits { text-align:center !important;}
 .section .events .event_venue { text-align:center !important;}
 

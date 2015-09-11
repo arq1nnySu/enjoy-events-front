@@ -5,7 +5,11 @@ import LoginStore from '../stores/LoginStore'
 import { Route, RouteHandler, Link } from 'react-router';
 import AuthService from '../services/AuthService';
 import MaterialComponent from './MaterialComponent';
-import {AppBar, Avatar, FlatButton} from  'material-ui';
+import AppLeftNav from './AppLeftNav';
+import {AppBar, Avatar, FlatButton, AppCanvas} from  'material-ui';
+import MenuItem from 'material-ui/lib/menus/menu-item'
+import IconMenu from 'material-ui/lib/menus/icon-menu'
+import Delete from 'material-ui/lib/svg-icons/action/delete'
 
 
 export default MaterialComponent(class AuthenticatedApp extends React.Component {
@@ -36,14 +40,16 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
 
   render() {
     return (
-      <div >
+      <AppCanvas >
            <AppBar
             title="Enjoy Events"
+            onLeftIconButtonTouchTap={this._onLeftIconButtonTouchTap.bind(this)}
             iconClassNameRight="muidocs-icon-navigation-expand-more" 
             iconElementRight={this.headerItems}
-            style={{position: 'absolute', top: 0}}/>
+            style={{position: 'fixed'}}/>
         <RouteHandler/>
-      </div>
+        <AppLeftNav ref="leftNav" />
+      </AppCanvas>
     );
   }
 
@@ -56,17 +62,22 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
     if (!this.state.userLoggedIn) {
       return (
       <div >
-        <FlatButton route="home" label="Home"  secondary={true} linkButton={true} href="/#"/>
         <FlatButton route="login" label="Login"  secondary={true} linkButton={true} href="/#/login" />
         <FlatButton route="signup" label="Signup" secondary={true} linkButton={true}  href="/#/signup"/>
       </div>)
     } else {
       return (
-      <div >
-          <FlatButton route="home" label="Home" secondary={true} linkButton={true} href="/#"/>
-          <Avatar src="http://material-ui.com/images/uxceo-128.jpg" />
-          <FlatButton onClick={this.logout} secondary={true} linkButton={true}  label="Logout" />
-      </div>)
+          <IconMenu
+              primaryText="asdfsdf"
+              iconButtonElement={<Avatar src="http://material-ui.com/images/uxceo-128.jpg" />}
+              openDirection="bottom-left">
+              <MenuItem primaryText="Logout" leftIcon={<Delete />} onClick={this.logout} />
+            </IconMenu>
+      )
     }
+  }
+
+  _onLeftIconButtonTouchTap() {
+    this.refs.leftNav.toggle();
   }
 })

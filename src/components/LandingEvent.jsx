@@ -44,7 +44,15 @@ export default MaterialComponent(class EventItem extends React.Component {
       backgroundSize: 'cover !important'
     };
 
+
     if(event != undefined){
+      event.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.";
+      event.venue = {name:"Universidad Nacional de Quilmes", 
+      latitude:"-34,60370190000",
+      longitude:"-58,381872999999985",
+      address:{street:"Roque Sáens Peña 352", city: "Bernal, Buenos Aires"}};
+      var mapLink = "https://maps.google.com?saddr=Current+Location&daddr="+event.venue.latitude+","+event.venue.longitude;
+      var mapImage = "https://maps.googleapis.com/maps/api/staticmap?center="+event.venue.latitude+","+event.venue.longitude+"&zoom=15&size=120x84&maptype=roadmap"
       return (
         <div >
           <Card >
@@ -52,19 +60,14 @@ export default MaterialComponent(class EventItem extends React.Component {
              <div className="event_show" style={divStyle}></div>
             </CardMedia>
             <CardTitle />
-             <CardText className="col-sm-9">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-              Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-              Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-            </CardText>
+             <CardText className="col-sm-9"> {event.description} </CardText>
             <div className="col-sm-3 col-xs-12 pg_sidebar pull-right">
             <div className="addon">
               <div className="con location clearfix">
-                <div className="col-xs-7"> <a href="#">Hipodromo de San Isidro</a> <span><strong>Av. Marquez 504</strong></span>San Isidro, Buenos Aires</div>
-                <div className="col-xs-4 pull-right"> <img src="https://maps.googleapis.com/maps/api/staticmap?center=-34,60370190000,-58,381872999999985&zoom=15&size=120x84&maptype=roadmap"/>  </div>
+                <div className="col-xs-7"> <a href="#">{event.venue.street}</a> <span><strong>{event.venue.address.street}</strong></span>{event.venue.address.city}</div>
+                <div className="col-xs-4 pull-right"> <img src={mapImage}/>  </div>
               </div>
-                <RaisedButton label="Como llegar al evento" secondary={true} linkButton={true} href="https://maps.google.com?saddr=Current+Location&amp;daddr=Av. Marquez 504+San Isidro, Buenos Aires"  target="_blank">
+                <RaisedButton label="Como llegar al evento" secondary={true} linkButton={true} href={mapLink}  target="_blank">
                 <MapsPlace className="muidocs-icon-custom-github" style={this.getButtonIcon()} />
                 </RaisedButton>
                </div>
