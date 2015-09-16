@@ -3,8 +3,8 @@ import MaterialComponent from './MaterialComponent';
 import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton} from  'material-ui';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
-import MapsPlace from 'material-ui/lib/svg-icons/maps/place'
-;
+import MapsPlace from 'material-ui/lib/svg-icons/maps/place';
+
 export default MaterialComponent(class EventItem extends React.Component {
 
   constructor(props) {

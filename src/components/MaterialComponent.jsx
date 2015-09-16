@@ -8,12 +8,6 @@ export default (ComposedComponent) => {
 
     constructor() {
       super()
-         this.context =  {
-            muiTheme: ThemeManager.getCurrentTheme()
-      };
-       this.childContextTypes =  {
-            muiTheme: ThemeManager.getCurrentTheme()
-      };
     }
 
 	getChildContext(){

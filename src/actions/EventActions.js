@@ -1,11 +1,18 @@
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
-import {ALL_EVENTS, GET_EVENT} from '../constants/AppConstants.js';
+import {ALL_EVENTS, EVENT_CREATED, GET_EVENT} from '../constants/AppConstants.js';
 
 export default {
   allEvents: (events) => {
     AppDispatcher.dispatch({
       actionType: ALL_EVENTS,
       events: events
+    })
+  },
+ 
+  createEvent: (event) => {
+    AppDispatcher.dispatch({
+      actionType: EVENT_CREATED,
+      event: event
     })
   },
 
@@ -15,5 +22,4 @@ export default {
       event: event
     })
   },
-
 }

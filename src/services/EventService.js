@@ -1,6 +1,6 @@
 import request from 'reqwest';
 import when from 'when';
-import {EVENTS_URL, GET_EVENT_URL} from '../constants/AppConstants';
+import {EVENTS_URL, CREATE_EVENT_URL, GET_EVENT_URL} from '../constants/AppConstants';
 import EventActions from '../actions/EventActions';
 import LoginStore from '../stores/LoginStore.js';
 
@@ -14,6 +14,18 @@ class EventService {
     })
     .then(function(response) {
       EventActions.allEvents(response);
+    });
+  }
+
+  createEvent(event){
+    return request({
+      url: CREATE_EVENT_URL,
+      method: 'POST',
+      type: 'json',
+      data: event
+    })
+    .then(function(response) {
+      EventActions.createEvent(response);
     });
   }
 
