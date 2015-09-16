@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialComponent from './MaterialComponent';
-import {Card,CardMedia,CardTitle,CardText,FlatButton,CardActions} from  'material-ui';
+import {Card, CardMedia, CardTitle, CardText, FlatButton, CardActions} from  'material-ui';
 
 export default MaterialComponent(class EventItem extends React.Component {
   render() {
