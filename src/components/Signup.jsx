@@ -24,7 +24,7 @@ export default class Signup extends React.Component {
 
   render() {
     return (
-      <div className="login jumbotron center-block">
+      <div className="content login jumbotron center-block">
         <h1>Signup</h1>
         <form role="form">
         <div className="form-group">

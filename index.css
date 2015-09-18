@@ -1,5 +1,6 @@
 @import 'bootstrap';
 @import './icons.css';
+@import './node_modules/react-mfb/mfb.css';
 
 /******************  Eventos   */
 
@@ -58,9 +59,8 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .type_h .color{ background:#ed8619}
 
 
-.section .container { padding-top: 50px; }
-.section .events .event_artits { text-align:center !important;}
-.section .events .event_venue { text-align:center !important;}
+.section .container { padding-top: 64px; }
+.section .events { padding-top: 40px;}
 
 .facebook-login {
   border-style: solid;
@@ -120,5 +120,6 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 
 .addon a.btn-social { width:40px; height:40px; border:solid 1px #999; color:#333; display:block; position: relative; float:left; text-align:center; line-height:40px; font-size:18px; margin:0 3px 3px 0; opacity:0.5;}
 .addon a.btn-social:hover { opacity:1;}
-
-
+.section .content{
+  padding-top: 64px;
+}

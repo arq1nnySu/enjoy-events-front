@@ -45,7 +45,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className="login jumbotron center-block">
+      <div className="login content jumbotron center-block">
         <h1>Login</h1>
         <form role="form">
         <div className="form-group">

@@ -48,10 +48,10 @@ export default MaterialComponent(class EventItem extends React.Component {
     if(event != undefined){
       event.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.";
       event.venue = {name:"Universidad Nacional de Quilmes", 
-      latitude:"-34,60370190000",
-      longitude:"-58,381872999999985",
+      latitude:"-34.60370190000",
+      longitude:"-58.381872999999985",
       address:{street:"Roque Sáens Peña 352", city: "Bernal, Buenos Aires"}};
-      var mapLink = "https://maps.google.com?saddr=Current+Location&daddr="+event.venue.latitude+","+event.venue.longitude;
+      var mapLink = "https://maps.google.com?saddr=My+Location&daddr="+event.venue.latitude+","+event.venue.longitude;
       var mapImage = "https://maps.googleapis.com/maps/api/staticmap?center="+event.venue.latitude+","+event.venue.longitude+"&zoom=15&size=120x84&maptype=roadmap"
       return (
         <div >

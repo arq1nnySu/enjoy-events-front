@@ -2,9 +2,10 @@ import React from 'react';
 import EventItem  from './EventItem';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
-import {CardActions, FloatingActionButton} from 'material-ui';
-//import ToggleStar from 'material-ui/lib/svg-icons/toggle/star';
-import EditorModeEdit from 'material-ui/lib/svg-icons/editor/mode-edit';
+import {CardActions} from 'material-ui';
+import RouterContainer from '../services/RouterContainer';
+
+import {Menu, MainButton, ChildButton} from 'react-mfb';
 
 export default class Home extends React.Component {
 
@@ -41,20 +42,33 @@ export default class Home extends React.Component {
     };
   }
 
+  createEvent(){
+     RouterContainer.get().transitionTo('/createEvent')
+  }
+
   render() {
     var events = [];
 
     for (var key in this.state.events) {
       events.push(<EventItem key={key} event={this.state.events[key]} />);
     }
+
+    var effect = 'slidein',
+      pos = 'br',
+      method = 'hover';
+
     return (
-    	<div className="container">
+    	<div className="container content">
       <div className="events">{events}</div>
-      <div className="my_event col-md-4">
-      <FloatingActionButton iconClassName="muidocs-icon-action-grade" mini={true} linkButton={true} href={"/#/createEvent"}>
-         <EditorModeEdit />
-      </FloatingActionButton>
-      </div>
+      <div className="my_event col-md-4" />
+
+      <Menu effect={effect} method={method} position={pos}>
+        <MainButton iconResting="ion-plus-round" iconActive="ion-close-round" />
+           <ChildButton
+            onClick={this.createEvent}
+            icon="ion-ios-plus-outline"
+            label="Crear Evento"/>
+      </Menu>
       </div>
     );
   }

@@ -6,8 +6,6 @@ import EventStore from '../stores/EventStore'
 import {RaisedButton, DatePicker, TimePicker} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
 
-// TODO : Tiene que estar doblemente rapeado de Auth y MaterialComponent
-
 class EventForm extends React.Component {
 
   constructor() {
@@ -26,7 +24,6 @@ class EventForm extends React.Component {
 
   _onChange() {
     RouterContainer.get().transitionTo('/event/'+ EventStore.event.id);
-    //this.context.router.transitionTo('/event/'+ EventStore.event.id);
   }
 
   setTime(time){
@@ -45,7 +42,7 @@ class EventForm extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container content">
         <div className="my_event col-md-4">
           <h2>Crear Evento</h2>
           <form role="form">
