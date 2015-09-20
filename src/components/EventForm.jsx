@@ -3,14 +3,20 @@ import ReactMixin from 'react-mixin';
 import EventService from '../services/EventService';
 import RouterContainer from '../services/RouterContainer';
 import EventStore from '../stores/EventStore'
-import {RaisedButton, DatePicker, TimePicker} from  'material-ui';
+import {RaisedButton, DatePicker, TimePicker, TextField} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
+import ImageImage from 'material-ui/lib/svg-icons/image/image';
+import TimerImage from 'material-ui/lib/svg-icons/av/av-timer';
+import LocationImage from 'material-ui/lib/svg-icons/communication/location-on';
+import DateImage from 'material-ui/lib/svg-icons/action/event';
+import DescriptionImage from 'material-ui/lib/svg-icons/action/description';
+import NameImage from 'material-ui/lib/svg-icons/action/book';
 
 class EventForm extends React.Component {
 
   constructor() {
     super()
-    this.state = {};
+    this.state = {error:{message:{}}};
     this._onChange = this._onChange.bind(this);
   }
 
@@ -30,10 +36,16 @@ class EventForm extends React.Component {
     this.state.time = time;
   }
 
-   createEvent(e) {
+  createEvent(e) {
     e.preventDefault();
-    EventService.createEvent(this.state);
+    EventService.createEvent(this.state, this._handlerError.bind(this));
   }
+
+  _handlerError(errors){
+    this.state.error = errors
+    this.setState(this.state)
+  }
+
   comeBackHome(e){
    e.preventDefault();
    RouterContainer.get().transitionTo('/');
@@ -41,39 +53,71 @@ class EventForm extends React.Component {
 
 
   render() {
+    let inputStyle = {width:"100%"};
     return (
-      <div className="container content">
-        <div className="my_event col-md-4">
+      <div className="container content col-md-12">
           <h2>Crear Evento</h2>
-          <form role="form">
+          <form className="form-horizontal" role="form">
+
           <div className="form-group">
-            <label htmlFor="eventname">Nombre</label>
-            <input type="text" valueLink={this.linkState('name')} className="form-control" id="eventname" placeholder="Eventname" />
+            <span className="control-label col-sm-1">
+              <NameImage/>
+            </span>
+            <span className="col-sm-10">
+              <TextField style={inputStyle} errorText={this.state.error.message.name} floatingLabelText="Nombre" valueLink={this.linkState('name')}  />
+            </span>
           </div>
+
           <div className="form-group">
-            <label htmlFor="eventimage">Imagen</label>
-            <input type="text" valueLink={this.linkState('image')} className="form-control" id="eventimage" placeholder="EventImage" />
+            <span className="control-label col-sm-1">
+              <ImageImage/>
+            </span>
+            <span className="col-sm-10">
+              <TextField  style={inputStyle}  errorText={this.state.error.message.image} floatingLabelText="Imagen" valueLink={this.linkState('image')}  />
+            </span>
           </div> 
+
           <div className="form-group">
-            <label htmlFor="eventdate">Fecha</label>
-            <DatePicker hintText="Landscape Dialog" mode="landscape" valueLink={this.linkState('date')} />
+            <span className="control-label col-sm-1">
+              <DateImage/>
+            </span>
+            <span className="col-sm-10">
+              <DatePicker textFieldStyle={inputStyle}  errorText={this.state.error.message.date} floatingLabelText="Fecha"  valueLink={this.linkState('date')} />
+            </span>
           </div> 
+
           <div className="form-group">
-            <label htmlFor="eventtime">Hora</label>
-            <TimePicker format="ampm" hintText="12hr Format" /> 
+            <span className="control-label col-sm-1">
+              <TimerImage/>
+            </span>
+            <span className="col-sm-10">
+              <TimePicker style={inputStyle}  format="ampm"  floatingLabelText="Hora" /> 
+            </span>
           </div>
+          
           <div className="form-group">
-            <label htmlFor="eventvenue">Lugar</label>
-            <input type="text" valueLink={this.linkState('venue')} className="form-control" id="eventvenue" ref="eventvenue" placeholder="Eventvenue" />
+            <span className="control-label col-sm-1">
+              <LocationImage/>
+            </span>
+            <span className="col-sm-10">
+              <TextField style={inputStyle}  floatingLabelText="Lugar"  errorText={this.state.error.message.venue} valueLink={this.linkState('venue')}  />
+            </span>
           </div>
+
           <div className="form-group">
-            <label htmlFor="eventdescription">Descripcion</label>
-            <input type="text" valueLink={this.linkState('description')} className="form-control" id="eventdescription" ref="eventdescription" placeholder="Eventdescription" />
+            <span className="control-label col-sm-1">
+              <DescriptionImage/>
+            </span>
+            <span className="col-sm-10">
+              <TextField style={inputStyle} floatingLabelText="Descripcion"  errorText={this.state.error.message.description} valueLink={this.linkState('description')}  />
+            </span>
           </div>
-          <RaisedButton type="submit" className="btn btn-default" label="Cancel" onClick={this.comeBackHome.bind(this)}/>
-          <RaisedButton type="submit" className="btn btn-default" label="Create" onClick={this.createEvent.bind(this)}/>
+
+          <div className="col-sm-offset-2">
+            <RaisedButton style={{margin:10}} label="Cancel" onClick={this.comeBackHome.bind(this)}/>
+            <RaisedButton style={{margin:10}} secondary={true} label="Create" onClick={this.createEvent.bind(this)}/>
+          </div>
         </form>
-      </div>
     </div>
     );
   }

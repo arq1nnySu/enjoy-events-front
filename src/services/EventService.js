@@ -17,7 +17,7 @@ class EventService {
     });
   }
 
-  createEvent(event){
+  createEvent(event, errorHandler){
     return request({
       url: CREATE_EVENT_URL,
       method: 'POST',
@@ -26,6 +26,9 @@ class EventService {
     })
     .then(function(response) {
       EventActions.createEvent(response);
+    })
+    .catch(function(error){
+      errorHandler(JSON.parse(error.responseText))
     });
   }
 

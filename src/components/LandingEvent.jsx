@@ -57,18 +57,18 @@ export default MaterialComponent(class EventItem extends React.Component {
         <div >
           <Card >
              <CardMedia  overlay={<CardTitle title={event.name}/>}>
-             <div className="event_show" style={divStyle}></div>
+               <div className="event_show" style={divStyle}></div>
             </CardMedia>
             <CardTitle />
-             <CardText className="col-sm-9"> {event.description} </CardText>
-            <div className="col-sm-3 col-xs-12 pg_sidebar pull-right">
+            <CardText className="col-sm-7"> {event.description} </CardText>
+            <div className="col-sm-4 col-xs-12 pg_sidebar pull-right">
             <div className="addon">
               <div className="con location clearfix">
                 <div className="col-xs-7"> <a href="#">{event.venue.street}</a> <span><strong>{event.venue.address.street}</strong></span>{event.venue.address.city}</div>
                 <div className="col-xs-4 pull-right"> <img src={mapImage}/>  </div>
-              </div>
+              </div >
                 <RaisedButton label="Como llegar al evento" secondary={true} linkButton={true} href={mapLink}  target="_blank">
-                <MapsPlace className="muidocs-icon-custom-github" style={this.getButtonIcon()} />
+                  <MapsPlace style={this.getButtonIcon()} />
                 </RaisedButton>
                </div>
               <div className="addon">
