@@ -8,48 +8,36 @@
     "url": "git@github.com:arq1nnySu/enjoy-events-front"
   },
   "authors": [],
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "scripts": {
-    "start": "npm run build && node server.js .",
-    "build": "npm run build-js && npm run build-css",
-    "watch": "npm run watch-js & npm run watch-css & serve .",
-    "build-css": "rework-npm index.css | cleancss -o build/build.css",
-    "build-js": "browserify --extension=.jsx --extension=.js -t babelify -t envify src/app.jsx | uglifyjs > build/build.js",
-    "watch-js": "watchify --extension=.jsx --extension=.js src/app.jsx -o build/build.js --debug --verbose",
-    "watch-css": "nodemon -e css --ignore build/build.css --exec 'rework-npm index.css -o build/build.css'",
-    "lint-eslint": "eslint .",
-    "lint-jscs": "jscs .",
-    "lint": "npm run jscs"
+    "start": "webpack-dev-server --config webpack-dev-server.config.js --content-base --progress --inline --colors --d",
+    "prod": "webpack -p --config webpack-prod-server.config.js --progress --colors"
   },
   "dependencies": {
-    "babelify": "^6.1.0",
-    "body-parser": "^1.4.3",
+    "babel-core": "^5.8.21",
+    "babel-eslint": "^4.0.5",
+    "babel-loader": "^5.3.2",
     "bootstrap": "^3.3.0",
-    "browser-sync": "^2.1.6",
-    "browserify": "^11.0.1",
-    "clean-css": "^3.4.1",
-    "envify": "^3.4.0",
-    "eslint": "^0.14.1",
-    "express": "^4.4.5",
+    "css-loader": "^0.18.0",
+    "eslint": "^1.1.0",
+    "eslint-loader": "^1.0.0",
+    "eslint-plugin-react": "^3.2.2",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
     "flux": "^2.0.1",
+    "html-webpack-plugin": "^1.6.1",
     "jwt-decode": "^1.1.0",
     "material-ui": "^0.11.0",
-    "nodemon": "^1.4.1",
     "react": "^0.13",
+    "react-hot-loader": "^1.2.8",
     "react-mfb": "^0.3.0",
     "react-mixin": "^1.1.0",
     "react-router": "^0.13.2",
     "react-tap-event-plugin": "^0.1.7",
     "reqwest": "^1.1.5",
-    "rework": "^1.0.1",
-    "rework-npm": "^1.0.0",
-    "rework-npm-cli": "^0.1.1",
-    "uglify-js": "^2.4.24",
-    "watchify": "^2.1.1",
+    "transfer-webpack-plugin": "^0.1.4",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1",
     "when": "^3.7.2"
   }
 }

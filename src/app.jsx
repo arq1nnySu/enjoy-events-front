@@ -9,11 +9,11 @@ import EventForm from './components/EventForm'
 import RouterContainer from './services/RouterContainer';
 import LoginActions from './actions/LoginActions';
 import injectTapEventPlugin from "react-tap-event-plugin";
-
+require("./stylesheet/index.css");
 
 injectTapEventPlugin();
 
-var routes = (
+let routes = (
   <Route handler={AuthenticatedApp}>
     <Route name="login" handler={Login}/>
     <Route name="signup" handler={Signup}/>
@@ -23,7 +23,7 @@ var routes = (
   </Route>
 );
 
-var router = Router.create({routes});
+let router = Router.create({routes});
 RouterContainer.set(router);
 
 let jwt = localStorage.getItem('jwt');
