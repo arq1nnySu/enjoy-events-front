@@ -1,10 +1,4 @@
 node_modules
 npm-debug.log
 .idea
-build/*.js*
-build/*.html
-build/*.css*
-build/*.svg
-build/*.ttf
-build/*.woff*
-build/*.eot
+
