@@ -16,7 +16,7 @@ class EventForm extends React.Component {
 
   constructor() {
     super()
-    this.state = {error:{message:{}}};
+    this.state = {error:{message:{}}, time:""};
     this._onChange = this._onChange.bind(this);
   }
 
@@ -29,7 +29,7 @@ class EventForm extends React.Component {
   }
 
   _onChange() {
-    RouterContainer.get().transitionTo('/event/'+ EventStore.event.id);
+    RouterContainer.get().transitionTo('/event/'+ EventStore.event.tag);
   }
 
   setTime(time){
@@ -58,6 +58,15 @@ class EventForm extends React.Component {
       <div className="container content col-md-12">
           <h2>Crear Evento</h2>
           <form className="form-horizontal" role="form">
+
+          <div className="form-group">
+            <span className="control-label col-sm-1">
+              <NameImage/>
+            </span>
+            <span className="col-sm-10">
+              <TextField style={inputStyle} errorText={this.state.error.message.tag} floatingLabelText="Tag" valueLink={this.linkState('tag')}  />
+            </span>
+          </div>
 
           <div className="form-group">
             <span className="control-label col-sm-1">

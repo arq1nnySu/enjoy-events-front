@@ -38,16 +38,8 @@ export default MaterialComponent(class EventItem extends React.Component {
 
   render() {
     var event = this.state.event;
-    var divStyle = {
-      height:400,
-      background: "url('http://clasiparya.paraguay.com/imagenes/2014/arma-el-asado-con-amigos-a-donde-vayas-parrilla-barbecue-portatil-_560_320-1278_1.jpg') no-repeat center center",
-      backgroundSize: 'cover !important'
-    };
-
-
     if(event != undefined){
-      event.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.";
-      event.venue = {name:"Universidad Nacional de Quilmes", 
+      event.venue = {name:event.venue, 
       latitude:"-34.60370190000",
       longitude:"-58.381872999999985",
       address:{street:"Roque Sáens Peña 352", city: "Bernal, Buenos Aires"}};
@@ -56,15 +48,15 @@ export default MaterialComponent(class EventItem extends React.Component {
       return (
         <div >
           <Card >
-             <CardMedia  overlay={<CardTitle title={event.name}/>}>
-               <div className="event_show" style={divStyle}></div>
+             <CardMedia  className="landing_event_image" overlay={<CardTitle title={event.name}/>}>
+               <img src={event.image}/>
             </CardMedia>
             <CardTitle />
             <CardText className="col-sm-7"> {event.description} </CardText>
             <div className="col-sm-4 col-xs-12 pg_sidebar pull-right">
             <div className="addon">
               <div className="con location clearfix">
-                <div className="col-xs-7"> <a href="#">{event.venue.street}</a> <span><strong>{event.venue.address.street}</strong></span>{event.venue.address.city}</div>
+                <div className="col-xs-7"> {event.venue.name}<a href="#">{event.venue.street}</a> <span><strong>{event.venue.address.street}</strong></span>{event.venue.address.city}</div>
                 <div className="col-xs-4 pull-right"> <img src={mapImage}/>  </div>
               </div >
                 <RaisedButton label="Como llegar al evento" secondary={true} linkButton={true} href={mapLink}  target="_blank">
