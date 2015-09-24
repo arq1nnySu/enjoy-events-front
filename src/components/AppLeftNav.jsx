@@ -5,15 +5,14 @@ import { MenuItem, LeftNav, Styles } from 'material-ui';
 let { Colors, Spacing, Typography } = Styles;
 
 let menuItems = [
-    { route: 'login', text: 'Login' },
-    { route: 'signup', text: 'Signup' },
-    { route: 'home', text: 'Events' },
-    { type: MenuItem.Types.SUBHEADER, text: 'Extras' },
-    { type: MenuItem.Types.LINK, payload: 'https://github.com/arq1nnySu', text: 'GitHub' },
-    { type: MenuItem.Types.LINK, payload: 'https://travis-ci.org/arq1nnySu/enjoy-events-front', text: 'Travis' },
-    { type: MenuItem.Types.LINK, payload: 'https://www.pivotaltracker.com/n/projects/1420300', text: 'Pivotal' }
+    { route: 'login', text: 'Login', showWhenLogged:false},
+    { route: 'signup', text: 'Signup', showWhenLogged:false },
+    { route: 'home', text: 'Events' ,  showWhenLogged:true},
+    { type: MenuItem.Types.SUBHEADER, text: 'Extras',  showWhenLogged:true},
+    { type: MenuItem.Types.LINK, payload: 'https://github.com/arq1nnySu', text: 'GitHub',  showWhenLogged:true },
+    { type: MenuItem.Types.LINK, payload: 'https://travis-ci.org/arq1nnySu/enjoy-events-front', text: 'Travis',  showWhenLogged:true },
+    { type: MenuItem.Types.LINK, payload: 'https://www.pivotaltracker.com/n/projects/1420300', text: 'Pivotal',  showWhenLogged:true }
   ];
-
 
 export default class AppLeftNav extends React.Component {
 
@@ -41,6 +40,8 @@ export default class AppLeftNav extends React.Component {
   }
 
   render() {
+    this.items = menuItems.filter((item)=> { return !this.props.userLoggedIn || item.showWhenLogged })
+
     let header = (
       <div style={this.getStyles()} onTouchTap={this._onHeaderClick}>
         Enjoy-Events
@@ -53,7 +54,7 @@ export default class AppLeftNav extends React.Component {
         docked={false}
         isInitiallyOpen={true}
         header={header}
-        menuItems={menuItems}
+        menuItems={this.items}
         selectedIndex={this._getSelectedIndex()}
         onChange={this._onLeftNavChange} />
     );
@@ -66,8 +67,8 @@ export default class AppLeftNav extends React.Component {
   _getSelectedIndex() {
     let currentItem;
 
-    for (let i = menuItems.length - 1; i >= 0; i--) {
-      currentItem = menuItems[i];
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      currentItem = this.items[i];
       if (currentItem.route && this.context.router.isActive(currentItem.route)) return i;
     }
   }

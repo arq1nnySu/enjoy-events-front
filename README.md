@@ -19,7 +19,7 @@ $ npm install
 ### Ejecución:
 
 ```sh
-$ npm run watch
+$ npm start
 ```
 Ir a [http://localhost:3000](http://localhost:3000)
 

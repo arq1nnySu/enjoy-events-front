@@ -63,7 +63,7 @@ export default class Home extends React.Component {
       <div className="my_event col-md-4" />
 
       <Menu effect={effect} method={method} position={pos}>
-        <MainButton iconResting="ion-edit" iconActive="ion-settings" />
+        <MainButton iconResting="ion-plus-round" iconActive="ion-edit" />
            <ChildButton
             onClick={this.createEvent}
             icon="ion-plus-round"

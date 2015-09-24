@@ -6,7 +6,7 @@ import { Route, RouteHandler, Link } from 'react-router';
 import AuthService from '../services/AuthService';
 import MaterialComponent from './MaterialComponent';
 import AppLeftNav from './AppLeftNav';
-import {AppBar, Avatar, FlatButton, AppCanvas} from  'material-ui';
+import {AppBar, Avatar, FlatButton, AppCanvas, ListItem} from  'material-ui';
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import IconMenu from 'material-ui/lib/menus/icon-menu'
 import Delete from 'material-ui/lib/svg-icons/action/delete'
@@ -48,7 +48,9 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
             iconElementRight={this.headerItems}
             style={{position: 'fixed'}}/>
         <RouteHandler/>
-        <AppLeftNav ref="leftNav" />
+        <AppLeftNav ref="leftNav" 
+          {...this.props} 
+          userLoggedIn={this.state.userLoggedIn} />
       </AppCanvas>
     );
   }
@@ -68,8 +70,11 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
     } else {
       return (
           <IconMenu
-              primaryText="asdfsdf"
-              iconButtonElement={<Avatar src="http://material-ui.com/images/uxceo-128.jpg" />}
+              iconButtonElement={
+                <ListItem
+                  rightAvatar={<Avatar src="http://material-ui.com/images/uxceo-128.jpg" />}
+                  primaryText={this.state.user.username} />
+              }
               openDirection="bottom-left">
               <MenuItem primaryText="Logout" leftIcon={<Delete />} onClick={this.logout} />
             </IconMenu>
