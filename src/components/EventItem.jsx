@@ -10,7 +10,9 @@ export default MaterialComponent(class EventItem extends React.Component {
       <div className="my_event col-md-4">
         <Card >
            <CardMedia overlay={<CardTitle title={event.name}/>}>
-              <img  className="event_image" src={event.image}/>
+           <div className="event_image">
+              <img   src={event.image}/>
+           </div>
           </CardMedia>
            <CardText>
             {event.venue}

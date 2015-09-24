@@ -10,7 +10,11 @@
 .my_events .my_event { margin-bottom:40px}
 .my_events .my_event .event_show { height:300px; overflow:hidden; }
 a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; font-size:11px; color:#fff;  bottom:150px; text-shadow:2px 5px 10px #000; height: 400px;}
-.event_image { height:130px; width: 100%;}
+.event_image { height:200px; width: 100%;}
+.event_image img{
+  width: 100%;
+  height: 100%;
+}
 .landing_event_image {
     height: 400px;
     overflow: hidden;
