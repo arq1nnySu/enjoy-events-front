@@ -4,7 +4,6 @@ import {Card, CardMedia, CardTitle, CardText, FlatButton, CardActions} from  'ma
 
 export default MaterialComponent(class EventItem extends React.Component {
   render() {
-
     var event = this.props.event;
     return (
       <div className="my_event col-md-4">

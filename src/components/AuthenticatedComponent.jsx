@@ -1,25 +1,13 @@
-import React from 'react';
+  import React from 'react';
 import LoginStore from '../stores/LoginStore';
 
 
 export default (ComposedComponent) => {
   return class AuthenticatedComponent extends React.Component {
 
-    static willTransitionTo(transition) {
-      if (!LoginStore.isLoggedIn()) {
-        transition.redirect('/login', {}, {'nextPath' : transition.path});
-      }
-    }
-
     constructor() {
       super()
       this.state = this._getLoginState();
-         this.context =  {
-            muiTheme: ThemeManager.getCurrentTheme()
-      };
-       this.childContextTypes =  {
-            muiTheme: ThemeManager.getCurrentTheme()
-      };
     }
 
     _getLoginState() {

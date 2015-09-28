@@ -1,5 +1,6 @@
 import React from 'react';
 import EventItem  from './EventItem';
+import AuthenticatedComponent  from './AuthenticatedComponent';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
 import {CardActions} from 'material-ui';
@@ -7,8 +8,7 @@ import RouterContainer from '../services/RouterContainer';
 
 import {Menu, MainButton, ChildButton} from 'react-mfb';
 
-export default class Home extends React.Component {
-
+export default AuthenticatedComponent(class Home extends React.Component {
 
   constructor(props) {
     super(props);
@@ -62,14 +62,22 @@ export default class Home extends React.Component {
       <div className="events">{events}</div>
       <div className="my_event col-md-4" />
 
-      <Menu effect={effect} method={method} position={pos}>
-        <MainButton iconResting="ion-plus-round" iconActive="ion-edit" />
-           <ChildButton
-            onClick={this.createEvent}
-            icon="ion-plus-round"
-            label="Crear Evento"/>
-      </Menu>
+        {this.createMenuButton()}
       </div>
     );
   }
-};
+
+  createMenuButton(){
+    if(this.props.userLoggedIn){
+      return 
+        <Menu effect={effect} method={method} position={pos}>
+          <MainButton iconResting="ion-plus-round" iconActive="ion-edit" />
+             <ChildButton
+              onClick={this.createEvent}
+              icon="ion-plus-round"
+              label="Crear Evento"/>
+        </Menu>
+    }
+  }
+
+});
