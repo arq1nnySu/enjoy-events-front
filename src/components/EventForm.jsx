@@ -5,6 +5,7 @@ import RouterContainer from '../services/RouterContainer';
 import EventStore from '../stores/EventStore'
 import {RaisedButton, DatePicker, TimePicker, TextField} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
+import RedirectAuthenticatedComponent from './RedirectAuthenticatedComponent';
 import ImageImage from 'material-ui/lib/svg-icons/image/image';
 import TimerImage from 'material-ui/lib/svg-icons/av/av-timer';
 import LocationImage from 'material-ui/lib/svg-icons/communication/location-on';
