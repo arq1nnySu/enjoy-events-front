@@ -1,4 +1,4 @@
-import request from 'reqwest';
+import request from './Request';
 import when from 'when';
 import {EVENTS_URL, CREATE_EVENT_URL, GET_EVENT_URL} from '../constants/AppConstants';
 import EventActions from '../actions/EventActions';
@@ -7,9 +7,8 @@ import LoginStore from '../stores/LoginStore.js';
 class EventService {
 
   allEvents() {
-    request({
+    request.request({
       url: EVENTS_URL,
-      crossOrigin: true,
       method: 'GET'
     })
     .then(function(response) {
@@ -18,7 +17,7 @@ class EventService {
   }
 
   createEvent(event, errorHandler){
-    return request({
+    return request.request({
       url: CREATE_EVENT_URL,
       method: 'POST',
       type: 'json',
@@ -33,13 +32,13 @@ class EventService {
   }
 
   getEvent(id) {
-    request({
+    request.request({
       url: GET_EVENT_URL+id,
       crossOrigin: true,
-      method: 'GET'
-      // headers: {
-      //   'Authorization': 'Bearer ' + LoginStore.jwt
-      // }
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.jwt
+      }
     })
     .then(function(response) {
       EventActions.getEvent(response);
