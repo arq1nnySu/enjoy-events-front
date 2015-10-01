@@ -3,7 +3,7 @@ import ReactMixin from 'react-mixin';
 import EventService from '../services/EventService';
 import RouterContainer from '../services/RouterContainer';
 import EventStore from '../stores/EventStore'
-import {RaisedButton, DatePicker, TimePicker, TextField} from  'material-ui';
+import {RaisedButton, DatePicker, TimePicker, TextField, SelectField} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
 import RedirectAuthenticatedComponent from './RedirectAuthenticatedComponent';
 import ImageImage from 'material-ui/lib/svg-icons/image/image';
@@ -39,6 +39,7 @@ class EventForm extends React.Component {
 
   createEvent(e) {
     e.preventDefault();
+    this.state.error = {}
     EventService.createEvent(this.state, this._handlerError.bind(this));
   }
 
@@ -55,6 +56,10 @@ class EventForm extends React.Component {
 
   render() {
     let inputStyle = {width:"100%"};
+    let visibilities = [
+       { id: 'Public', name: 'Público' },
+       { id: 'Private', name: 'Privado' },
+    ];
     return (
       <div className="container content col-md-12">
           <h2>Crear Evento</h2>
@@ -77,6 +82,15 @@ class EventForm extends React.Component {
               <TextField style={inputStyle} errorText={this.state.error.message.name} floatingLabelText="Nombre" valueLink={this.linkState('name')}  />
             </span>
           </div>
+
+          <div className="form-group">
+            <span className="control-label col-sm-1">
+              <ImageImage/>
+            </span>
+            <span className="col-sm-10">
+              <SelectField floatingLabelText="Visibilidad" valueMember="id" displayMember="name" menuItems={visibilities}  style={inputStyle} valueLink={this.linkState('visibility')} />
+            </span>
+          </div> 
 
           <div className="form-group">
             <span className="control-label col-sm-1">
@@ -119,7 +133,7 @@ class EventForm extends React.Component {
               <DescriptionImage/>
             </span>
             <span className="col-sm-10">
-              <TextField style={inputStyle} floatingLabelText="Descripcion"  errorText={this.state.error.message.description} valueLink={this.linkState('description')}  />
+              <TextField style={inputStyle} floatingLabelText="Descripcion"  errorText={this.state.error.message.description} valueLink={this.linkState('description')}  multiLine={true}/>
             </span>
           </div>
 
@@ -131,6 +145,7 @@ class EventForm extends React.Component {
     </div>
     );
   }
+
 }
 
 ReactMixin(EventForm.prototype, React.addons.LinkedStateMixin);
