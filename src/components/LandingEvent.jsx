@@ -36,6 +36,7 @@ export default MaterialComponent(class EventItem extends React.Component {
     };
   }
 
+
   render() {
     var event = this.state.event;
     if(event != undefined){
@@ -52,7 +53,9 @@ export default MaterialComponent(class EventItem extends React.Component {
                <img src={event.image}/>
             </CardMedia>
             <CardTitle />
-            <CardText className="col-sm-7"> {event.description} </CardText>
+            <CardText className="col-sm-7" >
+              <div dangerouslySetInnerHTML={ {__html: event.description}} />
+            </CardText>
             <div className="col-sm-4 col-xs-12 pg_sidebar pull-right">
             <div className="addon">
               <div className="con location clearfix">
