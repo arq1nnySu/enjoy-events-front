@@ -9,6 +9,7 @@ import EventForm from './components/EventForm'
 import RouterContainer from './services/RouterContainer';
 import LoginActions from './actions/LoginActions';
 import injectTapEventPlugin from "react-tap-event-plugin";
+import ga from 'react-ga';
 require("./stylesheet/index.css");
 
 injectTapEventPlugin();
@@ -31,7 +32,9 @@ if (jwt) {
   LoginActions.loginUser(jwt);
 }
 
-router.run(function (Handler) {
+router.run(function (Handler, state) {
+  ga.initialize('UA-68486131-1'/*, { debug: true }*/);
   React.render(<Handler />, document.getElementById('content'));
+  ga.pageview(state.pathname);
 });
 
