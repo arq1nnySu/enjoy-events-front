@@ -1,4 +1,4 @@
-import {ALL_EVENTS, GET_EVENT, EVENT_CREATED, LOGOUT_USER} from '../constants/AppConstants';
+import {ALL_EVENTS, GET_EVENT, EVENT_CREATED, LOGOUT_USER, LOGIN_USER} from '../constants/AppConstants';
 import BaseStore from './BaseStore';
 
 class EventStore extends BaseStore {
@@ -24,6 +24,9 @@ class EventStore extends BaseStore {
         this.emitChange();
         break;      
       case LOGOUT_USER:
+        this._eventos = null;
+        this.emitChange();
+      case LOGIN_USER:
         this._eventos = null;
         this.emitChange();
         break;

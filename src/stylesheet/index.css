@@ -132,6 +132,8 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
   padding-top: 64px;
 }
 
+.shadow { background:#fff; box-shadow:inset 0 -2px 0 rgba(0,0,0,0.12), 0 5px 20px rgba(0,0,0,0.3); min-height: 600px;}
+
 @media (min-width: 768px) {
   .form-horizontal .control-label {
     padding-top: 38px;

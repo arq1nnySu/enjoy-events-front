@@ -12,6 +12,7 @@ import LocationImage from 'material-ui/lib/svg-icons/communication/location-on';
 import DateImage from 'material-ui/lib/svg-icons/action/event';
 import DescriptionImage from 'material-ui/lib/svg-icons/action/description';
 import NameImage from 'material-ui/lib/svg-icons/action/book';
+import moment from 'moment'
 
 class EventForm extends React.Component {
 
@@ -40,6 +41,7 @@ class EventForm extends React.Component {
   createEvent(e) {
     e.preventDefault();
     this.state.error = {}
+    this.state.date = moment(this.state.date).format("YYYY-MM-DD")
     EventService.createEvent(this.state, this._handlerError.bind(this));
   }
 

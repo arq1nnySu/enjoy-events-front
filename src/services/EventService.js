@@ -21,7 +21,7 @@ class EventService {
       url: CREATE_EVENT_URL,
       method: 'POST',
       type: 'json',
-      data: event
+      data: event,
     })
     .then(function(response) {
       EventActions.createEvent(response);
@@ -35,10 +35,7 @@ class EventService {
     request.request({
       url: GET_EVENT_URL+id,
       crossOrigin: true,
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.jwt
-      }
+      method: 'GET'
     })
     .then(function(response) {
       EventActions.getEvent(response);
