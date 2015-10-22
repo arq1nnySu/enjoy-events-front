@@ -59,6 +59,8 @@ var config = {
         loaders: ['react-hot','babel-loader?stage=0'], //react-hot is like browser sync and babel loads jsx and es6-7
         exclude: [nodeModulesPath],
       },
+      { test: /\.less$/, loader: "style-loader!css-loader!less-loader" },
+      { test: /\.gif$/, loader: "url-loader?mimetype=image/png" },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract("css-loader")

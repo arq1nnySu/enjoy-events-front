@@ -9,6 +9,8 @@ export default {
   GET_EVENT_URL: BASE_URL +'events/',
   CREATE_EVENT_URL: BASE_URL + 'events',
   ASSISTANCES_URL: BASE_URL +'assistances',
+  ALL_USERS_URL : BASE_URL + 'users',
+
   
 
   LOGIN_USER: 'LOGIN_USER',
@@ -16,6 +18,6 @@ export default {
   ALL_EVENTS: 'ALL_EVENTS',
   EVENT: 'EVENT',
   EVENT_CREATED: 'EVENT_CREATED',
-
-  ALL_ASSISTANCE: 'ALL_ASSISTANCE'
+  ALL_ASSISTANCE: 'ALL_ASSISTANCE',
+  ALL_USERS: 'ALL_USERS'
 }

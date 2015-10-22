@@ -1,12 +1,14 @@
-import request from 'reqwest';
+import request from './Request';
+import reqwest from 'reqwest';
 import when from 'when';
-import {LOGIN_URL, SIGNUP_URL} from '../constants/AppConstants';
+import {LOGIN_URL, SIGNUP_URL, ALL_USERS_URL} from '../constants/AppConstants';
 import LoginActions from '../actions/LoginActions';
+import UserActions from '../actions/UserActions';
 
-class AuthService {
+class UserService {
 
   login(username, password) {
-    return this.handleAuth(when(request({
+    return this.handleAuth(when(reqwest({
       url: LOGIN_URL,
       method: 'POST',
       type: 'json',
@@ -20,7 +22,7 @@ class AuthService {
   }
 
   signup(username, password, extra) {
-    return this.handleAuth(when(request({
+    return this.handleAuth(when(reqwest({
       url: SIGNUP_URL,
       method: 'POST',
       type: 'json',
@@ -28,14 +30,24 @@ class AuthService {
     })));
   }
 
+  allUsers(){
+    request.request({
+      url: ALL_USERS_URL,
+      method: 'GET'
+    })
+    .then(function(response) {
+      UserActions.allUsers(response);
+    });
+  }
+
   handleAuth(loginPromise) {
     return loginPromise
       .then(function(response) {
-        var jwt = response.token;
+        var jwt = response.access_token;
         LoginActions.loginUser(jwt);
         return true;
       });
   }
 }
 
-export default new AuthService()
+export default new UserService()

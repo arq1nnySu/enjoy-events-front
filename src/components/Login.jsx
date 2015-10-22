@@ -1,6 +1,6 @@
 import React from 'react/addons';
 import ReactMixin from 'react-mixin';
-import Auth from '../services/AuthService';
+import Auth from '../services/UserService';
 import mui from  'material-ui';
 import Facebook from './Facebook';
 

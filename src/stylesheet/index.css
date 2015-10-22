@@ -142,3 +142,7 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .form-group {
     margin-bottom: 0px;
 }
+
+.event-form-panel{
+  height: 500px;
+}

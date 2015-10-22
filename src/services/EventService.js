@@ -21,7 +21,8 @@ class EventService {
       url: CREATE_EVENT_URL,
       method: 'POST',
       type: 'json',
-      data: event,
+      contentType: "application/json",
+      data: JSON.stringify(event)
     })
     .then(function(response) {
       EventActions.createEvent(response);

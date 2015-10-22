@@ -1,16 +1,17 @@
 import reqwest from 'reqwest';
+import LoginActions from '../actions/LoginActions';
 
 
 class Request {
 
 	request(conf){
 		conf.headers =  {
-        'Authorization': 'Bearer ' + localStorage.jwt
+        'Authorization': 'JWT ' + localStorage.jwt
       	}
 		return reqwest(conf) .fail(function(err) {
 	        if(err.status == 401){
-
-	        }else if(err.status < 500){
+	        	LoginActions.logout()
+	        }else if(err.status >= 500){
 
 	        }else{
 

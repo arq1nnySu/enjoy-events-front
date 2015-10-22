@@ -12,6 +12,7 @@ import LoginActions from './actions/LoginActions';
 import injectTapEventPlugin from "react-tap-event-plugin";
 import ga from 'react-ga';
 require("./stylesheet/index.css");
+require('react-widgets/dist/css/react-widgets.css')
 
 injectTapEventPlugin();
 
