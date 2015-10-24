@@ -6,9 +6,9 @@ import {Card, CardMedia, CardTitle, CardText, FlatButton, CardActions, CardHeade
 export default MaterialComponent(class MyAccount extends React.Component {
   render() {
     return (
-      <Card initiallyExpanded={false} >
+      <div  >
         <CardMedia overlay={<CardTitle title="My Account" subtitle=""/>}>
-          <img src="http://salesportalweb-pre-cpty69a8sw.elasticbeanstalk.com/img/static_header.jpg"/>
+          <img className="header_section"/>
         </CardMedia>
         <div className="container">
           <CardActions style={{margin: "-120px auto auto auto"}} >
@@ -20,7 +20,7 @@ export default MaterialComponent(class MyAccount extends React.Component {
             </Tabs>
           </CardActions>
         </div>
-      </Card>
+      </div>
     );
   }
 });

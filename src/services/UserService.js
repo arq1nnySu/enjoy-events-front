@@ -21,12 +21,13 @@ class UserService {
     LoginActions.logoutUser();
   }
 
-  signup(username, password, extra) {
+  signup(user) {
     return this.handleAuth(when(reqwest({
       url: SIGNUP_URL,
       method: 'POST',
       type: 'json',
-      data: { username, password }
+      contentType: "application/json",
+      data: JSON.stringify(user)
     })));
   }
 

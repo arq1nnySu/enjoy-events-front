@@ -77,7 +77,7 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
               iconButtonElement={
                 <ListItem
                   rightAvatar={
-                     <Gravatar email={this.state.user.username} size={40} style={gravatarStyle} />}
+                     <Gravatar email={this.state.user.email} size={40} style={gravatarStyle} />}
                   primaryText={this.state.user.username} />
               }
               openDirection="bottom-left">
