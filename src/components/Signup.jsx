@@ -18,7 +18,7 @@ class Signup extends React.Component {
       .catch(function(err) {
         this.state.error = "Invalid username or password"
         this.setState(this.state)
-      });
+      }.bind(this));
   }
 
   render() {
@@ -52,7 +52,7 @@ class Signup extends React.Component {
                   <TextField style={inputStyle} floatingLabelText="Phone" valueLink={this.linkState('phone')}  />
                 </div>
                 <CardActions>
-                  <RaisedButton type="submit" className="btn btn-default" label="Submit" onClick={this.signup.bind(this)} secondary={true}/>
+                  <RaisedButton type="submit" className="btn btn-default" label="Save" onClick={this.signup.bind(this)} secondary={true}/>
                 </CardActions>
                </form>
             </Card>

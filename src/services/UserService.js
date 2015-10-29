@@ -31,6 +31,26 @@ class UserService {
     })));
   }
 
+  update(user) {
+    return request.request({
+      url: SIGNUP_URL,
+      method: 'PUT',
+      type: 'json',
+      contentType: "application/json",
+      data: JSON.stringify(user)
+    });
+  }
+
+  loggedUser() {
+    request.request({
+      url: SIGNUP_URL,
+      method: 'GET'
+    })
+    .then(function(response) {
+      UserActions.loggedUser(response);
+    });
+  }
+
   allUsers(){
     request.request({
       url: ALL_USERS_URL,
