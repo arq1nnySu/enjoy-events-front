@@ -1,4 +1,4 @@
-import {ALL_ASSISTANCE} from '../constants/AppConstants';
+import {ALL_ASSISTANCE, ASSISTANCE_CREATED} from '../constants/AppConstants';
 import BaseStore from './BaseStore';
 
 class AssistanceStore extends BaseStore {
@@ -15,6 +15,10 @@ class AssistanceStore extends BaseStore {
         this._assistances = action.assistances;
         this.emitChange();
         break;
+      case ASSISTANCE_CREATED:
+        this.assistance = action.assistance;
+        this.emitChange();
+        break;      
       default:
         break;
     };

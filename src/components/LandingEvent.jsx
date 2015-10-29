@@ -1,8 +1,9 @@
 import React from 'react';
 import MaterialComponent from './MaterialComponent';
-import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton} from  'material-ui';
+import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton, Snackbar} from  'material-ui';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
+import AssistanceService from '../services/AssistanceService.js';
 import MapsPlace from 'material-ui/lib/svg-icons/maps/place';
 
 export default MaterialComponent(class EventItem extends React.Component {
@@ -36,6 +37,10 @@ export default MaterialComponent(class EventItem extends React.Component {
     };
   }
 
+  createAssistance(){
+    AssistanceService.createAssistance({event:this.state.event.tag}).then( resp => 
+        this.refs.successBar.show());
+  }
 
   render() {
     var event = this.state.event;
@@ -74,9 +79,13 @@ export default MaterialComponent(class EventItem extends React.Component {
                     <IconButton iconClassName="btn-social icon-custom-github" tooltip="GitHub"/>
                     <IconButton iconClassName="btn-social icon-custom-github" tooltip="Pinterest"/>
                   </div>
+                  <div className="col-sm-offset-2">
+                    <RaisedButton style={{margin:10}} label="Assistir" onClick={this.createAssistance.bind(this)}/>
+                  </div>
                 </div>
               </div>
           </Card>
+           <Snackbar ref="successBar" message="Assistance to event successfully"/>
           </div>
       )
     }else{
