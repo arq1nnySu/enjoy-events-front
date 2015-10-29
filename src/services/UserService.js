@@ -21,13 +21,34 @@ class UserService {
     LoginActions.logoutUser();
   }
 
-  signup(username, password, extra) {
+  signup(user) {
     return this.handleAuth(when(reqwest({
       url: SIGNUP_URL,
       method: 'POST',
       type: 'json',
-      data: { username, password }
+      contentType: "application/json",
+      data: JSON.stringify(user)
     })));
+  }
+
+  update(user) {
+    return request.request({
+      url: SIGNUP_URL,
+      method: 'PUT',
+      type: 'json',
+      contentType: "application/json",
+      data: JSON.stringify(user)
+    });
+  }
+
+  loggedUser() {
+    request.request({
+      url: SIGNUP_URL,
+      method: 'GET'
+    })
+    .then(function(response) {
+      UserActions.loggedUser(response);
+    });
   }
 
   allUsers(){

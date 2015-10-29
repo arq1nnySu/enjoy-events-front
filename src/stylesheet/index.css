@@ -144,5 +144,15 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 }
 
 .event-form-panel{
-  height: 500px;
+  height: 550px;
 }
+
+.login_container{
+  float: none;
+}
+
+.header_section{
+  content:url(../www/img/header.png);
+}
+
+.hidden { display:none; }

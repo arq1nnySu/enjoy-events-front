@@ -8,7 +8,7 @@ class Request {
 		conf.headers =  {
         'Authorization': 'JWT ' + localStorage.jwt
       	}
-		return reqwest(conf) .fail(function(err) {
+		return reqwest(conf).fail(function(err) {
 	        if(err.status == 401){
 	        	LoginActions.logout()
 	        }else if(err.status >= 500){

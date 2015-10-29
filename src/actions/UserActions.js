@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
-import {ALL_USERS} from '../constants/AppConstants.js';
+import {ALL_USERS, LOGGED_USER} from '../constants/AppConstants.js';
 
 export default {
   allUsers: (users) => {
@@ -8,4 +8,12 @@ export default {
       users: users
     })
   },
+
+  loggedUser: (user) => {
+    AppDispatcher.dispatch({
+      actionType: LOGGED_USER,
+      loggedUser: user
+    })
+  },
+
 }

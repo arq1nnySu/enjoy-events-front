@@ -3,7 +3,7 @@ import AssistanceItem  from './AssistanceItem';
 import AuthenticatedComponent  from './AuthenticatedComponent';
 import AssistanceStore from '../stores/AssistanceStore'
 import AssistanceService from '../services/AssistanceService.js';
-import {CardActions} from 'material-ui';
+import {CardActions, Card, CardMedia, CardTitle} from 'material-ui';
 import RouterContainer from '../services/RouterContainer';
 
 import {Menu, MainButton, ChildButton} from 'react-mfb';
@@ -49,8 +49,18 @@ export default AuthenticatedComponent(class Assistances extends React.Component 
       assistances.push(<AssistanceItem key={key} assistance={this.state.assistances[key]} />);
     }
 
+    if(assistances.length <=0){
+        assistances.push(
+          <div style={{"text-align": "center"}}>
+            <CardMedia overlay={<CardTitle title="No tienes asistencias"/>}>
+              <img src="https://www.allaccess.com.ar/img/ico_purchase_no.png" style={{"max-width": "30%", "min-width":"30%"}}/>
+            </CardMedia>
+          </div>
+        );
+    }
+
     return (
-    	<div className="container">
+    	<div className="login">
           {assistances}
       </div>
     );
