@@ -5,13 +5,14 @@ import { MenuItem, LeftNav, Styles } from 'material-ui';
 let { Colors, Spacing, Typography } = Styles;
 
 let menuItems = [
-    { route: 'login', text: 'Login', showWhenLogged:false},
+    { route: 'login', text: 'Login',   showWhenLogged:false},
     { route: 'signup', text: 'Signup', showWhenLogged:false },
-    { route: 'home', text: 'Events' ,  showWhenLogged:true},
-    { type: MenuItem.Types.SUBHEADER, text: 'Extras',  showWhenLogged:true},
-    { type: MenuItem.Types.LINK, payload: 'https://github.com/arq1nnySu', text: 'GitHub',  showWhenLogged:true },
-    { type: MenuItem.Types.LINK, payload: 'https://travis-ci.org/arq1nnySu/enjoy-events-front', text: 'Travis',  showWhenLogged:true },
-    { type: MenuItem.Types.LINK, payload: 'https://www.pivotaltracker.com/n/projects/1420300', text: 'Pivotal',  showWhenLogged:true }
+    { route: 'home', text: 'Events' },
+    { route: 'myaccount', text: 'My account' , requireLogin:true},
+    { type: MenuItem.Types.SUBHEADER, text: 'Extras'},
+    { type: MenuItem.Types.LINK, payload: 'https://github.com/arq1nnySu', text: 'GitHub' },
+    { type: MenuItem.Types.LINK, payload: 'https://travis-ci.org/arq1nnySu/enjoy-events-front', text: 'Travis'},
+    { type: MenuItem.Types.LINK, payload: 'https://www.pivotaltracker.com/n/projects/1420300', text: 'Pivotal' }
   ];
 
 export default class AppLeftNav extends React.Component {
@@ -40,7 +41,10 @@ export default class AppLeftNav extends React.Component {
   }
 
   render() {
-    this.items = menuItems.filter((item)=> { return !this.props.userLoggedIn || item.showWhenLogged })
+    this.items = menuItems.filter((item)=> { 
+      return (!this.props.userLoggedIn || ((item.showWhenLogged==undefined)? true: item.showWhenLogged ))
+        && (this.props.userLoggedIn || !(item.requireLogin || false) )
+      })
 
     let header = (
       <div style={this.getStyles()} onTouchTap={this._onHeaderClick}>

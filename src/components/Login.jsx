@@ -1,42 +1,29 @@
 import React from 'react/addons';
 import ReactMixin from 'react-mixin';
-import Auth from '../services/AuthService';
+import Auth from '../services/UserService';
 import mui from  'material-ui';
 import Facebook from './Facebook';
+import MaterialComponent from './MaterialComponent';
+import {RaisedButton, Card, CardMedia, CardTitle, CardText, FlatButton, 
+  CardActions, CardHeader, TextField} from  'material-ui';
 
-var ThemeManager = new mui.Styles.ThemeManager();
-var RaisedButton = mui.RaisedButton;
-
-export default class Login extends React.Component {
+class Login extends React.Component {
 
   constructor() {
     super()
-    this.context =  {
-          muiTheme: ThemeManager.getCurrentTheme()
-    };
-     this.childContextTypes =  {
-          muiTheme: ThemeManager.getCurrentTheme()
-    };
     this.state = {
       user: '',
       password: ''
     };
   }
 
-  getChildContext(){
-      return {
-          muiTheme: ThemeManager.getCurrentTheme()
-      };
-  }
-
-
   login(e) {
     e.preventDefault();
     Auth.login(this.state.user, this.state.password)
-      .catch(function(err) {
-        alert("There's an error logging in");
-        console.log("Error logging in", err);
-      });
+      .catch((err) => {
+        this.state.error = "Invalid username or password"
+        this.setState(this.state)
+      })
   }
 
   resultFacebookLogin(response) {
@@ -44,28 +31,47 @@ export default class Login extends React.Component {
   }
 
   render() {
+    let inputStyle = {width:"100%"}
     return (
-      <div className="login content jumbotron center-block">
-        <h1>Login</h1>
-        <form role="form">
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input type="text" valueLink={this.linkState('user')} className="form-control" id="username" placeholder="Username" />
+      <div  >
+        <CardMedia overlay={<CardTitle title="Login" subtitle=""/>}>
+          <img className="header_section"/>
+        </CardMedia>
+        <div className="container col-lg-6 login_container">
+          <CardActions style={{margin: "-120px auto auto auto"}} >
+            <Card className="login content jumbotron center-block">
+              <h1>Login</h1>
+              <form role="form">
+              <div className="form-group">
+                <TextField style={inputStyle} floatingLabelText="Username" valueLink={this.linkState('user')}  />
+              </div>
+              <div className="form-group">
+                <TextField floatingLabelText="Password" style={inputStyle} type="password" valueLink={this.linkState('password')}  />
+              </div>
+
+              <div className="has-error">
+                <label className="control-label">{this.state.error} </label> 
+              </div>
+
+              <CardActions>
+                <RaisedButton type="submit" className="btn btn-default" label="Login" secondary={true} onClick={this.login.bind(this)} />
+                <span className="hidden">
+                  <Facebook
+                    appId="687026038097556"
+                    class="facebook-login "
+                    scope="public_profile, email, user_birthday"
+                    loginHandler={ this.resultFacebookLogin } />
+                </span>
+              </CardActions>
+            </form>
+          </Card>
+          </CardActions>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input type="password" valueLink={this.linkState('password')} className="form-control" id="password" ref="password" placeholder="Password" />
-        </div>
-        <RaisedButton type="submit" className="btn btn-default" label="Login" onClick={this.login.bind(this)} />
-        <Facebook
-          appId="687026038097556"
-          class="facebook-login"
-          scope="public_profile, email, user_birthday"
-          loginHandler={ this.resultFacebookLogin } />
-      </form>
-    </div>
+      </div>
     );
   }
 }
 
 ReactMixin(Login.prototype, React.addons.LinkedStateMixin);
+
+export default MaterialComponent(Login)

@@ -1,49 +1,68 @@
 import React from 'react/addons';
 import ReactMixin from 'react-mixin';
-import Auth from '../services/AuthService'
+import UserService from '../services/UserService'
+import MaterialComponent from './MaterialComponent';
+import {RaisedButton, Card, CardMedia, CardTitle, CardText, FlatButton, 
+  CardActions, CardHeader, TextField} from  'material-ui';
 
-export default class Signup extends React.Component {
+class Signup extends React.Component {
 
   constructor() {
     super()
-    this.state = {
-      user: '',
-      password: '',
-      extra: ''
-    };
+    this.state = {};
   }
 
   signup(e) {
     e.preventDefault();
-    Auth.signup(this.state.user, this.state.password, this.state.extra)
+    UserService.signup(this.state)
       .catch(function(err) {
-        alert("There's an error logging in");
-        console.log("Error logging in", err);
-      });
+        this.state.error = "Invalid username or password"
+        this.setState(this.state)
+      }.bind(this));
   }
 
   render() {
+    let inputStyle = {width:"100%"}
     return (
-      <div className="content login jumbotron center-block">
-        <h1>Signup</h1>
-        <form role="form">
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input type="text" valueLink={this.linkState('user')} className="form-control" id="username" placeholder="Username" />
+      <div  >
+        <CardMedia overlay={<CardTitle title="Signup" subtitle=""/>}>
+          <img className="header_section"/>
+        </CardMedia>
+        <div className="container col-lg-6 login_container">
+          <CardActions style={{margin: "-120px auto auto auto"}} >
+            <Card className="login  jumbotron center-block">
+              <h1>Signup</h1>
+              <form role="form">
+                <div className="form-group">
+                  <TextField style={inputStyle} floatingLabelText="Username" valueLink={this.linkState('username')}  />
+                </div>
+                <div className="form-group">
+                  <TextField floatingLabelText="Password" style={inputStyle} type="password" valueLink={this.linkState('password')}  />
+                </div>
+                <div className="form-group">
+                  <TextField style={inputStyle} floatingLabelText="Email" valueLink={this.linkState('email')}  />
+                </div>
+                <div className="form-group">
+                  <TextField style={inputStyle} floatingLabelText="First Name" valueLink={this.linkState('firstName')}  />
+                </div>
+                <div className="form-group">
+                  <TextField style={inputStyle} floatingLabelText="Last Name" valueLink={this.linkState('lastName')}  />
+                </div>
+                <div className="form-group">
+                  <TextField style={inputStyle} floatingLabelText="Phone" valueLink={this.linkState('phone')}  />
+                </div>
+                <CardActions>
+                  <RaisedButton type="submit" className="btn btn-default" label="Save" onClick={this.signup.bind(this)} secondary={true}/>
+                </CardActions>
+               </form>
+            </Card>
+          </CardActions>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input type="password" valueLink={this.linkState('password')} className="form-control" id="password" ref="password" placeholder="Password" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="extra">Extra</label>
-          <input type="text" valueLink={this.linkState('extra')} className="form-control" id="password" ref="password" placeholder="Some extra information" />
-        </div>
-        <button type="submit" className="btn btn-default" onClick={this.signup.bind(this)}>Submit</button>
-      </form>
-    </div>
+      </div>
     );
   }
 }
 
 ReactMixin(Signup.prototype, React.addons.LinkedStateMixin);
+
+export default MaterialComponent(Signup)

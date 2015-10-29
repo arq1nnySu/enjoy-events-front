@@ -1,9 +1,9 @@
 'use strict';
-
+import Gravatar from 'react-gravatar';
 import React from 'react';
 import LoginStore from '../stores/LoginStore'
 import { Route, RouteHandler, Link } from 'react-router';
-import AuthService from '../services/AuthService';
+import UserService from '../services/UserService';
 import MaterialComponent from './MaterialComponent';
 import AppLeftNav from './AppLeftNav';
 import {AppBar, Avatar, FlatButton, AppCanvas, ListItem} from  'material-ui';
@@ -57,10 +57,14 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
 
   logout(e) {
     e.preventDefault();
-    AuthService.logout();
+    UserService.logout();
   }
 
   get headerItems() {
+    var gravatarStyle = {
+      borderRadius: 20,
+      marginRight: -2,
+    }
     if (!this.state.userLoggedIn) {
       return (
       <div >
@@ -72,7 +76,8 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
           <IconMenu
               iconButtonElement={
                 <ListItem
-                  rightAvatar={<Avatar src="http://material-ui.com/images/uxceo-128.jpg" />}
+                  rightAvatar={
+                     <Gravatar email={this.state.user.email} size={40} style={gravatarStyle} />}
                   primaryText={this.state.user.username} />
               }
               openDirection="bottom-left">

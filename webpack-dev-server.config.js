@@ -59,10 +59,10 @@ var config = {
         loaders: ['react-hot','babel-loader?stage=0'], //react-hot is like browser sync and babel loads jsx and es6-7
         exclude: [nodeModulesPath],
       },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract("css-loader")
-      },
+      { test: /\.less$/, loader: "style-loader!css-loader!less-loader" },
+      { test: /\.gif$/, loader: "url-loader?mimetype=image/png" },
+      { test: /\.png$/, loader: "url-loader?mimetype=image/png" },
+      {test: /\.css$/,  loader: ExtractTextPlugin.extract("css-loader")},
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
     ]
