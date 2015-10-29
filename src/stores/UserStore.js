@@ -1,4 +1,4 @@
-import {ALL_USERS, LOGGED_USER} from '../constants/AppConstants';
+import {ALL_USERS, LOGGED_USER, LOGOUT_USER} from '../constants/AppConstants';
 import BaseStore from './BaseStore';
 
 class UserStore extends BaseStore {
@@ -19,6 +19,11 @@ class UserStore extends BaseStore {
         this._loggedUser = action.loggedUser;
         this.emitChange();
         break;
+      case LOGOUT_USER:
+        this._loggedUser = null
+        this._users = null
+        this.emitChange();
+       break;
       default:
         break;
     };
