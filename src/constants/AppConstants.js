@@ -1,4 +1,4 @@
-var BASE_URL = process.env.BASE_URL || 'http://enjoy-events-portal.herokuapp.com/';
+var BASE_URL = process.env.BASE_URL || 'http://localhost:5000/';
 
 export default {
 
@@ -11,6 +11,7 @@ export default {
   CREATE_ASSISTANCE_URL: BASE_URL + 'assistances',
   ASSISTANCES_URL: BASE_URL +'assistances',
   ALL_USERS_URL : BASE_URL + 'users',
+  WETHER_URL: BASE_URL + 'weather',
 
   
 

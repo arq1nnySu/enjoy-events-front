@@ -163,3 +163,19 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .login_required{
   color: #d50000;
 }
+
+.location{
+  font-size: 17px;
+}
+
+.temperature{
+  font-size: 40px;
+}
+
+.temperature_symbol{
+  float: left;
+  margin-top: 6px;
+}
+
+.temp_detail{color: #878787 !important;}
+.temp_detail span{ display: inline;}

@@ -3,6 +3,7 @@ import MaterialComponent from './MaterialComponent';
 import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton, Snackbar} from  'material-ui';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
+import WeatherService from '../services/WeatherService.js';
 import AssistanceService from '../services/AssistanceService.js';
 import MapsPlace from 'material-ui/lib/svg-icons/maps/place';
 import AuthenticatedComponent  from './AuthenticatedComponent';
@@ -25,7 +26,8 @@ class LandingEvent extends React.Component {
   }
 
   _onChange() {
-    this.setState(this.getEventState());
+    this.setState(this.getEventState())
+    this.loadWeather()
   }
 
   getEvent() {
@@ -34,7 +36,8 @@ class LandingEvent extends React.Component {
 
   getEventState() {
     return {
-      event: EventStore.event
+      event: EventStore.event,
+      weather: {weather:{}, coord:{}, data:{}}
     };
   }
 
@@ -47,15 +50,21 @@ class LandingEvent extends React.Component {
     );
   }
 
+  loadWeather(){
+    WeatherService.weatherFor("Bernal").then(response => {
+        this.state.weather = response
+        this.setState(this.state)
+    })
+  }
+
+
   render() {
     var event = this.state.event;
     if(event != undefined){
       event.fakeVenue = {name:event.venue, 
-      latitude:"-34.60370190000",
-      longitude:"-58.381872999999985",
       address:{street:"Roque Sáens Peña 352", city: "Bernal, Buenos Aires"}};
-      var mapLink = "https://maps.google.com?saddr=My+Location&daddr="+event.fakeVenue.latitude+","+event.fakeVenue.longitude;
-      var mapImage = "https://maps.googleapis.com/maps/api/staticmap?center="+event.fakeVenue.latitude+","+event.fakeVenue.longitude+"&zoom=15&size=120x84&maptype=roadmap"
+      var mapLink = "https://maps.google.com?saddr=My+Location&daddr="+this.state.weather.coord.lat+","+this.state.weather.coord.lon;
+      var mapImage = "https://maps.googleapis.com/maps/api/staticmap?center="+this.state.weather.coord.lat+","+this.state.weather.coord.lon+"&zoom=15&size=120x84&maptype=roadmap"
       return (
         <div >
           <Card >
@@ -71,16 +80,29 @@ class LandingEvent extends React.Component {
                 {this.getAssistanceComponent()}
             </div>
             <div className="addon">
-              <div className="con location clearfix">
-                <div className="col-xs-7"> {event.fakeVenue.name}<a href="#">{event.fakeVenue.street}</a> <span><strong>{event.fakeVenue.address.street}</strong></span>{event.fakeVenue.address.city}
+              <div className="clearfix">
+                <div className="col-xs-12"> 
+                  <div className="col-xs-6 location">
+                    <span className="col-xs-6"><img src={this.getWeatherImage()}/></span>
+                    <div className="col-xs-3 temperature"> {this.state.weather.data.temperature} </div>
+                    <span className="temperature_symbol">°C.</span>
+                    <p className="col-xs-12 temp_detail">Humedad: {this.state.weather.data.humidity}%.</p>
+                    <p className="col-xs-12 temp_detail">Presion: {this.state.weather.data.pressure}%.</p>
+                    <p className="col-xs-12 temp_detail">Viento: {this.state.weather.data.wind} km/h.</p>
+                  </div> 
+                  <div className="col-xs-6">
+                    {event.fakeVenue.address.city}
+                    {event.fakeVenue.name}
+                    <span><strong>{event.fakeVenue.address.street}</strong></span> 
+                    <img src={mapImage}/>
+                  </div>
                     <RaisedButton label="Como llegar al evento" secondary={true} linkButton={true} href={mapLink}  target="_blank">
                       <MapsPlace style={this.getButtonIcon()} />
                     </RaisedButton>
                 </div>
-                <div className="col-xs-4 pull-right"> <img src={mapImage}/>  </div>
               </div >
                </div>
-              <div className="addon">
+                <div className="addon">
                   <h2>Más información</h2>
                   <div className="clearfix">
                     <IconButton iconClassName="btn-social icon-custom-github" tooltip="Facebook"/>
@@ -101,6 +123,10 @@ class LandingEvent extends React.Component {
         </div>
       )
     }
+  }
+
+  getWeatherImage(){
+    return "http://openweathermap.org/img/w/" + this.state.weather.weather.icon + ".png"
   }
 
 
