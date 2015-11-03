@@ -179,3 +179,7 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 
 .temp_detail{color: #878787 !important;}
 .temp_detail span{ display: inline;}
+.event_item_button{ text-align:center;}
+.event_item_button a{ width: 100%;}
+.event_item_button div{ width: 100%;}
+.forecast{ margin-bottom: 50px; display: inline-block;}

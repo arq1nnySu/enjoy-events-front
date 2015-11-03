@@ -10,7 +10,8 @@ export default {
   CREATE_EVENT_URL: BASE_URL + 'events',
   CREATE_ASSISTANCE_URL: BASE_URL + 'assistances',
   ASSISTANCES_URL: BASE_URL +'assistances',
-  ALL_USERS_URL : BASE_URL + 'users',
+  USERS_URL : BASE_URL + 'users',
+  VENUES_URL : BASE_URL + 'venues',
   WETHER_URL: BASE_URL + 'weather',
 
   
@@ -23,5 +24,6 @@ export default {
   ASSISTANCE_CREATED: 'ASSISTANCE_CREATED',
   ALL_ASSISTANCE: 'ALL_ASSISTANCE',
   ALL_USERS: 'ALL_USERS',
-  LOGGED_USER: 'LOGGED_USER'
+  LOGGED_USER: 'LOGGED_USER',
+  ALL_VENUES : 'ALL_VENUES'
 }

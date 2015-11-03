@@ -4,10 +4,11 @@ import {WETHER_URL} from '../constants/AppConstants';
 
 class WeatherService {
 
-    weatherFor(city){
+    weatherFor(eventTag){
     	return reqwest({
 	      url: WETHER_URL,
 	      method: 'GET',
+	      data: {event:eventTag},
 	      type: 'json'
 	   	})
   	}

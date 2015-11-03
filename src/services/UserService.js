@@ -1,7 +1,7 @@
 import request from './Request';
 import reqwest from 'reqwest';
 import when from 'when';
-import {LOGIN_URL, SIGNUP_URL, ALL_USERS_URL} from '../constants/AppConstants';
+import {LOGIN_URL, SIGNUP_URL, USERS_URL} from '../constants/AppConstants';
 import LoginActions from '../actions/LoginActions';
 import UserActions from '../actions/UserActions';
 
@@ -53,7 +53,7 @@ class UserService {
 
   allUsers(){
     request.request({
-      url: ALL_USERS_URL,
+      url: USERS_URL,
       method: 'GET'
     })
     .then(function(response) {

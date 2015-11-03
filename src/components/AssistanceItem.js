@@ -13,7 +13,7 @@ export default MaterialComponent(class AssistanceItem extends React.Component {
     if(assistance.requirements){
 
       requirements = 
-        <List subheader="Requerimientos"> 
+        <List subheader="Requirements"> 
               {assistance.requirements.map(req => <ListItem primaryText={req.name}  rightAvatar={<Avatar >{req.quantity}</Avatar>}/> )} 
         </List>
     }
