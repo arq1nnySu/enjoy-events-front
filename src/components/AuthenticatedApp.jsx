@@ -11,7 +11,6 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import IconMenu from 'material-ui/lib/menus/icon-menu'
 import Delete from 'material-ui/lib/svg-icons/action/delete'
 
-
 export default MaterialComponent(class AuthenticatedApp extends React.Component {
   constructor() {
     super()
@@ -40,18 +39,18 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
 
   render() {
     return (
-      <AppCanvas >
-           <AppBar
-            title="Enjoy Events"
-            onLeftIconButtonTouchTap={this._onLeftIconButtonTouchTap.bind(this)}
-            iconClassNameRight="muidocs-icon-navigation-expand-more" 
-            iconElementRight={this.headerItems}
-            style={{position: 'fixed'}}/>
-        <RouteHandler/>
-        <AppLeftNav ref="leftNav" 
-          {...this.props} 
-          userLoggedIn={this.state.userLoggedIn} />
-      </AppCanvas>
+        <AppCanvas >
+             <AppBar
+              title="Enjoy Events"
+              onLeftIconButtonTouchTap={this._onLeftIconButtonTouchTap.bind(this)}
+              iconClassNameRight="muidocs-icon-navigation-expand-more" 
+              iconElementRight={this.headerItems}
+              style={{position: 'fixed'}}/>
+          <RouteHandler/>
+          <AppLeftNav ref="leftNav" 
+            {...this.props} 
+            userLoggedIn={this.state.userLoggedIn} />
+        </AppCanvas>
     );
   }
 

@@ -1,11 +1,14 @@
 import React from 'react/addons';
 import ReactMixin from 'react-mixin';
 import EventService from '../services/EventService';
+import VenueService from '../services/VenueService';
 import UserService from '../services/UserService';
 import RouterContainer from '../services/RouterContainer';
 import EventStore from '../stores/EventStore'
 import UserStore from '../stores/UserStore'
+import VenueStore from '../stores/VenueStore'
 import Multiselect from 'react-widgets/lib/Multiselect'
+import DropdownList from 'react-widgets/lib/DropdownList'
 import {RaisedButton, DatePicker, TimePicker, TextField, SelectField, 
   Card,CardTitle, CardActions,ClearFix, Avatar} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
@@ -13,6 +16,7 @@ import RedirectAuthenticatedComponent from './RedirectAuthenticatedComponent';
 import ImageImage from 'material-ui/lib/svg-icons/image/image';
 import TimerImage from 'material-ui/lib/svg-icons/av/av-timer';
 import LocationImage from 'material-ui/lib/svg-icons/communication/location-on';
+import GroupImage from 'material-ui/lib/svg-icons/social/group-add';
 import DateImage from 'material-ui/lib/svg-icons/action/event';
 import DescriptionImage from 'material-ui/lib/svg-icons/action/description';
 import NameImage from 'material-ui/lib/svg-icons/action/book';
@@ -40,7 +44,17 @@ class MultiSelectItem extends React.Component {
       </span>
     )
   }
+}
 
+class DropdownItem extends React.Component {
+  render(){
+    var venue = this.props.item;
+    return (
+      <span>
+        {venue.name}, {venue.city}
+      </span>
+    )
+  }
 }
 
 class EventForm extends React.Component {
@@ -49,19 +63,28 @@ class EventForm extends React.Component {
     super()
     this.state = {extra:{error:{message:{}}}, time:"", gests:[]};
     this._onChange = this._onChange.bind(this);
+    this._onChangeVenue = this._onChangeVenue.bind(this);
     this.loadGetsUsers()
+    this.loadVenues()
   }
 
-   componentDidMount() {
+  componentDidMount() {
     EventStore.addChangeListener(this._onChange);
+    VenueStore.addChangeListener(this._onChangeVenue);
   }
 
   componentWillUnmount() {
-    EventStore.removeChangeListener(this._onChange);
+    EventStore.removeChangeListener(this._onChange)
+    VenueStore.removeChangeListener(this._onChangeVenue)
   }
 
   _onChange() {
     RouterContainer.get().transitionTo('/event/'+ EventStore.event.tag);
+  }
+
+  _onChangeVenue(){
+      this.state.extra.venues = VenueStore.venues
+      this.setState(this.state)
   }
 
   setTime(time){
@@ -141,7 +164,14 @@ class EventForm extends React.Component {
                   <LocationImage/>
                 </span>
                 <span className="col-sm-10">
-                  <TextField style={inputStyle}  floatingLabelText="Venue"  errorText={this.state.extra.error.message.venue} valueLink={this.linkState('venue')}  />
+                  <CardTitle subtitle="Venue"/>
+                  <DropdownList
+                      placeholder="Select venue"
+                      valueComponent={DropdownItem}
+                      itemComponent={DropdownItem}
+                      data={this.state.extra.venues} 
+                      onChange={this.selectVenue.bind(this)}
+                  />
                 </span>
               </div>
 
@@ -191,7 +221,7 @@ class EventForm extends React.Component {
 
               <div className="form-group">
                 <span className="control-label col-sm-1">
-                  <LocationImage/>
+                  <GroupImage/>
                 </span>
                 <span className="col-sm-10" >
                   <CardTitle subtitle="Gests"/>
@@ -237,8 +267,18 @@ class EventForm extends React.Component {
     UserService.allUsers()
   }
 
+  loadVenues(){
+    if(!VenueService.venues){
+      VenueService.allVenues()
+    }
+  }
+
   selectUsers(users){
     this.state.gests = users.map(user => user.username)
+  }
+
+  selectVenue(venue){
+      this.state.venue = venue.name
   }
 
 }

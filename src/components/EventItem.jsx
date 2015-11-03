@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialComponent from './MaterialComponent';
-import {Card, CardMedia, CardTitle, CardText, FlatButton, CardActions} from  'material-ui';
+import {Card, CardMedia, CardTitle, CardText, RaisedButton, CardActions} from  'material-ui';
 
 export default MaterialComponent(class EventItem extends React.Component {
   render() {
@@ -14,10 +14,10 @@ export default MaterialComponent(class EventItem extends React.Component {
            </div>
           </CardMedia>
            <CardText>
-            {event.venue}
+            {event.venue.name}
           </CardText>
-           <CardActions className="col-sm-12">
-              <FlatButton label="Mas info" route="event/" linkButton={true}  href={"/#/event/"+event.tag}/>
+           <CardActions className="col-sm-12 event_item_button">
+              <RaisedButton label="Mas info" route="event/" linkButton={true}  href={"/#/event/"+event.tag} secondary={true}/>
           </CardActions>
         </Card>
         </div>

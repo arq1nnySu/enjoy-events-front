@@ -3,9 +3,11 @@ import MaterialComponent from './MaterialComponent';
 import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton, Snackbar} from  'material-ui';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
+import WeatherService from '../services/WeatherService.js';
 import AssistanceService from '../services/AssistanceService.js';
 import MapsPlace from 'material-ui/lib/svg-icons/maps/place';
 import AuthenticatedComponent  from './AuthenticatedComponent';
+import moment  from 'moment';
 
 class LandingEvent extends React.Component {
 
@@ -25,7 +27,8 @@ class LandingEvent extends React.Component {
   }
 
   _onChange() {
-    this.setState(this.getEventState());
+    this.setState(this.getEventState())
+    this.loadWeather()
   }
 
   getEvent() {
@@ -34,7 +37,8 @@ class LandingEvent extends React.Component {
 
   getEventState() {
     return {
-      event: EventStore.event
+      event: EventStore.event,
+      weather: {weather:{}, coord:{}, data:{}}
     };
   }
 
@@ -47,15 +51,19 @@ class LandingEvent extends React.Component {
     );
   }
 
+  loadWeather(){
+    WeatherService.weatherFor(this.state.event.tag).then(response => {
+        this.state.weather = response
+        this.setState(this.state)
+    })
+  }
+
+
   render() {
     var event = this.state.event;
     if(event != undefined){
-      event.fakeVenue = {name:event.venue, 
-      latitude:"-34.60370190000",
-      longitude:"-58.381872999999985",
-      address:{street:"Roque Sáens Peña 352", city: "Bernal, Buenos Aires"}};
-      var mapLink = "https://maps.google.com?saddr=My+Location&daddr="+event.fakeVenue.latitude+","+event.fakeVenue.longitude;
-      var mapImage = "https://maps.googleapis.com/maps/api/staticmap?center="+event.fakeVenue.latitude+","+event.fakeVenue.longitude+"&zoom=15&size=120x84&maptype=roadmap"
+      var mapLink = "https://www.google.com/maps/dir/Current+Location/"+event.venue.street+","+event.venue.city+","+event.venue.country;
+      var mapImage = "https://maps.googleapis.com/maps/api/staticmap?center="+event.venue.street+","+event.venue.city+","+event.venue.country+"&zoom=15&size=150x100&maptype=roadmap"
       return (
         <div >
           <Card >
@@ -63,7 +71,7 @@ class LandingEvent extends React.Component {
                <img src={event.image}/>
             </CardMedia>
             <CardTitle />
-            <CardText className="col-sm-7" >
+            <CardText className="col-sm-8" >
               <div dangerouslySetInnerHTML={ {__html: event.description}} />
             </CardText>
             <div className="col-sm-4 col-xs-12 pg_sidebar pull-right">
@@ -71,17 +79,23 @@ class LandingEvent extends React.Component {
                 {this.getAssistanceComponent()}
             </div>
             <div className="addon">
-              <div className="con location clearfix">
-                <div className="col-xs-7"> {event.fakeVenue.name}<a href="#">{event.fakeVenue.street}</a> <span><strong>{event.fakeVenue.address.street}</strong></span>{event.fakeVenue.address.city}
-                    <RaisedButton label="Como llegar al evento" secondary={true} linkButton={true} href={mapLink}  target="_blank">
+              <div className="clearfix">
+                <div className="col-xs-12"> 
+                  {this.weatherComponent()}
+                  <div className="col-xs-6">
+                    {event.venue.city}
+                    {event.venue.name}
+                    <span><strong>{event.venue.street}</strong></span> 
+                    <img src={mapImage}/>
+                  </div>
+                    <RaisedButton label="How to arrive to event" secondary={true} linkButton={true} href={mapLink}  target="_blank">
                       <MapsPlace style={this.getButtonIcon()} />
                     </RaisedButton>
                 </div>
-                <div className="col-xs-4 pull-right"> <img src={mapImage}/>  </div>
               </div >
                </div>
-              <div className="addon">
-                  <h2>Más información</h2>
+                <div className="addon">
+                  <h2>More information</h2>
                   <div className="clearfix">
                     <IconButton iconClassName="btn-social icon-custom-github" tooltip="Facebook"/>
                     <IconButton iconClassName="btn-social icon-custom-github" tooltip="Youtube"/>
@@ -103,13 +117,36 @@ class LandingEvent extends React.Component {
     }
   }
 
+  weatherComponent(){
+    if(this.state.weather.data){
+      return <div className="col-xs-6 location">
+              <span className="col-xs-12 temp_detail"><div>{moment(this.state.event.date +" "+this.state.event.time).format("dddd, MMMM Do YYYY, h:mm a")}</div></span>
+              <span className="col-xs-6"><img src={this.getWeatherImage()}/></span>
+              <div className="col-xs-3 temperature"> {this.state.weather.data.temperature} </div>
+              <span className="temperature_symbol">°C.</span>
+              <p className="col-xs-12 temp_detail">Humidity: {this.state.weather.data.humidity}%.</p>
+              <p className="col-xs-12 temp_detail">Pressure: {this.state.weather.data.pressure}%.</p>
+              <p className="col-xs-12 temp_detail">Wind: {this.state.weather.data.wind} km/h.</p>
+            </div> 
+    }else{
+      return <div className="col-xs-6 location">
+              <span className="col-xs-12 temp_detail"><div>{moment(this.state.event.date +" "+this.state.event.time).format("dddd, MMMM Do YYYY, h:mm a")}</div></span>
+              <span className="temp_detail forecast" style={{display:"inline-block"}}><h1>Forecast not available</h1></span>
+            </div> 
+    }
+  }
+
+  getWeatherImage(){
+    return "http://openweathermap.org/img/w/" + this.state.weather.weather.icon + ".png"
+  }
+
 
   getAssistanceComponent(){
     if(this.props.userLoggedIn){
       if(this.state.event.hasAssistance){
         return <div>
                 <span className="col-xs-4"><img src="https://www.allaccess.com.ar/img/ico_purchase_ok.png" style={{"max-width": "100%", "min-width":"100%"}}/></span>
-                <span className="col-xs-8 assistance_event"><h1>Ta tenes una asistencia para este evento.</h1></span>  
+                <span className="col-xs-8 assistance_event"><h1>You have an assistance for this event.</h1></span>  
               </div>
       }else{
         return <span className="col-xs-12">
