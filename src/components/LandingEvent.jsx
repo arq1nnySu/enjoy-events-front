@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialComponent from './MaterialComponent';
-import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton, Snackbar} from  'material-ui';
+import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton, Snackbar, Dialog, FlatButton} from  'material-ui';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
 import WeatherService from '../services/WeatherService.js';
@@ -15,6 +15,9 @@ class LandingEvent extends React.Component {
     super(props);
     this.state = this.getEventState();
     this._onChange = this._onChange.bind(this);
+    this._createAssistance = this.createAssistance.bind(this);
+    this._cancelButtonDialog = this.cancelButtonDialog.bind(this);
+    this._finishButtonDialog = this.finishButtonDialog.bind(this);
   }
 
   componentDidMount() {
@@ -37,18 +40,29 @@ class LandingEvent extends React.Component {
 
   getEventState() {
     return {
+      modal: false,
       event: EventStore.event,
       weather: {weather:{}, coord:{}, data:{}}
     };
   }
 
   createAssistance(){
+    if (this.state.event.requirement != []){
+      this.refs.requirementsDialog.show();
+    }
     AssistanceService.createAssistance({event:this.state.event.tag}).then( resp => {
         this.state.event.hasAssistance = true
         this.setState(this.state)
         this.refs.successBar.show()
-      }
-    );
+      });
+  }
+
+  cancelButtonDialog(){
+    // dismiss dialog y que siga normal
+  }
+
+  finishButtonDialog(){
+    // crear los requerimientos, guardarlos en la assistencia.
   }
 
   loadWeather(){
@@ -104,6 +118,7 @@ class LandingEvent extends React.Component {
                   </div>
                 </div>
               </div>
+              {this.getDialogChooseRequirements()}
           </Card>
            <Snackbar ref="successBar" message="Assistance to event successfully"/>
           </div>
@@ -141,6 +156,34 @@ class LandingEvent extends React.Component {
   }
 
 
+  getDialogChooseRequirements(){
+
+    let requirementsActions = [
+      <FlatButton
+        key={1}
+        label="Cancel"
+        secondary={true}
+        onTouchTap={this._cancelButtonDialog} />,
+      <FlatButton
+        key={2}
+        label="Finish"
+        primary={true}
+        onTouchTap={this._finishButtonDialog} />,
+    ];
+
+    return <Dialog
+              ref="requirementsDialog"
+              title="You want help with the Requirements???"
+              actions={requirementsActions}
+              modal={this.state.modal}
+              autoDetectWindowHeight={true}
+              autoScrollBodyContent={true}>
+              <div style={{height: '1000px'}}>
+              Really long content
+              </div>
+            </Dialog>
+  }
+
   getAssistanceComponent(){
     if(this.props.userLoggedIn){
       if(this.state.event.hasAssistance){
@@ -150,7 +193,7 @@ class LandingEvent extends React.Component {
               </div>
       }else{
         return <span className="col-xs-12">
-                  <RaisedButton className="assistance_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Attending" onClick={this.createAssistance.bind(this)} />
+                  <RaisedButton className="assistance_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Attending" onClick={this._createAssistance} />
                 </span>
       }
     }else{
