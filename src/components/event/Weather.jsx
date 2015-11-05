@@ -7,7 +7,7 @@ export default MaterialComponent(class WeatherComponent extends React.Component 
 
   constructor(props) {
     super(props);
-    this.state = {event:this.props.event, weather:{}, coord:{}, data:{}};
+    this.state = {event:this.props.event};
     this.loadWeather()
   }
 

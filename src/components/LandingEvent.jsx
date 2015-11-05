@@ -2,6 +2,7 @@ import React from 'react';
 import MaterialComponent from './MaterialComponent';
 import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton} from  'material-ui';
 import EventStore from '../stores/EventStore'
+import EventActions from '../actions/EventActions';
 import EventService from '../services/EventService.js';
 import AuthenticatedComponent  from './AuthenticatedComponent';
 import Weather from './event/Weather'
@@ -12,6 +13,7 @@ class LandingEvent extends React.Component {
 
   constructor(props) {
     super(props);
+    EventActions.clearEvent();
     this.state = this.getEventState();
     this._onChange = this._onChange.bind(this);
   }
@@ -54,12 +56,12 @@ class LandingEvent extends React.Component {
             </CardText>
             <div className="col-sm-4 pg_sidebar pull-right">
               <div className="addon clearfix" style={{"text-align": "center"}}>
-                <CreateAssistance event={event} userLoggedIn={this.props.userLoggedIn}/>
+                <CreateAssistance event={this.state.event} userLoggedIn={this.props.userLoggedIn}/>
               </div>
               <div className="addon">
                 <div className="col-xs-12"> 
-                  <Weather event={event}/>
-                  <Venue event={event} />
+                  <Weather event={this.state.event}/>
+                  <Venue event={this.state.event} />
                 </div>
               </div>
               <div className="col-sm-12 addon">
