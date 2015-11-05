@@ -40,9 +40,10 @@ class LandingEvent extends React.Component {
 
   getEventState() {
     return {
-      modal: false,
+      modal: true,
       event: EventStore.event,
-      weather: {weather:{}, coord:{}, data:{}}
+      weather: {weather:{}, coord:{}, data:{}},
+      requirement = []
     };
   }
 
@@ -50,7 +51,7 @@ class LandingEvent extends React.Component {
     if (this.state.event.requirement != []){
       this.refs.requirementsDialog.show();
     }
-    AssistanceService.createAssistance({event:this.state.event.tag}).then( resp => {
+    AssistanceService.createAssistance({event:this.state.event.tag, requirement:this.state.requirement}).then( resp => {
         this.state.event.hasAssistance = true
         this.setState(this.state)
         this.refs.successBar.show()
@@ -58,11 +59,11 @@ class LandingEvent extends React.Component {
   }
 
   cancelButtonDialog(){
-    // dismiss dialog y que siga normal
+    this.refs.requirementsDialog.dismiss();
   }
 
   finishButtonDialog(){
-    // crear los requerimientos, guardarlos en la assistencia.
+   this.refs.requirementsDialog.dismiss(); 
   }
 
   loadWeather(){
@@ -179,9 +180,35 @@ class LandingEvent extends React.Component {
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
               <div style={{height: '1000px'}}>
-              Really long content
+              {this.getListRequirements()}
               </div>
             </Dialog>
+  }
+
+  incrementAmountRequirement(requirement){
+    if (requirement.quantity < this.state.event.getRequirement_by_name(requirement.name).quantity){
+      requirement.quantity =  requirement.quantity + 1; 
+    }
+  }
+
+  decrementAmountRequirement(requirement){
+    if (requirement.quantity > 0 & requirement.quantity =< this.state.event.getRequirement_by_name(requirement.name).quantity){
+      requirement.quantity =  requirement.quantity - 1; 
+    }
+  }
+
+
+  getListRequirements(){
+    var requirementAssistance = this.state.event.requirement.map(req => req.quantity = 0) 
+    <List subheader="Requirements">
+        {requirementAssistance.map(req => <ListItem primaryText={req.name} 
+                                          <RaisedButton className="requirement_amount_minor" labelStyle={{"font-size":5}} style={{margin:10, width:"20%"}} backgroundColor={"#00e676"} labelColor={"white"} label="-" onClick={this.decrementAmountRequirement(req)} /> 
+                                          rightAvatar={<Avatar >{req.quantity}</Avatar>}/> 
+                                          <RaisedButton className="requirement_amount_major" labelStyle={{"font-size":5}} style={{margin:10, width:"20%"}} backgroundColor={"#00e676"} labelColor={"white"} label="-" onClick={this.incrementAmountRequirement(req)} /> 
+        )}
+    </List>
+    this.state.requirement = requirementAssistance
+    this.setState(this.state)
   }
 
   getAssistanceComponent(){
