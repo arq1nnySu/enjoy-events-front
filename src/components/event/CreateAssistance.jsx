@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialComponent from '../MaterialComponent';
-import {Card,RaisedButton, Snackbar, Dialog, FlatButton, Avatar, List, ListItem} from  'material-ui';
+import {Card,RaisedButton, Snackbar, Dialog, Avatar, List, ListItem} from  'material-ui';
 import AssistanceService from '../../services/AssistanceService.js';
 import MinusImage from 'material-ui/lib/svg-icons/content/remove';
 import PlusImage from 'material-ui/lib/svg-icons/content/add';
@@ -10,7 +10,7 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
   constructor(props) {
     super(props);
     this.state = this.getModelState();
-    this.state.event.requirement.forEach((req, idx) => {
+    this.state.event.requirementMissing.forEach((req, idx) => {
       req.user = 0
       req.minusDisabled = true
       req.plusDisabled = false
@@ -25,7 +25,7 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
   }
 
   attending(){
-    if (this.state.event.requirement.length > 0){
+    if (this.state.event.requirementMissing.length > 0){
       this.refs.requirementsDialog.show();
     }else{
       this.createAssistance()
@@ -33,13 +33,13 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
   }
 
   createAssistance(){
-    let requirements = this.state.event.requirement.map(req => {
+    let requirements = this.state.event.requirementMissing.map(req => {
       let requirement = {}
       requirement.name = req.name
       requirement.quantity = req.user
       return requirement
     })
-    AssistanceService.createAssistance({event:this.state.event.tag, requirement:requirements}).then( resp => {
+    AssistanceService.createAssistance({event:this.state.event.tag, requirements:requirements}).then( resp => {
       this.state.event.hasAssistance = true
       this.setState(this.state)
       this.refs.successBar.show()
@@ -63,14 +63,12 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
             <Dialog
               ref="requirementsDialog"
               title="You want help with the Requirements???"
-              actions={[<FlatButton
-                          key={1}
+              actions={[<RaisedButton
                           label="Cancel"
                           secondary={true}
                           onTouchTap={this.closeDialog.bind(this)} />,
-                        <FlatButton
-                          key={2}
-                          label="Finish"
+                        <RaisedButton
+                          label="Confirm"
                           primary={true}
                           onTouchTap={this.finishButtonDialog.bind(this)} />]}
               modal={this.state.modal}
@@ -87,7 +85,7 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
 
   getListRequirements(){
     return <ul id="additional_list">
-            {this.state.event.requirement.map(req => 
+            {this.state.event.requirementMissing.map(req => 
               <div style={{padding:"5px"}}>
                 <Card >
                   <li className="ticket clearfix ">

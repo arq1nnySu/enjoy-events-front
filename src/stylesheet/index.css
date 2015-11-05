@@ -175,6 +175,9 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .temperature_symbol{
   float: left;
   margin-top: 6px;
+  font-size: 18px;
+  margin-left: 45px;
+  position: absolute;
 }
 
 .temp_detail{color: #878787 !important;}
