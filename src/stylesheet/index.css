@@ -183,3 +183,21 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .event_item_button a{ width: 100%;}
 .event_item_button div{ width: 100%;}
 .forecast{ margin-bottom: 50px; display: inline-block;}
+
+
+.assistance span {display: table-cell;}
+.assistance ul { padding:0; margin:0;font-family: 'Roboto', sans-serif;}
+.assistance ul li { list-style:none;}
+.assistance li.ticket { border-bottom:solid 1px #f1f1f1; padding:25px 0;} 
+.assistance li.ticket:last-child { border-bottom:none; }
+.assistance li.ticket .ticket-type { font-size:22px; color:#414141;}
+.assistance li.ticket .ticket-type strong { color:#111; font-weight:500;}
+.assistance li.ticket .ticket-type span { display:block; font-size:14px; color:#ff2400;}
+.assistance li.ticket  .ticket-price { color:#00bcd4; font-size:34px; text-align:right; padding-right:20px; line-height:52px;}
+.assistance li.ticket .form-control { border:solid 1px #e5e5e5; border-radius:0; box-shadow:none !important; height:52px; font-size:28px; text-align:center}
+.assistance li.ticket .form-control:focus { border:solid 2px #00bcd4; box-shadow:0 0 10px rgba(136,60,145,0.3) !important}
+.assistance .btn { border-radius:0; box-shadow:none !important;}
+.assistance .btn-default { color:#00bcd4; border:solid 1px #00bcd4; text-transform:uppercase; font-size:12px; font-weight:bold; letter-spacing:1px; padding:9px 26px;}
+.assistance .btn-default:hover { background:#00bcd4 !important; border:solid 1px #00bcd4 !important; color:#fff !important;}
+.assistance .btn-lg { padding:20px 40px !important; font-size:14px;}
+

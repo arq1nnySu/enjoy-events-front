@@ -1,20 +1,26 @@
 import React from 'react';
 import MaterialComponent from '../MaterialComponent';
-import {RaisedButton, Snackbar, Dialog, FlatButton, Avatar, List, ListItem} from  'material-ui';
+import {Card,RaisedButton, Snackbar, Dialog, FlatButton, Avatar, List, ListItem} from  'material-ui';
 import AssistanceService from '../../services/AssistanceService.js';
+import MinusImage from 'material-ui/lib/svg-icons/content/remove';
+import PlusImage from 'material-ui/lib/svg-icons/content/add';
 
 export default MaterialComponent(class CreateAssistance extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = this.getModelState();
+    this.state.event.requirement.forEach((req, idx) => {
+      req.user = 0
+      req.minusDisabled = true
+      req.plusDisabled = false
+    })
   }
 
   getModelState() {
     return {
       modal: true,
-      event: this.props.event,
-      requirement : []
+      event: this.props.event
     };
   }
 
@@ -27,7 +33,13 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
   }
 
   createAssistance(){
-    AssistanceService.createAssistance({event:this.state.event.tag, requirement:this.state.requirement}).then( resp => {
+    let requirements = this.state.event.requirement.map(req => {
+      let requirement = {}
+      requirement.name = req.name
+      requirement.quantity = req.user
+      return requirement
+    })
+    AssistanceService.createAssistance({event:this.state.event.tag, requirement:requirements}).then( resp => {
       this.state.event.hasAssistance = true
       this.setState(this.state)
       this.refs.successBar.show()
@@ -64,7 +76,7 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
               modal={this.state.modal}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
-              <div style={{height: '1000px'}}>
+              <div style={{height: '1000px'}} className="assistance">
               {this.getListRequirements()}
               </div>
             </Dialog>
@@ -73,30 +85,33 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
       )
   }
 
-  incrementAmountRequirement(requirement){
-    // if (requirement.quantity < this.state.event.getRequirement_by_name(requirement.name).quantity){
-    //   requirement.quantity =  requirement.quantity + 1; 
-    // }
-    3
-  }
-
-  decrementAmountRequirement(requirement){
-    // if (requirement.quantity > 0 & requirement.quantity =< this.state.event.getRequirement_by_name(requirement.name).quantity){
-    //   requirement.quantity =  requirement.quantity - 1; 
-    // }
-    3
-  }
-
-
   getListRequirements(){
-    return <List subheader="Requirements">
-        {this.state.event.requirement.map(req => 
-          <ListItem primaryText={req.name}  rightAvatar={<Avatar >{req.quantity}</Avatar>} >
-            <RaisedButton className="requirement_amount_minor" labelStyle={{"font-size":5}} style={{margin:10, width:"20%"}} backgroundColor={"#00e676"} labelColor={"white"} label="-" onClick={this.decrementAmountRequirement(req)} /> 
-            <RaisedButton className="requirement_amount_major" labelStyle={{"font-size":5}} style={{margin:10, width:"20%"}} backgroundColor={"#00e676"} labelColor={"white"} label="-" onClick={this.incrementAmountRequirement(req)} /> 
-          </ListItem> 
-        )}
-    </List>
+    return <ul id="additional_list">
+            {this.state.event.requirement.map(req => 
+              <div style={{padding:"5px"}}>
+                <Card >
+                  <li className="ticket clearfix ">
+                    <div className="col-xs-12 col-sm-2 col-md-7 ticket-type"><strong>{req.name}</strong></div>
+                      <div className="col-xs-8 col-sm-3 col-md-3">
+                          <div className="input-group" style={{"max-width":"95%"}}>
+                              <span className="input-group-btn">
+                                  <button type="button" className="form-control btn btn-default btn-number minus" onClick={ e => this.minus(req)} disabled={req.minusDisabled}>
+                                    <MinusImage/>
+                                  </button>
+                              </span>
+                              <input type="text" id="value_3" style={{"min-width":"70px"}} className="form-control input-number" value={req.user || 0} min="0" max="4"/>
+                              <span className="input-group-btn">
+                                  <button type="button" className="form-control btn btn-default btn-number plus" onClick={e => this.plus(req)} disabled={req.plusDisabled}>
+                                      <PlusImage/>
+                                  </button>
+                              </span>
+                          </div>
+                      </div>
+                    </li>
+                  </Card>
+                </div>
+              )}
+            </ul>
   }
 
   getAssistanceComponent(){
@@ -114,6 +129,24 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
     }else{
         return <span className="col-xs-12 login_required"><h3>You have to login to attend the event.</h3></span>
     }
+  }
+
+  minus(req){
+    if(req.user >0){
+      req.user --
+      req.plusDisabled = req.user >= req.quantity
+    }
+    req.minusDisabled = req.user <=0
+    this.setState(this.state)
+  }
+
+  plus(req){
+    if(req.user < req.quantity){
+      req.user++
+      req.minusDisabled = false
+    }
+    req.plusDisabled = req.user >= req.quantity
+    this.setState(this.state)
   }
 
 });
