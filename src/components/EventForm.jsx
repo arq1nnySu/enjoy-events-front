@@ -132,6 +132,12 @@ class EventForm extends React.Component {
    RouterContainer.get().transitionTo('/')
   }
 
+  addRequirement(){
+    this.state.requirements.push(this.state.extra.requirement)
+    this.state.requirement.name = ""
+    this.state.requirement.quantity = 0
+    this.setState(this.state)
+  }
 
   render() {
     let inputStyle = {width:"100%"}
@@ -205,7 +211,6 @@ class EventForm extends React.Component {
                 </span>
               </div>
 
-
               <div className="col-sm-6 form-group">
                 <span className="col-sm-10" >
                   <CardTitle subtitle="Gests"/>
@@ -215,8 +220,18 @@ class EventForm extends React.Component {
                       tagComponent={MultiSelectItem}
                       data={this.users} 
                       onChange={this.selectUsers.bind(this)}
-                      value={this.state.gests}
-                  />
+                      value={this.state.gests}/>
+                </span>
+              </div>
+
+              <div className="form-group">
+                <span className="control-label col-sm-1">
+                  <GroupImage/>
+                </span>
+                <span className="col-sm-10" >
+                  <CardTitle subtitle="Requirements"/>
+                  {this.getFormRequirement()}
+                  {this.getListRequirements()}
                 </span>
               </div>
 
@@ -236,6 +251,7 @@ class EventForm extends React.Component {
             </div>
             </div>
           </div>
+
         </form>
       </div>
     );
@@ -245,7 +261,45 @@ class EventForm extends React.Component {
     return moment(date).format("YYYY-MM-DD")
   }
 
-  updateGets(){
+  getFormRequirement(){
+    return  <div style={{padding:"5px"}}>
+              <TextField style={{width:"100%"}}  floatingLabelText="Name" valueLink={this.state.requirement.name}  />
+              <TextField style={{width:"100%"}}  floatingLabelText="Quantity" valueLink={this.state.requirement.quantity}  />
+              <RaisedButton className="requirement_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Add" onClick={this.addRequirement.bind(this)} />
+            </div>
+  }
+
+  getListRequirements(){
+    return <ul id="additional_list">
+            {this.state.requirements.map(req => 
+              <div style={{padding:"5px"}}>
+                <Card >
+                  <li className="ticket clearfix ">
+                    <div className="col-xs-12 col-sm-2 col-md-7 ticket-type"><strong>{req.name}</strong></div>
+                      <div className="col-xs-8 col-sm-3 col-md-3">
+                          <div className="input-group" style={{"max-width":"95%"}}>
+                              <span className="input-group-btn">
+                                  <button type="button" className="form-control btn btn-default btn-number minus" onClick={ e => this.minus(req)} disabled={req.minusDisabled}>
+                                    <MinusImage/>
+                                  </button>
+                              </span>
+                              <input type="text" id="value_3" style={{"min-width":"70px"}} className="form-control input-number" value={req.user || 0} min="0" max="4"/>
+                              <span className="input-group-btn">
+                                  <button type="button" className="form-control btn btn-default btn-number plus" onClick={e => this.plus(req)} disabled={req.plusDisabled}>
+                                      <PlusImage/>
+                                  </button>
+                              </span>
+                          </div>
+                      </div>
+                    </li>
+                  </Card>
+                </div>
+              )}
+            </ul>
+  }
+
+
+   updateGets(){
     let users = UserStore.users.map(user=> {
         user.value = user.username
         return user
