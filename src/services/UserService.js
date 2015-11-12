@@ -4,10 +4,12 @@ import when from 'when';
 import {LOGIN_URL, SIGNUP_URL, USERS_URL} from '../constants/AppConstants';
 import LoginActions from '../actions/LoginActions';
 import UserActions from '../actions/UserActions';
+import ga from 'react-ga';
 
 class UserService {
 
   login(username, password) {
+    ga.event({ category: 'User', action: 'Login',label:username } );
     return this.handleAuth(when(reqwest({
       url: LOGIN_URL,
       method: 'POST',
@@ -18,10 +20,12 @@ class UserService {
   }
 
   logout() {
+    ga.event({ category: 'User', action: 'Logout' } );
     LoginActions.logoutUser();
   }
 
   signup(user) {
+    ga.event({ category: 'User', action: 'Created',label:user.username } );
     return this.handleAuth(when(reqwest({
       url: SIGNUP_URL,
       method: 'POST',
@@ -32,6 +36,7 @@ class UserService {
   }
 
   update(user) {
+    ga.event({ category: 'User', action: 'Update',label:user.username } );
     return request.request({
       url: SIGNUP_URL,
       method: 'PUT',
