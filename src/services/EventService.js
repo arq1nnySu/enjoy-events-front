@@ -7,9 +7,10 @@ import ga from 'react-ga';
 
 class EventService {
 
-  allEvents() {
+  allEvents(page) {
     request.request({
       url: EVENTS_URL,
+      data:{page:page},
       method: 'GET'
     })
     .then(function(response) {

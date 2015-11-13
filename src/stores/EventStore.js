@@ -6,7 +6,7 @@ class EventStore extends BaseStore {
   constructor() {
     super();
     this.subscribe(() => this._registerToActions.bind(this))
-    this._eventos = null;
+    this._eventos = [];
   }
 
   _registerToActions(action) {
@@ -28,10 +28,10 @@ class EventStore extends BaseStore {
         this.emitChange();
         break;      
       case LOGOUT_USER:
-        this._eventos = null;
+        this._eventos = [];
         this.emitChange();
       case LOGIN_USER:
-        this._eventos = null;
+        this._eventos = [];
         this.emitChange();
         break;
       default:

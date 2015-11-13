@@ -10,11 +10,15 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
   constructor(props) {
     super(props);
     this.state = this.getModelState();
-    this.state.event.requirementMissing.forEach((req, idx) => {
-      req.user = 0
-      req.minusDisabled = true
-      req.plusDisabled = false
-    })
+    if(this.state.event.requirementMissing){
+      this.state.event.requirementMissing.forEach((req, idx) => {
+        req.user = 0
+        req.minusDisabled = true
+        req.plusDisabled = false
+      })
+    }else{
+      this.state.event.requirementMissing = []
+    }
   }
 
   getModelState() {
