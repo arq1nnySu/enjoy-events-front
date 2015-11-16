@@ -10,7 +10,7 @@ import VenueStore from '../stores/VenueStore'
 import Multiselect from 'react-widgets/lib/Multiselect'
 import DropdownList from 'react-widgets/lib/DropdownList'
 import {RaisedButton, DatePicker, TimePicker, TextField, SelectField, 
-  Card,CardTitle, CardActions,ClearFix, Avatar} from  'material-ui';
+  CardTitle, CardActions, Avatar} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
 import RedirectAuthenticatedComponent from './RedirectAuthenticatedComponent';
 import ImageImage from 'material-ui/lib/svg-icons/image/image';
@@ -116,13 +116,13 @@ class EventForm extends React.Component {
        { id: 'Private', name: 'Privado' },
     ]
     return (
-      <ClearFix className="container content col-md-12" name="Crear Evento">
+      <div className="container content card col-md-12" name="Crear Evento" style={{height:"100%"}}>
         <CardTitle title="Crear Evento" subtitle=""/>
         <form className="form-horizontal" role="form">
-          <ClearFix className="event-form-panel col-md-6">
-            <Card style={{height:"100%"}}>
+          <div className="event-form-panel col-md-6">
+            <div className="card" style={{height:"100%"}}>
               <CardTitle title="Datos" subtitle="primarios"/>
-              
+
               <div className="form-group">
                 <span className="control-label col-sm-1">
                   <NameImage/>
@@ -174,13 +174,12 @@ class EventForm extends React.Component {
                   />
                 </span>
               </div>
+            </div>
+          </div>
 
-            </Card>
-          </ClearFix>
 
-
-          <ClearFix className="event-form-panel col-md-6">
-            <Card style={{height:"100%"}}>
+          <div className="event-form-panel col-md-6">
+            <div className="card" style={{height:"100%"}}>
               <CardTitle title="Datos" subtitle="secundarios"/>
 
               <div className="form-group">
@@ -242,15 +241,15 @@ class EventForm extends React.Component {
                 </span>
               </div>
 
-            </Card>
-          </ClearFix>
+            </div>
+          </div>
           
            <CardActions className="col-sm-7 col-sm-offset-2">
             <RaisedButton style={{margin:10}} label="Cancel" onClick={this.comeBackHome.bind(this)}/>
             <RaisedButton style={{margin:10}} secondary={true} label="Create" onClick={this.createEvent.bind(this)}/>
           </CardActions>
         </form>
-      </ClearFix>
+      </div>
     );
   }
 
