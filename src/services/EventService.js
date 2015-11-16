@@ -3,14 +3,15 @@ import when from 'when';
 import {EVENTS_URL, CREATE_EVENT_URL, GET_EVENT_URL} from '../constants/AppConstants';
 import EventActions from '../actions/EventActions';
 import LoginStore from '../stores/LoginStore.js';
+import EventStore from '../stores/EventStore.js';
 import ga from 'react-ga';
 
 class EventService {
 
-  allEvents(page) {
+  allEvents() {
     request.request({
       url: EVENTS_URL,
-      data:{page:page},
+      data:{page:EventStore.page},
       method: 'GET'
     })
     .then(function(response) {

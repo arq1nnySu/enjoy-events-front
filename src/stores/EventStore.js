@@ -7,6 +7,7 @@ class EventStore extends BaseStore {
     super();
     this.subscribe(() => this._registerToActions.bind(this))
     this._eventos = [];
+    this._page = 0;
   }
 
   _registerToActions(action) {
@@ -29,9 +30,11 @@ class EventStore extends BaseStore {
         break;      
       case LOGOUT_USER:
         this._eventos = [];
+        this._page = 0
         this.emitChange();
       case LOGIN_USER:
         this._eventos = [];
+        this._page = 0
         this.emitChange();
         break;
       default:
@@ -41,6 +44,14 @@ class EventStore extends BaseStore {
 
   get events() {
     return this._eventos;
+  }
+
+  get page(){
+    return this._page
+  }
+
+  nextPage(){
+    this._page+=1
   }
 }
 

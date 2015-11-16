@@ -12,7 +12,6 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
   constructor(props) {
     super(props);
-    this.page = 0
     this.state ={events:[]}
     this.state = this.getHomeState();
     this._onChange = this._onChange.bind(this);
@@ -36,7 +35,7 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
   listEvents() {
     this.loading()
-    EventService.allEvents(this.page);
+    EventService.allEvents();
   }
 
   getHomeState() {
@@ -63,10 +62,8 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
   handleInfiniteLoad() {
     setTimeout(function() {
-        if(this.page <= 5){
-          this.page += 1
-          this.listEvents()
-        }
+      EventStore.nextPage()
+      this.listEvents()
     }.bind(this), 2000)
   }
 

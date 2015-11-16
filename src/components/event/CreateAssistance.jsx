@@ -125,7 +125,7 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
               </div>
       }else{
         return <span className="col-xs-12">
-                  <RaisedButton className="assistance_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Attending" onClick={this.attending.bind(this)} />
+                  <RaisedButton className="assistance_button" labelStyle={{"font-size":20}} style={{margin:10, width:"100%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Attending" onClick={this.attending.bind(this)} />
                 </span>
       }
     }else{

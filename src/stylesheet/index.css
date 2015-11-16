@@ -165,7 +165,7 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 }
 
 .location{
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .temperature{
@@ -180,7 +180,7 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
   position: absolute;
 }
 
-.temp_detail{color: #878787 !important;}
+.temp_detail{color: #878787 !important;font-size: 20px;}
 .temp_detail span{ display: inline;}
 .event_item_button{ text-align:center;}
 .event_item_button a{ width: 100%;}
