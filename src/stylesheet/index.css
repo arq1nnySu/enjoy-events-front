@@ -142,10 +142,6 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
   margin-bottom: 0px;
 }
 
-.event-form-panel{
-  height: 550px;
-}
-
 .login_container{
   float: none;
 }
@@ -206,3 +202,7 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 .card {background: #fff;box-shadow: inset 0 -2px 0 rgba(0,0,0,.12),0 5px 20px rgba(0,0,0,.3);padding: 10px;margin: -10px auto 20px;}
 .myaccount_assistance {background: #fff;box-shadow: inset 0 -2px 0 rgba(0,0,0,.12),0 5px 20px rgba(0,0,0,.3);padding: 10px;}
 .myaccount_assistance_container{margin: 15px auto 0px;}
+.event-header {height: 400px; position: relative; }
+.margin_header{margin-bottom: -100px;}
+.image-header{width: 100%; height: 100%; position: absolute;}
+.cke_toolbar_break {clear: none !important;}

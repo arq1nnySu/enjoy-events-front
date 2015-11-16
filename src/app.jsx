@@ -23,6 +23,7 @@ let routes = (
     <Route name="home" path="/" handler={Home}/>
     <Route name="event" path="/event/:event" handler={LandingEvent}/>
     <Route name="createvent" path="/createEvent" handler={EventForm}/>
+    <Route name="editEvent" path="/editEvent" handler={EventForm}/>
     <Route name="myaccount" path="/myaccount" handler={MyAccount}/>
   </Route>
 );

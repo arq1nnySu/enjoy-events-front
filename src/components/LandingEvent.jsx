@@ -3,11 +3,13 @@ import MaterialComponent from './MaterialComponent';
 import {Card,CardMedia,CardTitle,CardText,RefreshIndicator,IconButton,RaisedButton} from  'material-ui';
 import EventStore from '../stores/EventStore'
 import EventActions from '../actions/EventActions';
+import RouterContainer from '../services/RouterContainer';
 import EventService from '../services/EventService.js';
 import AuthenticatedComponent  from './AuthenticatedComponent';
 import Weather from './event/Weather'
 import CreateAssistance from './event/CreateAssistance'
 import Venue from './event/Venue'
+import {Menu, MainButton, ChildButton} from 'react-mfb';
 
 class LandingEvent extends React.Component {
 
@@ -47,8 +49,8 @@ class LandingEvent extends React.Component {
       return (
         <div >
           <Card >
-             <CardMedia  className="landing_event_image" overlay={<CardTitle title={event.name}/>}>
-               <img src={event.image}/>
+             <CardMedia  overlay={<CardTitle title={event.name}/>}>
+               <div className="event-header" style={{"background":"url('"+event.image+"') no-repeat center center; background-size:cover;"}}/>
             </CardMedia>
             <CardTitle/>
             <CardText className="col-sm-8" >
@@ -64,6 +66,7 @@ class LandingEvent extends React.Component {
                   <Venue event={this.state.event} />
                 </div>
               </div>
+              {this.createMenuButton()}
               <div className="col-sm-12 addon">
                 <h2>More information</h2>
                 <div className="clearfix">
@@ -85,6 +88,25 @@ class LandingEvent extends React.Component {
       )
     }
   }
+
+  createMenuButton(){
+    if(this.state.event.isOwner){
+      return(
+        <Menu effect={"slidein"} method={"hover"} position={"br"}>
+          <MainButton iconResting="ion-plus-round" iconActive="ion-plus-round" />
+             <ChildButton
+              onClick={this.edit.bind(this)}
+              icon="ion-edit"
+              label="Editar Evento"/>
+        </Menu>
+        )
+    }
+  }
+
+  edit(){
+    RouterContainer.get().transitionTo('/editEvent')
+  }
+
 
 };
 export default MaterialComponent(AuthenticatedComponent(LandingEvent))

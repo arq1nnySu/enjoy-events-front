@@ -3,10 +3,10 @@ import EventItem  from './EventItem';
 import AuthenticatedComponent  from './AuthenticatedComponent';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';
-import {CardActions} from 'material-ui';
+import {CardActions, RefreshIndicator} from 'material-ui';
 import RouterContainer from '../services/RouterContainer';
 import Infinite from 'react-infinite'
-import {Menu, MainButton, ChildButton, RefreshIndicator} from 'react-mfb';
+import {Menu, MainButton, ChildButton} from 'react-mfb';
 
 export default AuthenticatedComponent(class Home extends React.Component {
 
@@ -101,10 +101,10 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
       return(
         <Menu effect={effect} method={method} position={pos}>
-          <MainButton iconResting="ion-plus-round" iconActive="ion-edit" />
+          <MainButton iconResting="ion-plus-round" iconActive="ion-plus-round" />
              <ChildButton
               onClick={this.createEvent}
-              icon="ion-plus-round"
+              icon="ion-edit"
               label="Crear Evento"/>
         </Menu>
         )

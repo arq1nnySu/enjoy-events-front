@@ -36,6 +36,23 @@ class EventService {
     });
   }
 
+  updateEvent(event, errorHandler){
+    ga.event({ category: 'Event', action: 'Updated',label:event.tag } );
+    return request.request({
+      url: CREATE_EVENT_URL,
+      method: 'PUT',
+      type: 'json',
+      contentType: "application/json",
+      data: JSON.stringify(event)
+    })
+    .then(function(response) {
+      EventActions.createEvent(response);
+    })
+    .catch(function(error){
+      errorHandler(JSON.parse(error.responseText))
+    });
+  }
+
   getEvent(id) {
     request.request({
       url: GET_EVENT_URL+id,
