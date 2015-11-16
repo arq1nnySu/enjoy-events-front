@@ -142,6 +142,10 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
   margin-bottom: 0px;
 }
 
+.event-form-panel{
+  height: 600px;
+}
+
 .login_container{
   float: none;
 }

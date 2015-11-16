@@ -13,6 +13,9 @@ import {RaisedButton, DatePicker, TimePicker, TextField, SelectField,
   CardTitle, CardActions, Avatar, CardMedia} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
 import RedirectAuthenticatedComponent from './RedirectAuthenticatedComponent';
+import MaterialComponent from './MaterialComponent';
+import RedirectAuthenticatedComponent from './RedirectAuthenticatedComponent';
+import RequirementForm from './RequirementForm';
 import moment from 'moment'
 import Gravatar from 'react-gravatar';
 
@@ -127,16 +130,14 @@ class EventForm extends React.Component {
     this.setState(this.state)
   }
 
-  comeBackHome(e){
-   e.preventDefault()
+  comeBackHome(e){                                                                                                                                                                                                                                    
+   e.preventDefault()                                                                         
    RouterContainer.get().transitionTo('/')
   }
 
-  addRequirement(){
-    this.state.requirements.push(this.state.extra.requirement)
-    this.state.requirement.name = ""
-    this.state.requirement.quantity = 0
-    this.setState(this.state)
+  addRequirement(requirement){
+    this.state.requirements.push(requirement);
+    this.setState(this.state);
   }
 
   render() {
@@ -230,8 +231,7 @@ class EventForm extends React.Component {
                 </span>
                 <span className="col-sm-10" >
                   <CardTitle subtitle="Requirements"/>
-                  {this.getFormRequirement()}
-                  {this.getListRequirements()}
+                  <RequirementForm requirements={this.state.requirements} onAccept={this.addRequirement.bind(this)} />
                 </span>
               </div>
 
@@ -300,16 +300,16 @@ class EventForm extends React.Component {
 
 
    updateGets(){
-    let users = UserStore.users.map(user=> {
-        user.value = user.username
-        return user
-      }) 
-      this.users = users
-      this.state.gests = users.filter((user =>{
-        return this.state.gests.indexOf(user.username) >=0  || this.state.gests.indexOf(user) >=0 
-      }))
-      this.setState(this.state)
-  }
+      let users = UserStore.users.map(user=> {
+          user.value = user.username
+          return user
+        }) 
+        this.users = users
+        this.state.gests = users.filter((user =>{
+          return this.state.gests.indexOf(user.username) >=0  || this.state.gests.indexOf(user) >=0 
+        }))
+        this.setState(this.state)
+    }
 
   loadVenues(){
     if(!VenueService.venues){
