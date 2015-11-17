@@ -18,7 +18,7 @@ export default AuthenticatedComponent(class Home extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.state.events) {
+    if (EventStore.events == null) {
       this.listEvents();
     }
 
@@ -40,7 +40,7 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
   getHomeState() {
     return {
-      events: this.state.events.concat(EventStore.events),
+      events: this.state.events.concat(EventStore.events||[]),
       isInfiniteLoading: false
     };
   }

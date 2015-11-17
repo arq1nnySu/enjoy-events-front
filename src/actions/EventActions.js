@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
-import {ALL_EVENTS, EVENT_CREATED, GET_EVENT, CLEAR_EVENT} from '../constants/AppConstants.js';
+import {ALL_EVENTS, EVENT_CREATED, GET_EVENT, CLEAR_EVENT, REMOVE_EVENT} from '../constants/AppConstants.js';
 
 export default {
   allEvents: (events) => {
@@ -20,6 +20,12 @@ export default {
     AppDispatcher.dispatch({
       actionType: GET_EVENT,
       event: event
+    })
+  },
+
+  removeEvent: () => {
+    AppDispatcher.dispatch({
+      actionType: REMOVE_EVENT    
     })
   },
 

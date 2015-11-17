@@ -9,6 +9,7 @@ import AuthenticatedComponent  from './AuthenticatedComponent';
 import Weather from './event/Weather'
 import CreateAssistance from './event/CreateAssistance'
 import Venue from './event/Venue'
+import ConfirmComponent from './ConfirmComponent';
 import {Menu, MainButton, ChildButton} from 'react-mfb';
 
 class LandingEvent extends React.Component {
@@ -78,6 +79,7 @@ class LandingEvent extends React.Component {
               </div>
             </div>
           </Card>
+          <ConfirmComponent title={"Are you sure?"} onAccept={this.doRemoveEvent.bind(this)} ref="confirm"/>
         </div>
       )
     }else{
@@ -95,18 +97,29 @@ class LandingEvent extends React.Component {
         <Menu effect={"slidein"} method={"hover"} position={"br"}>
           <MainButton iconResting="ion-plus-round" iconActive="ion-plus-round" />
              <ChildButton
-              onClick={this.edit.bind(this)}
+              onClick={this.editEvent.bind(this)}
               icon="ion-edit"
-              label="Editar Evento"/>
+              label="Edit Event"/>
+             <ChildButton
+              onClick={this.removeEvent.bind(this)}
+              icon="ion-trash-a"
+              label="Rremove Event"/>
         </Menu>
         )
     }
   }
 
-  edit(){
+  editEvent(){
     RouterContainer.get().transitionTo('/editEvent')
   }
 
+  removeEvent(){
+    this.refs.confirm.open()
+  }
+
+  doRemoveEvent(){
+    EventService.removeEvent(this.state.event).then(()=>RouterContainer.get().transitionTo('/'))
+  }
 
 };
 export default MaterialComponent(AuthenticatedComponent(LandingEvent))

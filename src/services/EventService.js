@@ -36,6 +36,21 @@ class EventService {
     });
   }
 
+
+  removeEvent(event, errorHandler){
+    ga.event({ category: 'Event', action: 'Removed',label:event.tag } );
+    return request.request({
+      url: CREATE_EVENT_URL,
+      method: 'DELETE',
+      type: 'json',
+      contentType: "application/json",
+      data: JSON.stringify({tag:event.tag})
+    })
+    .then(function(response) {
+      EventActions.removeEvent();
+    })
+  }
+
   updateEvent(event, errorHandler){
     ga.event({ category: 'Event', action: 'Updated',label:event.tag } );
     return request.request({

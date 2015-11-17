@@ -1,4 +1,4 @@
-import {ALL_EVENTS, GET_EVENT, CLEAR_EVENT, EVENT_CREATED, LOGOUT_USER, LOGIN_USER} from '../constants/AppConstants';
+import {ALL_EVENTS, GET_EVENT, CLEAR_EVENT, EVENT_CREATED, LOGOUT_USER, LOGIN_USER, REMOVE_EVENT} from '../constants/AppConstants';
 import BaseStore from './BaseStore';
 
 class EventStore extends BaseStore {
@@ -6,14 +6,14 @@ class EventStore extends BaseStore {
   constructor() {
     super();
     this.subscribe(() => this._registerToActions.bind(this))
-    this._eventos = [];
-    this._page = 0;
+    this._eventos = null;
+    this._page = 1
   }
 
   _registerToActions(action) {
     switch(action.actionType) {
       case ALL_EVENTS:
-        this._eventos = action.events;
+        this._eventos = (this._eventos || []).concat(action.events);
         this.emitChange();
         break;
       case GET_EVENT:
@@ -24,17 +24,24 @@ class EventStore extends BaseStore {
         this.event = null;
         this.emitChange();
         break;
+      case REMOVE_EVENT:
+        this.event = null;
+        this._eventos = null;
+        this._page = 1
+        this.emitChange();
+        break;
       case EVENT_CREATED:
         this.event = action.event;
         this.emitChange();
         break;      
       case LOGOUT_USER:
-        this._eventos = [];
-        this._page = 0
+        this._eventos = null;
+        this._page = 1
         this.emitChange();
+        break;
       case LOGIN_USER:
-        this._eventos = [];
-        this._page = 0
+        this._eventos = null;
+        this._page = 1
         this.emitChange();
         break;
       default:
