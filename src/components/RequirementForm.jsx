@@ -23,8 +23,10 @@ class RequirementForm extends React.Component {
 
   getModelState(){
     return {
-      extra: {error:{message:{}}},
-      modal: true,
+      data:{
+        extra: {error:{message:{}}},
+        modal: true,
+      },
       index: -1,
       name: '',
       quantity: 0
@@ -77,7 +79,7 @@ class RequirementForm extends React.Component {
   }
 
   makeErrorMessage(){
-    this.state.extra.error.message.name = "Name needs to be defined";
+    this.state.data.extra.error.message.name = "Name needs to be defined";
     this.setState(this.state);
   }
 
@@ -114,7 +116,7 @@ class RequirementForm extends React.Component {
                           label="Confirm"
                           primary={true}
                           onTouchTap={this.finishButtonDialog.bind(this)} />]}
-              modal={this.state.modal}
+              modal={this.state.data.modal}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
               <div style={{height: '1000px'}} className="assistance">
@@ -150,7 +152,7 @@ class RequirementForm extends React.Component {
               <div style={{padding:"5px"}}>
                 <Card >
                   <li className="ticket clearfix ">
-                    <div className="col-xs-12 col-sm-2 col-md-7 ticket-type"><TextField floatingLabelText="Name" style={{width:"50%"}} errorText={this.state.extra.error.message.name} valueLink={this.linkState('name')} /></div>
+                    <div className="col-xs-12 col-sm-2 col-md-7 ticket-type"><TextField floatingLabelText="Name" style={{width:"50%"}} errorText={this.state.data.extra.error.message.name} valueLink={this.linkState('name')} /></div>
                       <div className="col-xs-8 col-sm-3 col-md-3">
                           <div className="input-group" style={{"max-width":"95%"}}>
                               <span className="input-group-btn">
