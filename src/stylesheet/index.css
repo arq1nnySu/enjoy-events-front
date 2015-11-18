@@ -142,6 +142,10 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
   margin-bottom: 0px;
 }
 
+.event-form-panel{
+  height: 600px;
+}
+
 .login_container{
   float: none;
 }
@@ -185,6 +189,7 @@ a.my_event .event_show div{ position:absolute; float:left;  margin-left:15px; fo
 
 
 .assistance span {display: table-cell;}
+.assistance .requirements span {display: block;}
 .assistance ul { padding:0; margin:0;font-family: 'Roboto', sans-serif;}
 .assistance ul li { list-style:none;}
 .assistance li.ticket { border-bottom:solid 1px #f1f1f1; padding:25px 0;} 

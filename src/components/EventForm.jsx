@@ -13,9 +13,9 @@ import {RaisedButton, DatePicker, TimePicker, TextField, SelectField,
   CardTitle, CardActions, Avatar, CardMedia} from  'material-ui';
 import MaterialComponent from './MaterialComponent';
 import RedirectAuthenticatedComponent from './RedirectAuthenticatedComponent';
+import RequirementForm from './RequirementForm';
 import moment from 'moment'
 import Gravatar from 'react-gravatar';
-
 
 class MultiSelectItem extends React.Component {
 
@@ -81,7 +81,7 @@ class EventForm extends React.Component {
   }
 
   createModel(){
-    this.state = {time:"", gests:[], visibility:this.visibilities[0]}
+    this.state = {time:"", gests:[], requirement:[], visibility:this.visibilities[0]}
   }
 
   componentDidMount() {
@@ -127,11 +127,31 @@ class EventForm extends React.Component {
     this.setState(this.state)
   }
 
-  comeBackHome(e){
-   e.preventDefault()
+  comeBackHome(e){                                                                                                                                                                                                                                    
+   e.preventDefault()                                                                         
    RouterContainer.get().transitionTo('/')
   }
 
+  replaceRequirement(req){
+    this.state.requirement.splice(req.index,1);
+    this.state.requirement.splice(req.index,0, req);
+  }
+
+  addRequirement(req){
+    if (req.index > -1) { 
+      this.replaceRequirement(req);
+    } else {
+      this.state.requirement.push(req);
+    }
+    this.setState(this.state) 
+  }
+    
+
+  takeOffRequirement(requirement){
+    var index = this.state.requirement.indexOf(requirement);
+    this.state.requirement.splice(index, 1);
+    this.setState(this.state)
+  }
 
   render() {
     let inputStyle = {width:"100%"}
@@ -205,7 +225,6 @@ class EventForm extends React.Component {
                 </span>
               </div>
 
-
               <div className="col-sm-6 form-group">
                 <span className="col-sm-10" >
                   <CardTitle subtitle="Gests"/>
@@ -215,8 +234,14 @@ class EventForm extends React.Component {
                       tagComponent={MultiSelectItem}
                       data={this.users} 
                       onChange={this.selectUsers.bind(this)}
-                      value={this.state.gests}
-                  />
+                      value={this.state.gests}/>
+                </span>
+              </div>
+
+              <div className="col-sm-6 form-group">
+                <span className="col-sm-10" >
+                  <CardTitle subtitle="Requirements"/>
+                  <RequirementForm requirements={this.state.requirement} onAccept={this.addRequirement.bind(this)} onDelete={this.takeOffRequirement.bind(this)} />
                 </span>
               </div>
 
@@ -236,6 +261,7 @@ class EventForm extends React.Component {
             </div>
             </div>
           </div>
+
         </form>
       </div>
     );
@@ -245,17 +271,17 @@ class EventForm extends React.Component {
     return moment(date).format("YYYY-MM-DD")
   }
 
-  updateGets(){
-    let users = UserStore.users.map(user=> {
-        user.value = user.username
-        return user
-      }) 
-      this.users = users
-      this.state.gests = users.filter((user =>{
-        return this.state.gests.indexOf(user.username) >=0  || this.state.gests.indexOf(user) >=0 
-      }))
-      this.setState(this.state)
-  }
+   updateGets(){
+      let users = UserStore.users.map(user=> {
+          user.value = user.username
+          return user
+        }) 
+        this.users = users
+        this.state.gests = users.filter((user =>{
+          return this.state.gests.indexOf(user.username) >=0  || this.state.gests.indexOf(user) >=0 
+        }))
+        this.setState(this.state)
+    }
 
   loadVenues(){
     if(!VenueService.venues){
