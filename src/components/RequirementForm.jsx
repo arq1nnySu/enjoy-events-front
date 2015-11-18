@@ -119,7 +119,7 @@ class RequirementForm extends React.Component {
               modal={this.state.data.modal}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
-              <div style={{height: '1000px'}} className="assistance">
+              <div className="assistance">
               {this.getRequirementForm()}
               </div>
             </Dialog>
@@ -150,32 +150,36 @@ class RequirementForm extends React.Component {
 
     return  <ul id="additional_list">
               <div style={{padding:"5px"}}>
-                <Card >
+                <div className="card" >
                   <li className="ticket clearfix ">
-                    <div className="col-xs-12 col-sm-2 col-md-7 ticket-type"><TextField floatingLabelText="Name" style={{width:"50%"}} errorText={this.state.data.extra.error.message.name} valueLink={this.linkState('name')} /></div>
-                      <div className="col-xs-8 col-sm-3 col-md-3">
-                          <div className="input-group" style={{"max-width":"95%"}}>
-                              <span className="input-group-btn">
-                                  <button type="button" className="form-control btn btn-default btn-number minus" onClick={ e => this.minusReq()} disabled={this.state.minusDisabled}> 
-                                    <MinusImage/>
-                                  </button>
-                              </span>
-                              <input type="text" id="value_3" style={{"min-width":"100px"}} className="form-control input-number" value={this.state.quantity || 0} min="0" max="4"/>
-                              <span className="input-group-btn">
-                                  <button type="button" className="form-control btn btn-default btn-number plus" onClick={e => this.plusReq()} disabled={this.state.plusDisabled}>
-                                    <PlusImage/>
-                                  </button>
-                              </span>
-                          </div>
+                    <div className="col-xs-4">
+                      <TextField floatingLabelText="Name" style={{width:"50%"}} errorText={this.state.data.extra.error.message.name} valueLink={this.linkState('name')} />
                       </div>
-                    </li>
-                  </Card>
-                  <RaisedButton className="requirement_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Add" onClick={this.addRequirement.bind(this)} />
-                  <List subheader="List of Requirements" style={{width:"50%", margin: "0 auto"}} className="requirements">
-                    {this.props.requirements.map(req => <ListItem primaryText={req.name} leftAvatar={<Avatar >{req.quantity}</Avatar>}  rightIconButton={rightIconMenu(req)} />)}
-                  </List>
+                    <div className="col-xs-6">
+                      <div className="input-group" style={{"max-width":"95%"}}>
+                        <span className="input-group-btn">
+                          <button type="button" className="form-control btn btn-default btn-number minus" onClick={ e => this.minusReq()} disabled={this.state.minusDisabled}> 
+                            <MinusImage/>
+                          </button>
+                        </span>
+                        <input type="text" id="value_3" className="form-control input-number" value={this.state.quantity || 0} min="0" max="4"/>
+                        <span className="input-group-btn">
+                          <button type="button" className="form-control btn btn-default btn-number plus" onClick={e => this.plusReq()} disabled={this.state.plusDisabled}>
+                            <PlusImage/>
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                    <div className="col-xs-2 ticket-type">
+                        <RaisedButton className="requirement_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Add" onClick={this.addRequirement.bind(this)} />
+                    </div>
+                  </li>
                 </div>
-              </ul>
+                <List subheader="List of Requirements" style={{width:"70%", margin: "0 auto"}} className="requirements">
+                  {this.props.requirements.map(req => <ListItem className="card" primaryText={req.name} leftAvatar={<Avatar >{req.quantity}</Avatar>}  rightIconButton={rightIconMenu(req)} />)}
+                </List>
+              </div>
+            </ul>
   }
 
 };

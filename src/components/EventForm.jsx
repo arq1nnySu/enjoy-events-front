@@ -168,81 +168,89 @@ class EventForm extends React.Component {
           <div className="event-form-panel col-md-12">
             <div className="card col-md-12" >
 
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <TextField style={inputStyle} errorText={this.error.message.tag} floatingLabelText="Tag" valueLink={this.linkState('tag')}  />
-                </span>
+              <div className="col-md-12" >
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <TextField style={inputStyle} errorText={this.error.message.tag} floatingLabelText="Tag" valueLink={this.linkState('tag')}  />
+                  </span>
+                </div>
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <TextField style={inputStyle} errorText={this.error.message.name} floatingLabelText="Name" valueLink={this.linkState('name')}  />
+                  </span>
+                </div>
               </div>
 
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <TextField style={inputStyle} errorText={this.error.message.name} floatingLabelText="Name" valueLink={this.linkState('name')}  />
-                </span>
+              <div className="col-md-12" >
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <TextField  style={inputStyle}  errorText={this.error.message.capacity} floatingLabelText="Capacity" valueLink={this.linkState('capacity')}  />
+                  </span>
+                </div>   
+
+               <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <TextField  style={inputStyle}  errorText={this.error.message.image} floatingLabelText="Image url" valueLink={this.linkState('image')}  />
+                  </span>
+                </div> 
               </div>
 
+              <div className="col-md-12" >
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <DatePicker textFieldStyle={inputStyle}  errorText={this.error.message.date} floatingLabelText="Date"  valueLink={this.linkState('date')} autoOk={true} minDate={new Date()} valueLink={this.linkState('date')} formatDate={this.formatDate}/>
+                  </span>
+                </div> 
 
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <TextField  style={inputStyle}  errorText={this.error.message.capacity} floatingLabelText="Capacity" valueLink={this.linkState('capacity')}  />
-                </span>
-              </div>   
-
-             <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <TextField  style={inputStyle}  errorText={this.error.message.image} floatingLabelText="Image url" valueLink={this.linkState('image')}  />
-                </span>
-              </div> 
-
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <DatePicker textFieldStyle={inputStyle}  errorText={this.error.message.date} floatingLabelText="Date"  valueLink={this.linkState('date')} autoOk={true} minDate={new Date()} valueLink={this.linkState('date')} formatDate={this.formatDate}/>
-                </span>
-              </div> 
-
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <TimePicker style={inputStyle}  format="ampm"  floatingLabelText="Hour" autoOk={true} onChange={this.updateTime.bind(this)}/> 
-                </span>
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <TimePicker style={inputStyle}  format="ampm"  floatingLabelText="Hour" autoOk={true} onChange={this.updateTime.bind(this)}/> 
+                  </span>
+                </div>
               </div>
 
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <SelectField floatingLabelText="Visibilidad" valueMember="name" displayMember="name" menuItems={this.visibilities}  style={inputStyle} valueLink={this.linkState('visibility')}/>
-                </span>
-              </div> 
+              <div className="col-md-12" >
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <SelectField floatingLabelText="Visibilidad" valueMember="name" displayMember="name" menuItems={this.visibilities}  style={inputStyle} valueLink={this.linkState('visibility')}/>
+                  </span>
+                </div> 
 
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10">
-                  <CardTitle subtitle="Venue"/>
-                  <DropdownList
-                      placeholder="Select venue"
-                      valueComponent={DropdownItem}
-                      itemComponent={DropdownItem}
-                      data={this.venues} 
-                      onChange={this.selectVenue.bind(this)}
-                      value={this.state.venue}
-                  />
-                </span>
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10">
+                    <CardTitle subtitle="Venue"/>
+                    <DropdownList
+                        placeholder="Select venue"
+                        valueComponent={DropdownItem}
+                        itemComponent={DropdownItem}
+                        data={this.venues} 
+                        onChange={this.selectVenue.bind(this)}
+                        value={this.state.venue}
+                    />
+                  </span>
+                </div>
               </div>
 
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10" >
-                  <CardTitle subtitle="Gests"/>
-                  <Multiselect
-                      placeholder="Select users"
-                      itemComponent={MultiSelectItem}
-                      tagComponent={MultiSelectItem}
-                      data={this.users} 
-                      onChange={this.selectUsers.bind(this)}
-                      value={this.state.gests}/>
-                </span>
-              </div>
+              <div className="col-md-12" >
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10" >
+                    <CardTitle subtitle="Gests"/>
+                    <Multiselect
+                        placeholder="Select users"
+                        itemComponent={MultiSelectItem}
+                        tagComponent={MultiSelectItem}
+                        data={this.users} 
+                        onChange={this.selectUsers.bind(this)}
+                        value={this.state.gests}/>
+                  </span>
+                </div>
 
-              <div className="col-sm-6 form-group">
-                <span className="col-sm-10" >
-                  <CardTitle subtitle="Requirements"/>
-                  <RequirementForm requirements={this.state.requirement} onAccept={this.addRequirement.bind(this)} onDelete={this.takeOffRequirement.bind(this)} />
-                </span>
+                <div className="col-sm-6 form-group">
+                  <span className="col-sm-10" >
+                    <CardTitle subtitle="Requirements"/>
+                    <RequirementForm requirements={this.state.requirement} onAccept={this.addRequirement.bind(this)} onDelete={this.takeOffRequirement.bind(this)} />
+                  </span>
+                </div>
               </div>
 
             <div className="col-md-12" style={{"padding-top":"50px"}}>

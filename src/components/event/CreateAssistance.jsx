@@ -78,7 +78,7 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
               modal={this.state.modal}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
-              <div style={{height: '1000px'}} className="assistance">
+              <div className="assistance">
               {this.getListRequirements()}
               </div>
             </Dialog>
