@@ -25,7 +25,6 @@ class RequirementForm extends React.Component {
     return {
       data:{
         extra: {error:{message:{}}},
-        modal: true,
       },
       index: -1,
       name: '',
@@ -116,7 +115,7 @@ class RequirementForm extends React.Component {
                           label="Confirm"
                           primary={true}
                           onTouchTap={this.finishButtonDialog.bind(this)} />]}
-              modal={this.state.data.modal}
+              modal={true}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
               <div className="assistance">

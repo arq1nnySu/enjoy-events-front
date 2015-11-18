@@ -1,7 +1,7 @@
 import React from 'react';
 import Router, {Route} from 'react-router';
 import AuthenticatedApp from './components/AuthenticatedApp';
-import Login from './components/Login';
+import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import LandingEvent from './components/LandingEvent';
@@ -18,7 +18,7 @@ injectTapEventPlugin();
 
 let routes = (
   <Route handler={AuthenticatedApp}>
-    <Route name="login" handler={Login}/>
+    <Route name="signin" handler={Signin}/>
     <Route name="signup" handler={Signup}/>
     <Route name="home" path="/" handler={Home}/>
     <Route name="event" path="/event/:event" handler={LandingEvent}/>

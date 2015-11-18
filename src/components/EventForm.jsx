@@ -81,7 +81,7 @@ class EventForm extends React.Component {
   }
 
   createModel(){
-    this.state = {time:"", gests:[], requirement:[], visibility:this.visibilities[0]}
+    this.state = {time:"", gests:[], requirement:[], visibility:this.visibilities[0].name}
   }
 
   componentDidMount() {

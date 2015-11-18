@@ -40,7 +40,7 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
   getHomeState() {
     return {
-      events: this.state.events.concat(EventStore.events||[]),
+      events: EventStore.events,
       isInfiniteLoading: false
     };
   }

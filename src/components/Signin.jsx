@@ -7,7 +7,7 @@ import MaterialComponent from './MaterialComponent';
 import {RaisedButton, Card, CardMedia, CardTitle, CardText, FlatButton, 
   CardActions, CardHeader, TextField} from  'material-ui';
 
-class Login extends React.Component {
+class Signin extends React.Component {
 
   constructor() {
     super()
@@ -34,7 +34,7 @@ class Login extends React.Component {
     let inputStyle = {width:"100%"}
     return (
       <div  >
-        <CardMedia overlay={<CardTitle title="Login" subtitle=""/>}>
+        <CardMedia overlay={<CardTitle title="Sign In" subtitle=""/>}>
           <img className="header_section"/>
         </CardMedia>
         <div className="container col-lg-6 login_container">
@@ -72,6 +72,6 @@ class Login extends React.Component {
   }
 }
 
-ReactMixin(Login.prototype, React.addons.LinkedStateMixin);
+ReactMixin(Signin.prototype, React.addons.LinkedStateMixin);
 
-export default MaterialComponent(Login)
+export default MaterialComponent(Signin)

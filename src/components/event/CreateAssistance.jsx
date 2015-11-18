@@ -1,9 +1,10 @@
 import React from 'react';
 import MaterialComponent from '../MaterialComponent';
 import {Card,RaisedButton, Snackbar, Dialog, Avatar, List, ListItem} from  'material-ui';
-import AssistanceService from '../../services/AssistanceService.js';
+import AssistanceService from '../../services/AssistanceService';
 import MinusImage from 'material-ui/lib/svg-icons/content/remove';
 import PlusImage from 'material-ui/lib/svg-icons/content/add';
+import ConfirmComponent from '../ConfirmComponent'
 
 export default MaterialComponent(class CreateAssistance extends React.Component {
 
@@ -23,7 +24,6 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
 
   getModelState() {
     return {
-      modal: true,
       event: this.props.event
     };
   }
@@ -36,17 +36,32 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
     }
   }
 
+  cancelAssistance(){
+    this.refs.confirm.open(() =>{
+      AssistanceService.cancelAssistance(this.state.event.tag).then(()=>{
+        this.state.event.hasAssistance = false
+        this.setState(this.state)
+      })
+    })
+  }
+
   createAssistance(){
     let requirements = this.state.event.requirementMissing.map(req => {
       let requirement = {}
       requirement.name = req.name
       requirement.quantity = req.user
+      req.user = 0
       return requirement
     })
     AssistanceService.createAssistance({event:this.state.event.tag, requirements:requirements}).then( resp => {
       this.state.event.hasAssistance = true
       this.setState(this.state)
       this.refs.successBar.show()
+    }).fail((err)=>{
+        if(err.status == 400){
+          this.state.event.soldOut = true
+          this.setState(this.state)
+        }      
     });
   }
 
@@ -75,13 +90,14 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
                           label="Confirm"
                           primary={true}
                           onTouchTap={this.finishButtonDialog.bind(this)} />]}
-              modal={this.state.modal}
+              modal={true}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
               <div className="assistance">
               {this.getListRequirements()}
               </div>
             </Dialog>
+            <ConfirmComponent title={"Are you sure?"} ref="confirm"/>
             <Snackbar ref="successBar" message="Assistance to event successfully"/>
         </div>
       )
@@ -122,11 +138,20 @@ export default MaterialComponent(class CreateAssistance extends React.Component 
         return <div>
                 <span className="col-xs-4"><img src="https://www.allaccess.com.ar/img/ico_purchase_ok.png" style={{"max-width": "100%", "min-width":"100%"}}/></span>
                 <span className="col-xs-8 assistance_event"><h1>You have an assistance for this event.</h1></span>  
+                <span className="col-xs-12">
+                  <RaisedButton className="assistance_button"  primary={true} labelStyle={{"font-size":20}} style={{margin:10, width:"100%"}} label="Cancel Assistance" onClick={this.cancelAssistance.bind(this)} />
+                </span>
               </div>
       }else{
-        return <span className="col-xs-12">
-                  <RaisedButton className="assistance_button" labelStyle={{"font-size":20}} style={{margin:10, width:"100%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Attending" onClick={this.attending.bind(this)} />
-                </span>
+        if(this.state.event.soldOut){
+            return <span className="col-xs-12">
+                      <RaisedButton className="assistance_button" labelStyle={{"font-size":20}} style={{margin:10, width:"100%"}} backgroundColor={"#880e4f"} labelColor={"white"} label="Sold Out" />
+                    </span>
+        }else{
+            return <span className="col-xs-12">
+                      <RaisedButton className="assistance_button" labelStyle={{"font-size":20}} style={{margin:10, width:"100%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Attending" onClick={this.attending.bind(this)} />
+                    </span>
+        }
       }
     }else{
         return <span className="col-xs-12 login_required"><h3>You have to login to attend the event.</h3></span>

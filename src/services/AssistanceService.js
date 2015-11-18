@@ -30,6 +30,20 @@ class AssistanceService {
       AssistanceActions.createAssistance(response);
     })
   }
+
+  cancelAssistance(eventTag){
+    ga.event({ category: 'Assistance', action: 'Cancel',label:eventTag} );
+    return request.request({
+      url: CREATE_ASSISTANCE_URL,
+      method: 'DELETE',
+      type: 'json',
+      contentType: "application/json",
+      data: JSON.stringify({event:eventTag})
+    })
+    .then(function(response) {
+      AssistanceActions.removeAssistance();
+    })
+  }
 }
 
 export default new AssistanceService()

@@ -5,7 +5,7 @@ import AuthenticatedComponent from './AuthenticatedComponent';
 export default AuthenticatedComponent(class RedirectAuthenticatedComponent extends React.Component {
     static willTransitionTo(transition) {
       if (!LoginStore.isLoggedIn()) {
-        transition.redirect('/login', {}, {'nextPath' : transition.path});
+        transition.redirect('/signin', {}, {'nextPath' : transition.path});
       }
     }
 

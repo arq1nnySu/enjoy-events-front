@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
-import {ALL_ASSISTANCE, ASSISTANCE_CREATED} from '../constants/AppConstants.js';
+import {ALL_ASSISTANCE, ASSISTANCE_CREATED, ASSISTANCE_REMOVED} from '../constants/AppConstants.js';
 
 export default {
   allAssistances: (assistances) => {
@@ -15,4 +15,10 @@ export default {
       assistance: assistance
     })
   },
+
+  removeAssistance: () =>{
+    AppDispatcher.dispatch({
+      actionType: ASSISTANCE_REMOVED
+    }) 
+  }
 }

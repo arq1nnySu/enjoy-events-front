@@ -9,7 +9,10 @@ export default class ConfirmComponent extends React.Component {
     this.state = {show: false}
   }
 
-  open(){
+  open(callback){
+    if(callback){
+      this.props.onAccept = callback
+    }
     this.refs.dialog.show()
   }
 
