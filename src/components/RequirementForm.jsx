@@ -1,34 +1,54 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import MaterialComponent from './MaterialComponent';
-import {TextField, RaisedButton, Snackbar, Dialog, Avatar, List, ListItem} from  'material-ui';
+import {TextField, RaisedButton, IconButton, Styles, Card, Snackbar, Dialog, Avatar, List, ListItem} from  'material-ui';
 import MinusImage from 'material-ui/lib/svg-icons/content/remove';
 import PlusImage from 'material-ui/lib/svg-icons/content/add';
-import {MainButton} from 'react-mfb';
+import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import Delete from 'material-ui/lib/svg-icons/action/delete';
+import ActionNoteAdd from 'material-ui/lib/svg-icons/action/note-add';
 
+const { Colors } = Styles;
 
 class RequirementForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = this.getModelState();
+    this.state.minusDisabled = true 
+    this.state.plusDisabled = false
   }
 
   getModelState(){
     return {
+      extra: {error:{message:{}}},
       modal: true,
+      index: -1,
       name: '',
-      quantity: ''
+      quantity: 0
     }
   }
 
+  setRequirementToEdit(req){
+    this.state.name = req.name;
+    this.state.quantity = req.quantity;
+    this.state.index = this.props.requirements.indexOf(req);
+    this.setState(this.state);
+  }
+
   cleanRequirement(){
-    this.setState(this.getModelState())
+    this.setState(this.getModelState());
   }
 
   addRequirement(){
-    this.props.onAccept(this.state);
-    this.cleanRequirement();
+    if(this.isValidForm()){
+      this.props.onAccept(this.state);
+      this.cleanRequirement();
+    }else{
+      this.makeErrorMessage();
+    }
   }
 
   closeDialog(){
@@ -37,11 +57,46 @@ class RequirementForm extends React.Component {
   }
 
   finishButtonDialog(){
-   this.closeDialog(); 
+    this.closeDialog(); 
   }
 
   getAddRequirement(){
     this.refs.addRequirementDialog.show();
+  }
+
+  removeRequirement(req){
+    this.props.onDelete(req);
+  }
+
+  editRequirement(req){
+    this.setRequirementToEdit(req);
+  }
+
+  isValidForm(){
+    return this.state.name != '';
+  }
+
+  makeErrorMessage(){
+    this.state.extra.error.message.name = "Name needs to be defined";
+    this.setState(this.state);
+  }
+
+  minusReq(){
+    if(this.state.quantity > 0){
+      this.state.quantity--
+      this.state.plusDisabled = this.state.quantity >= 10
+    }
+    this.state.minusDisabled = this.state.quantity <= 0 
+    this.setState(this.state)
+  }
+
+  plusReq(){
+    if(this.state.quantity < 10){
+      this.state.quantity++
+      this.state.minusDisabled = false
+    }
+    this.state.plusDisabled = this.state.quantity >= 10
+    this.setState(this.state)
   }
 
   render() {
@@ -62,7 +117,7 @@ class RequirementForm extends React.Component {
               modal={this.state.modal}
               autoDetectWindowHeight={true}
               autoScrollBodyContent={true}>
-              <div style={{height: '1000px'}} className="listRequirement">
+              <div style={{height: '1000px'}} className="assistance">
               {this.getRequirementForm()}
               </div>
             </Dialog>
@@ -72,21 +127,55 @@ class RequirementForm extends React.Component {
   }
 
   getAddRequirementsComponent() {
-      return  <RaisedButton className="requirement_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Add" onClick={this.getAddRequirement.bind(this)} />
+      return  <RaisedButton className="requirement_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="You want to add requirements?" onClick={this.getAddRequirement.bind(this)} />
   }
 
   getRequirementForm() {
-    return  <div style={{padding:"5px"}}>
-              <TextField floatingLabelText="Name" style={{width:"100%"}} valueLink={this.linkState('name')} />
-              <TextField floatingLabelText="Quantity" style={{width:"100%"}} valueLink={this.linkState('quantity')} />
-              <RaisedButton className="requirement_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Add" onClick={this.addRequirement.bind(this)} />
-            <List subheader="Requirements">
-              {this.props.requirements.map(req => <ListItem primaryText={req.name}  rightAvatar={<Avatar >{req.quantity}</Avatar>}/>)}
-            </List>
-            </div>
-            
+    let rightIconMenu = (req) => {
+      return  <IconMenu
+                iconButtonElement={
+                  <IconButton
+                    touch={true}
+                    tooltipPosition="bottom-left">
+                    <MoreVertIcon color={Colors.grey400} />
+                  </IconButton>
+                }
+                openDirection="bottom-left">
+                <MenuItem primaryText="Edit" leftIcon={<ActionNoteAdd/>} onClick={()=>this.editRequirement(req)} />
+                <MenuItem primaryText="Delete" leftIcon={<Delete/>} onClick={()=>this.removeRequirement(req)} />
+              </IconMenu>
+       }
+
+    return  <ul id="additional_list">
+              <div style={{padding:"5px"}}>
+                <Card >
+                  <li className="ticket clearfix ">
+                    <div className="col-xs-12 col-sm-2 col-md-7 ticket-type"><TextField floatingLabelText="Name" style={{width:"50%"}} errorText={this.state.extra.error.message.name} valueLink={this.linkState('name')} /></div>
+                      <div className="col-xs-8 col-sm-3 col-md-3">
+                          <div className="input-group" style={{"max-width":"95%"}}>
+                              <span className="input-group-btn">
+                                  <button type="button" className="form-control btn btn-default btn-number minus" onClick={ e => this.minusReq()} disabled={this.state.minusDisabled}> 
+                                    <MinusImage/>
+                                  </button>
+                              </span>
+                              <input type="text" id="value_3" style={{"min-width":"100px"}} className="form-control input-number" value={this.state.quantity || 0} min="0" max="4"/>
+                              <span className="input-group-btn">
+                                  <button type="button" className="form-control btn btn-default btn-number plus" onClick={e => this.plusReq()} disabled={this.state.plusDisabled}>
+                                    <PlusImage/>
+                                  </button>
+                              </span>
+                          </div>
+                      </div>
+                    </li>
+                  </Card>
+                  <RaisedButton className="requirement_button" labelStyle={{"font-size":20}} style={{margin:10, width:"80%"}} backgroundColor={"#00e676"} labelColor={"white"} label="Add" onClick={this.addRequirement.bind(this)} />
+                  <List subheader="List of Requirements" style={{width:"50%", margin: "0 auto"}} className="requirements">
+                    {this.props.requirements.map(req => <ListItem primaryText={req.name} leftAvatar={<Avatar >{req.quantity}</Avatar>}  rightIconButton={rightIconMenu(req)} />)}
+                  </List>
+                </div>
+              </ul>
   }
-  
+
 };
 
 ReactMixin(RequirementForm.prototype, React.addons.LinkedStateMixin);

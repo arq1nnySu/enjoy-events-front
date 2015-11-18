@@ -19,7 +19,6 @@ import RequirementForm from './RequirementForm';
 import moment from 'moment'
 import Gravatar from 'react-gravatar';
 
-
 class MultiSelectItem extends React.Component {
 
   render(){
@@ -135,9 +134,25 @@ class EventForm extends React.Component {
    RouterContainer.get().transitionTo('/')
   }
 
-  addRequirement(requirement){
-    this.state.requirements.push(requirement);
-    this.setState(this.state);
+  replaceRequirement(req){
+    this.state.requirements.splice(req.index,1);
+    this.state.requirements.splice(req.index,0, req);
+  }
+
+  addRequirement(req){
+    if (req.index > -1) { 
+      this.replaceRequirement(req);
+    } else {
+      this.state.requirements.push(req);
+    }
+    this.setState(this.state) 
+  }
+    
+
+  takeOffRequirement(requirement){
+    var index = this.state.requirements.indexOf(requirement);
+    this.state.requirements.splice(index, 1);
+    this.setState(this.state)
   }
 
   render() {
@@ -231,7 +246,7 @@ class EventForm extends React.Component {
                 </span>
                 <span className="col-sm-10" >
                   <CardTitle subtitle="Requirements"/>
-                  <RequirementForm requirements={this.state.requirements} onAccept={this.addRequirement.bind(this)} />
+                  <RequirementForm requirements={this.state.requirements} onAccept={this.addRequirement.bind(this)} onDelete={this.takeOffRequirement.bind(this)} />
                 </span>
               </div>
 
