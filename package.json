@@ -10,7 +10,7 @@
   "authors": [],
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --content-base --progress --inline --colors --d",
-    "build": "rm build/*; webpack -p --config webpack-prod-server.config.js --progress --colors",
+    "build": "rm -rf build/*; webpack -p --config webpack-prod-server.config.js --progress --colors",
     "start-prod": "node server.js",
     "prod": "npm run build; npm run start-prod"
   },
