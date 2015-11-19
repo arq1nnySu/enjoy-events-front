@@ -7,11 +7,13 @@ import EventActions from '../../actions/EventActions'
 import EventService from '../../services/EventService.js'
 import AssistanceService from '../../services/AssistanceService.js';
 import RedirectAuthenticatedComponent  from '../RedirectAuthenticatedComponent';
+import Infinite from 'react-infinite'
 
 class AssistsEvent extends React.Component {
 
   constructor(props) {
     super(props);
+    this.page = 1
     this._onChange = this._onChange.bind(this);
     this.state = this.getEventState();
   }
@@ -47,8 +49,13 @@ class AssistsEvent extends React.Component {
 
   checkAssists(){
     if(!EventStore.event.assists){
-      AssistanceService.assistsEvent(EventStore.event.tag)
+      AssistanceService.assistsEvent(EventStore.event.tag, this.page)
     }
+  }
+
+  handleInfiniteLoad(){
+    this.page += 1
+    AssistanceService.assistsEvent(EventStore.event.tag, this.page)
   }
 
   render() {
@@ -81,10 +88,7 @@ class AssistsEvent extends React.Component {
                     deselectOnClickaway={true}
                     showRowHover={true}
                     stripedRows={true}>
-                             <TableRow>
-                              <TableRowColumn>sdfsdfsd</TableRowColumn>
-                            </TableRow>
-                      {(this.state.event.assists||[]).map((assist) =>{return <TableRow><TableRowColumn>{assist.user}</TableRowColumn>{assist.requirements.map((req) =>{return <TableRowColumn >{req.quantity}</TableRowColumn>})}}</TableRow>})}
+                              {(this.state.event.assists||[]).map((assist) =>{return <TableRow><TableRowColumn>{assist.user}</TableRowColumn>{assist.requirements.map((req) =>{return <TableRowColumn >{req.quantity}</TableRowColumn>})}}</TableRow>})}
                   </TableBody>
                 </Table>
               </div>

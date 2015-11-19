@@ -48,11 +48,12 @@ class AssistanceService {
   }
 
 
-  assistsEvent(eventTag) {
+  assistsEvent(eventTag, page) {
     ga.event({ category: 'Assistance', action: 'AssistsEvent',label:eventTag} )
     request.request({
       url: ASSISTANCES_URL+"/"+eventTag,
-      method: 'GET'
+      method: 'GET',
+      data:{page:page}
     })
     .then(function(response) {
       EventActions.assistsEvent(response)

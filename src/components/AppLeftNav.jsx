@@ -5,8 +5,8 @@ import { MenuItem, LeftNav, Styles } from 'material-ui';
 let { Colors, Spacing, Typography } = Styles;
 
 let menuItems = [
-    { route: 'login', text: 'Login',   showWhenLogged:false},
-    { route: 'signup', text: 'Signup', showWhenLogged:false },
+    { route: 'signin', text: 'Sign In',   showWhenLogged:false},
+    { route: 'signup', text: 'Sign Up', showWhenLogged:false },
     { route: 'home', text: 'Events' },
     { route: 'myaccount', text: 'My account' , requireLogin:true},
     { type: MenuItem.Types.SUBHEADER, text: 'Extras'},

@@ -45,7 +45,7 @@ class EventStore extends BaseStore {
         this.emitChange();
         break;
       case ASSISTS_EVENT:
-        this.event.assists = action.assists
+        this.event.assists = (this.event.assists || []).concat(action.assists);
         this.emitChange();
         break;
       default:
