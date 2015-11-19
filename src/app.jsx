@@ -5,7 +5,8 @@ import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Home from './components/Home';
 import LandingEvent from './components/LandingEvent';
-import EventForm from './components/EventForm';
+import EventForm from './components/event/EventForm';
+import AssistsEvent from './components/assistance/AssistsEvent';
 import MyAccount from './components/MyAccount';
 import RouterContainer from './services/RouterContainer';
 import LoginActions from './actions/LoginActions';
@@ -23,8 +24,9 @@ let routes = (
     <Route name="home" path="/" handler={Home}/>
     <Route name="event" path="/event/:event" handler={LandingEvent}/>
     <Route name="createvent" path="/createEvent" handler={EventForm}/>
-    <Route name="editEvent" path="/editEvent" handler={EventForm}/>
+    <Route name="editEvent" path="/editEvent/:event" handler={EventForm}/>
     <Route name="myaccount" path="/myaccount" handler={MyAccount}/>
+    <Route name="assistsEvent" path="/assistsEvent/:event" handler={AssistsEvent}/>
   </Route>
 );
 

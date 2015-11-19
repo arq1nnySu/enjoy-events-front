@@ -1,5 +1,5 @@
 import React from 'react';
-import MaterialComponent from './MaterialComponent';
+import MaterialComponent from '../MaterialComponent';
 import Time from 'react-time'
 import {Card, CardMedia, CardTitle, CardText, FlatButton, CardActions, CardHeader, Avatar,
         ListItem, List, ContentInbox, ListDivider, ClearFix} from  'material-ui';

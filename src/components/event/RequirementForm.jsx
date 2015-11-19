@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
-import MaterialComponent from './MaterialComponent';
-import {TextField, RaisedButton, IconButton, Styles, Card, Snackbar, Dialog, Avatar, List, ListItem} from  'material-ui';
+import MaterialComponent from '../MaterialComponent';
+import {TextField, RaisedButton, IconButton, Styles, Card, Snackbar, Dialog, 
+  Avatar, MenuItem, IconMenu, List, ListItem} from  'material-ui';
 import MinusImage from 'material-ui/lib/svg-icons/content/remove';
 import PlusImage from 'material-ui/lib/svg-icons/content/add';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
 import Delete from 'material-ui/lib/svg-icons/action/delete';
 import ActionNoteAdd from 'material-ui/lib/svg-icons/action/note-add';
 

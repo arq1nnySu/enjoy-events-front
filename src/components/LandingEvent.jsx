@@ -100,6 +100,10 @@ class LandingEvent extends React.Component {
               onClick={this.editEvent.bind(this)}
               icon="ion-edit"
               label="Edit Event"/>
+            <ChildButton
+              onClick={this.assistsEvent.bind(this)}
+              icon="ion-clipboard"
+              label="Assists Event"/>
              <ChildButton
               onClick={this.removeEvent.bind(this)}
               icon="ion-trash-a"
@@ -110,7 +114,11 @@ class LandingEvent extends React.Component {
   }
 
   editEvent(){
-    RouterContainer.get().transitionTo('/editEvent')
+    RouterContainer.get().transitionTo('/editEvent/'+this.state.event.tag)
+  }
+
+  assistsEvent(){
+    RouterContainer.get().transitionTo('/assistsEvent/'+this.state.event.tag)
   }
 
   removeEvent(){

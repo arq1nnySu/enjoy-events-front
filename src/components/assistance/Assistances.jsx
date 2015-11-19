@@ -1,10 +1,10 @@
 import React from 'react';
 import AssistanceItem  from './AssistanceItem';
-import AuthenticatedComponent  from './AuthenticatedComponent';
-import AssistanceStore from '../stores/AssistanceStore'
-import AssistanceService from '../services/AssistanceService.js';
+import AuthenticatedComponent  from '../AuthenticatedComponent';
+import AssistanceStore from '../../stores/AssistanceStore'
+import AssistanceService from '../../services/AssistanceService.js';
 import {CardActions, Card, CardMedia, CardTitle} from 'material-ui';
-import RouterContainer from '../services/RouterContainer';
+import RouterContainer from '../../services/RouterContainer';
 
 import {Menu, MainButton, ChildButton} from 'react-mfb';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialComponent from './MaterialComponent';
-import Assistances from './Assistances';
+import Assistances from './assistance/Assistances';
 import PersonalData from './PersonalData';
 import {Card, CardMedia, CardTitle, CardText, FlatButton, CardActions, CardHeader, Tabs, Tab} from  'material-ui';
 

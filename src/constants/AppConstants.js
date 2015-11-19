@@ -1,4 +1,4 @@
-var BASE_URL = process.env.BASE_URL || 'http://enjoy-events-portal.herokuapp.com/';
+var BASE_URL = process.env.BASE_URL || 'http://enjoy-events.herokuapp.com/';
 
 export default {
 
@@ -8,7 +8,6 @@ export default {
   EVENTS_URL: BASE_URL +'events',
   GET_EVENT_URL: BASE_URL +'events/',
   CREATE_EVENT_URL: BASE_URL + 'events',
-  CREATE_ASSISTANCE_URL: BASE_URL + 'assistances',
   ASSISTANCES_URL: BASE_URL +'assistances',
   USERS_URL : BASE_URL + 'users',
   VENUES_URL : BASE_URL + 'venues',
@@ -28,5 +27,6 @@ export default {
   ALL_VENUES : 'ALL_VENUES',
   CLEAR_EVENT: 'CLEAR_EVENT',
   REMOVE_EVENT: 'REMOVE_EVENT',
-  ASSISTANCE_REMOVED : 'ASSISTANCE_REMOVED'
+  ASSISTANCE_REMOVED : 'ASSISTANCE_REMOVED',
+  ASSISTS_EVENT: 'ASSISTS_EVENT'
 }

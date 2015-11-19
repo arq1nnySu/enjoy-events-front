@@ -40,7 +40,7 @@ class Signin extends React.Component {
         <div className="container col-lg-6 login_container">
           <CardActions style={{margin: "-120px auto auto auto"}} >
             <Card className="login content jumbotron center-block">
-              <h1>Login</h1>
+              <h1>Sign In</h1>
               <form role="form">
               <div className="form-group">
                 <TextField style={inputStyle} floatingLabelText="Username" valueLink={this.linkState('user')}  />

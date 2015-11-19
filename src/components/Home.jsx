@@ -1,5 +1,5 @@
 import React from 'react';
-import EventItem  from './EventItem';
+import EventItem  from './event/EventItem';
 import AuthenticatedComponent  from './AuthenticatedComponent';
 import EventStore from '../stores/EventStore'
 import EventService from '../services/EventService.js';

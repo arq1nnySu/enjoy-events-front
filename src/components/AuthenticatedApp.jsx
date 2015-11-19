@@ -67,7 +67,7 @@ export default MaterialComponent(class AuthenticatedApp extends React.Component 
     if (!this.state.userLoggedIn) {
       return (
       <div >
-        <FlatButton route="login" label="Login"  secondary={true} linkButton={true} href="/#/login" />
+        <FlatButton route="signin" label="Login"  secondary={true} linkButton={true} href="/#/signin" />
         <FlatButton route="signup" label="Signup" secondary={true} linkButton={true}  href="/#/signup"/>
       </div>)
     } else {
