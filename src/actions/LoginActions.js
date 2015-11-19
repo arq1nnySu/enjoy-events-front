@@ -19,7 +19,7 @@ export default {
     });
   },
   logoutUser: () => {
-    RouterContainer.get().transitionTo('/login');
+    RouterContainer.get().transitionTo('/signin');
     localStorage.removeItem('jwt');
     AppDispatcher.dispatch({
       actionType: LOGOUT_USER
