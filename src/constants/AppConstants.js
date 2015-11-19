@@ -1,4 +1,4 @@
-var BASE_URL = process.env.BASE_URL || 'http://enjoy-events.herokuapp.com/';
+var BASE_URL = process.env.BASE_URL || 'http://enjoy-events-portal.herokuapp.com/';
 
 export default {
 
