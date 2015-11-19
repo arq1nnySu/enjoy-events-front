@@ -2,10 +2,10 @@ import AppDispatcher from '../dispatchers/AppDispatcher.js';
 import {ALL_EVENTS, EVENT_CREATED, GET_EVENT, CLEAR_EVENT, REMOVE_EVENT, ASSISTS_EVENT} from '../constants/AppConstants.js';
 
 export default {
-  allEvents: (events) => {
+  allEvents: (result) => {
     AppDispatcher.dispatch({
       actionType: ALL_EVENTS,
-      events: events
+      result: result
     })
   },
  
@@ -29,10 +29,10 @@ export default {
     })
   },
 
-  assistsEvent: (assists) => {
+  assistsEvent: (result) => {
     AppDispatcher.dispatch({
       actionType: ASSISTS_EVENT,
-      assists: assists
+      result: result
     })
   },
 

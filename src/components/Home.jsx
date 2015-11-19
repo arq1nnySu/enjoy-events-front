@@ -6,7 +6,7 @@ import EventService from '../services/EventService.js';
 import {CardActions, RefreshIndicator} from 'material-ui';
 import RouterContainer from '../services/RouterContainer';
 import Infinite from 'react-infinite'
-import {Menu, MainButton, ChildButton} from 'react-mfb';
+import {Menu, MainButton, ChildButton} from 'react-mfb'
 
 export default AuthenticatedComponent(class Home extends React.Component {
 
@@ -41,6 +41,8 @@ export default AuthenticatedComponent(class Home extends React.Component {
   getHomeState() {
     return {
       events: EventStore.events,
+      page: EventStore.page,
+      totalPages: EventStore.totalPages,
       isInfiniteLoading: false
     };
   }
@@ -61,10 +63,14 @@ export default AuthenticatedComponent(class Home extends React.Component {
     }
 
   handleInfiniteLoad() {
-    setTimeout(function() {
+    if(EventStore.page < EventStore.totalPages){
       EventStore.nextPage()
-      this.listEvents()
-    }.bind(this), 2000)
+      this.listEvents() 
+    }
+  }
+
+  renderItem(index, key) {
+    return <EventItem key={key} event={this.state.events[index]} />
   }
 
   render() {
@@ -78,10 +84,10 @@ export default AuthenticatedComponent(class Home extends React.Component {
     	<div className="container content">
         <div className="events">
           <Infinite
-            containerHeight={800}
-            elementHeight={100}
+            containerHeight={309}
+            elementHeight={103}
             useWindowAsScrollContainer = {true}
-            infiniteLoadBeginEdgeOffset={300}
+            infiniteLoadBeginEdgeOffset={0}
             onInfiniteLoad={this.handleInfiniteLoad.bind(this)}
             labeloadingSpinnerDelegate={this.elementInfiniteLoad()}
             isInfiniteLoading={this.state.isInfiniteLoading}>

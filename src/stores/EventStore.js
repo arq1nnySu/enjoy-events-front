@@ -8,16 +8,26 @@ class EventStore extends BaseStore {
     this.subscribe(() => this._registerToActions.bind(this))
     this._eventos = null;
     this._page = 1
+    this._totalPages = 1
+  }
+
+  resetEvents(){
+    this._eventos = null;
+    this._page = 1
+    this._totalPages = 1
   }
 
   _registerToActions(action) {
     switch(action.actionType) {
       case ALL_EVENTS:
-        this._eventos = (this._eventos || []).concat(action.events);
+        this._eventos = (this._eventos || []).concat(action.result.events);
+        this._page = action.result.page
+        this._totalPages = action.result.totalPages
         this.emitChange();
         break;
       case GET_EVENT:
         this.event = action.event;
+        this.event.assistances = {}
         this.emitChange();
         break;
       case CLEAR_EVENT:
@@ -26,8 +36,7 @@ class EventStore extends BaseStore {
         break;
       case REMOVE_EVENT:
         this.event = null;
-        this._eventos = null;
-        this._page = 1
+        this.resetEvents()
         this.emitChange();
         break;
       case EVENT_CREATED:
@@ -35,17 +44,16 @@ class EventStore extends BaseStore {
         this.emitChange();
         break;      
       case LOGOUT_USER:
-        this._eventos = null;
-        this._page = 1
+        this.resetEvents()
         this.emitChange();
         break;
       case LOGIN_USER:
-        this._eventos = null;
-        this._page = 1
+        this.resetEvents()
         this.emitChange();
         break;
       case ASSISTS_EVENT:
-        this.event.assists = (this.event.assists || []).concat(action.assists);
+        action.result.assistances =  (this.event.assistances.assistances || []).concat(action.result.assistances)
+        this.event.assistances = action.result
         this.emitChange();
         break;
       default:
@@ -59,6 +67,10 @@ class EventStore extends BaseStore {
 
   get page(){
     return this._page
+  }
+  
+  get totalPages(){
+    return this._totalPages
   }
 
   nextPage(){

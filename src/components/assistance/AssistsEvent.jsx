@@ -48,14 +48,14 @@ class AssistsEvent extends React.Component {
   }
 
   checkAssists(){
-    if(!EventStore.event.assists){
+    if(!EventStore.event.assistances.assistances){
       AssistanceService.assistsEvent(EventStore.event.tag, this.page)
     }
   }
 
   handleInfiniteLoad(){
     this.page += 1
-    AssistanceService.assistsEvent(EventStore.event.tag, this.page)
+    AssistanceService.assistsEvent(this.state.event.tag, this.page)
   }
 
   render() {
@@ -64,33 +64,11 @@ class AssistsEvent extends React.Component {
           <div >
             <Card >
                <CardMedia  overlay={<CardTitle title={this.state.event.name}/>}>
-                 <div className="event-header" style={{"background":"url('"+this.state.event.image+"') no-repeat center center; background-size:cover;"}}/>
+                 <div className="event-header" style={{height:"200px", "background":"url('"+this.state.event.image+"') no-repeat center center; background-size:cover;"}}/>
               </CardMedia>
               <CardTitle/>
               <div className="col-sm-12 card" >
-                <Table
-                  fixedHeader={true}
-                  fixedFooter={false}
-                  selectable={true}
-                  multiSelectable={true}>
-                  <TableHeader enableSelectAll={true} >
-                    <TableRow>
-                      <TableHeaderColumn colSpan="3" tooltip='Assistances' style={{textAlign: 'center'}}>
-                        Assistances
-                      </TableHeaderColumn>
-                    </TableRow>
-                    <TableRow>
-                      <TableHeaderColumn tooltip='User'>User</TableHeaderColumn>
-                      {this.state.event.requirement.map((req) =>{return <TableHeaderColumn tooltip={req.name}>{req.name}</TableHeaderColumn>})}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody
-                    deselectOnClickaway={true}
-                    showRowHover={true}
-                    stripedRows={true}>
-                              {(this.state.event.assists||[]).map((assist) =>{return <TableRow><TableRowColumn>{assist.user}</TableRowColumn>{assist.requirements.map((req) =>{return <TableRowColumn >{req.quantity}</TableRowColumn>})}}</TableRow>})}
-                  </TableBody>
-                </Table>
+                  {this.getTable()}
               </div>
             </Card>
           </div>
@@ -104,20 +82,36 @@ class AssistsEvent extends React.Component {
     }
   }
 
-  getTableContent(){
-    if(this.state.event.assists){
-      return this.state.event.assists.map((assist) =>{
-        return 
-            <TableRow>
-              <TableRowColumn>{assist.user}</TableRowColumn>
-            </TableRow>
-      })
+  getTable(){
+    if(this.state.event.assistances.assistances){
+      return (<Table
+            fixedHeader={true}
+            fixedFooter={false}
+            selectable={true}
+            multiSelectable={true}>
+            <TableHeader enableSelectAll={true} >
+              <TableRow>
+                <TableHeaderColumn colSpan="3" tooltip='Assistances' style={{textAlign: 'center'}}>
+                  Assistances
+                </TableHeaderColumn>
+              </TableRow>
+              <TableRow>
+                <TableHeaderColumn tooltip='User'>User</TableHeaderColumn>
+                {this.state.event.requirement.map((req) =>{return <TableHeaderColumn tooltip={req.name}>{req.name}</TableHeaderColumn>})}
+              </TableRow>
+            </TableHeader>
+            <TableBody
+              deselectOnClickaway={true}
+              showRowHover={true}
+              stripedRows={true}>
+                        {(this.state.event.assistances.assistances||[]).map((assist) =>{return <TableRow><TableRowColumn>{assist.user}</TableRowColumn>{assist.requirements.map((req) =>{return <TableRowColumn >{req.quantity}</TableRowColumn>})}}</TableRow>})}
+            </TableBody>
+          </Table>
+        )
     }else{
-      return (
-        <div className="centered">
+      <div className="centered">
           <RefreshIndicator size={100} left={400} top={200} status="loading" />
         </div>
-      )
     }
   }
 
