@@ -109,16 +109,29 @@ class EventForm extends React.Component {
   onAccept(e){
     e.preventDefault();
     this.state.description = CKEDITOR.instances.description.getData()
-    this.error = {}
-    this.state.date = moment(this.state.date).format("YYYY-MM-DD")
+    this.error = {message:{}}
     this.isNew? this.createEvent(): this.updateEvent()
   }
 
   createEvent() {
-    EventService.createEvent(this.state, this._handlerError.bind(this));
+    if(!this.state.name){
+      this.error.message.name = "Name is required"
+    }
+    
+    if(!this.state.date){
+      this.error.message.date = "Date is required"
+    }
+
+    if(!this.error.message){
+      this.state.date = moment(this.state.date).format("YYYY-MM-DD")
+      EventService.createEvent(this.state, this._handlerError.bind(this));
+    }else{
+      this.updateState()
+    }
   }
 
   updateEvent() {
+    this.state.date = moment(this.state.date).format("YYYY-MM-DD")
     EventService.updateEvent(this.state, this._handlerError.bind(this));
   }
 
